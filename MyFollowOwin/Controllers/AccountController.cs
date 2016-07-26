@@ -75,6 +75,11 @@ namespace MyFollowOwin.Controllers
                 return View(model);
             }
 
+            var userid = UserManager.FindByEmail(model.Email).Id;
+            if (!UserManager.IsEmailConfirmed(userid))
+            {
+                return View("Confirm");
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -160,7 +165,7 @@ namespace MyFollowOwin.Controllers
                 if (result.Succeeded)
                 {
                     var roleresult = UserManager.AddToRole(user.Id, "EndUsers");
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     int i = SendMail(user);
                     return RedirectToAction("Confirm", "Account", new { Email = user.Email });
                 }
@@ -197,7 +202,7 @@ namespace MyFollowOwin.Controllers
             if (ModelState.IsValid)
             {
                 MailMessage m = new MailMessage(
-                new MailAddress("jaynika@promactinfo.com", "Priya Mail"),
+                new MailAddress("priya.pancholi@promactinfo.com", "Priya Mail"),
                 new MailAddress(user.Email));
                 m.Subject = "Confirmation Mail";
                 m.Body = string.Format("Dear {0}<BR/>Thank you for your registration,Click to Confirm Email <a href=\"{1}\" title=\"User Email Confirm\">{1}</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
