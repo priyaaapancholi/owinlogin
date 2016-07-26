@@ -62,41 +62,70 @@ namespace MyFollowOwin.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+        //POST: /Account/Login
+       [HttpPost]
+       [AllowAnonymous]
+       [ValidateAntiForgeryToken]
+       public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                var user1 = await UserManager.FindByEmailAsync(model.Email);
+                var user = await UserManager.FindAsync(user1.UserName, model.Password);
+                if (user != null)
+                {
+                    if (user.EmailConfirmed == true)
+                    {
+                        //await SignInAsync(user);
+                        await SignInAsync(user, model.RememberMe);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(" ", "Please confirm your email address first...");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(" ", "Invalid Username or password...");
+                }
+            }
+            return View(model);
+        }
 
         //
         // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        var user1 = await UserManager.FindByEmailAsync(model.Email);
+        //        var user = await UserManager.FindAsync(user1.UserName, model.Password);
+        //        if (user != null)
+        //        {
+        //            if (user.EmailConfirmed == true)
+        //            {
+        //                await SignInAsync(user, model.RememberMe);
+        //                return RedirectToAction("Index","Home");
 
-            var userid = UserManager.FindByEmail(model.Email).Id;
-            if (!UserManager.IsEmailConfirmed(userid))
-            {
-                return View("Confirm");
-            }
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
-        }
+        //            }
+        //            else
+        //            {
+        //                ModelState.AddModelError("", "Confirm Email Address.");
+        //                return RedirectToAction("Confirm");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError("", "Invalid username or password.");
+        //        }
+        //    }
+
+        //            return View(model);
+        //}
 
         //
         // GET: /Account/VerifyCode
@@ -164,7 +193,7 @@ namespace MyFollowOwin.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var roleresult = UserManager.AddToRole(user.Id, "EndUsers");
+                    var roleresult = UserManager.AddToRole(user.Id, "EndUser");
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     int i = SendMail(user);
                     return RedirectToAction("Confirm", "Account", new { Email = user.Email });
@@ -247,8 +276,8 @@ namespace MyFollowOwin.Controllers
                 {
                     user.EmailConfirmed = true;
                     await UserManager.UpdateAsync(user);
-                    // await SignInAsync(user, isPersistent: false);
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                   // await SignInAsync(user, isPersistent: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     return RedirectToAction("Login", "Account", new { ConfirmedEmail = user.Email });
                 }
                 else
@@ -511,6 +540,16 @@ namespace MyFollowOwin.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+
+
+
+        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+        }
+
 
         private void AddErrors(IdentityResult result)
         {

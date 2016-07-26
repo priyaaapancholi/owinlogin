@@ -183,7 +183,6 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Roles\SeedIdentity.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

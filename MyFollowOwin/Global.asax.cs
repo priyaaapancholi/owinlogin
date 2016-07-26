@@ -19,8 +19,8 @@ namespace MyFollowOwin
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ApplicationDbContext context = new ApplicationDbContext();
-            Roles.SeedIdentity(context);
+            //ApplicationDbContext context = new ApplicationDbContext();
+            //Roles.SeedIdentity(context);
 
         }
     }
