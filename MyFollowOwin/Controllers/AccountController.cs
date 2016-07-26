@@ -202,14 +202,12 @@ namespace MyFollowOwin.Controllers
                 m.Subject = "Confirmation Mail";
                 m.Body = string.Format("Dear {0}<BR/>Thank you for your registration,Click to Confirm Email <a href=\"{1}\" title=\"User Email Confirm\">{1}</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
                 m.IsBodyHtml = true;
-<<<<<<< HEAD
                 SmtpClient smtp = new SmtpClient();
                
                 
-=======
-                SmtpClient smtp = new SmtpClient("webmail.promactinfo.com");
+               
             
->>>>>>> e0e6c4dfa2091b71135c6a49869dfe17ecf16e47
+
                 smtp.Send(m);
                 smtp.Dispose();
             }
