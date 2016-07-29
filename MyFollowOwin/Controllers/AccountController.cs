@@ -231,7 +231,7 @@ namespace MyFollowOwin.Controllers
             if (ModelState.IsValid)
             {
                 MailMessage m = new MailMessage(
-                new MailAddress("priya.pancholi@promactinfo.com", "Priya Mail"),
+                new MailAddress("karan.desai@promactinfo.com", "Priya Mail"),
                 new MailAddress(user.Email));
                 m.Subject = "Confirmation Mail";
                 m.Body = string.Format("Dear {0}<BR/>Thank you for your registration,Click to Confirm Email <a href=\"{1}\" title=\"User Email Confirm\">{1}</a>", user.UserName, Url.Action("ConfirmEmail", "Account", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
