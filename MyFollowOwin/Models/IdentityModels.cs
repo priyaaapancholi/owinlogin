@@ -32,6 +32,7 @@ namespace MyFollowOwin.Models
 
         //public string Password { get; set; }
 
+        
         public string CompanyName { get; set; }
 
         [Url]
@@ -71,6 +72,8 @@ namespace MyFollowOwin.Models
             [Required]
             [Phone]
             public string ContactNo { get; set; }
+
+           
         }
 
       

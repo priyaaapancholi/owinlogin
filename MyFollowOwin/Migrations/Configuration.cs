@@ -1,12 +1,13 @@
-namespace MyFollowOwin.Migrations
+namespace sMyFollowOwin.Migrations
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using Models;
+    using MyFollowOwin.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using static MyFollowOwin.Models.ApplicationUser;
 
     internal sealed class Configuration : DbMigrationsConfiguration<MyFollowOwin.Models.ApplicationDbContext>
     {
@@ -28,57 +29,47 @@ namespace MyFollowOwin.Migrations
                     var roles = new IdentityRole { Name = role };
 
                     manager.Create(roles);
+
+                    
+                   
+
                 }
             }
 
 
-            //if (!context.Roles.Any(r => r.Name == "Admin"))
-            //{
-            //    var store = new RoleStore<IdentityRole>(context);
-            //    var manager = new RoleManager<IdentityRole>(store);
-            //    var userManager = new UserManager<ApplicationUser>(new UserStore<AUser>(context));
-
-            //    var role = new IdentityRole { Name = "Admin" };
-
-            //    manager.Create(role);
-
-
-            //    var user = new ApplicationUser { UserName = "Priya" };
-
-
-            //    if (userManager.FindByName("Priya") == null)
-            //    {
-            //        var result = userManager.Create(user, "Pp1234.");
-
-            //        if (result.Succeeded)
-            //        {
-            //            userManager.AddToRole(user.Id, "Admin");
-            //        }
-
-            //    }
-            //}
 
 
 
+            var user = new ApplicationUser
+            {
+                UserName = "Priya",
+                Email = "xyz@promactinfo.com",
+                EmailConfirmed = true,
+                DOB =Convert.ToDateTime("08-08-2016"),
+                Address = new AddressInfo
+                {
+                    Street1 = "7,jay mangal soc.,nr.uma char rasta",
+                    Street2 =  "waghodia road",
+                    CityName="vadodara",
+                    StateName="gujarat",
+                     PIN= 390019,
+                    ContactNo="1234567890"
+                }
+            };
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            if (userManager.FindByName("Priya") == null)
+               {    
+                   var result = userManager.Create(user, "Pp@1234");
 
-            //if (!context.Roles.Any(r => r.Name == "EndUsers"))
-            //{
-            //    var store = new RoleStore<IdentityRole>(context);
-            //    var manager = new RoleManager<IdentityRole>(store);
-            //    var role = new IdentityRole { Name = "EndUsers" };
+                   if (result.Succeeded)
+                   {
+                        userManager.AddToRole(user.Id, "Admin");
+                   }
 
-            //    manager.Create(role);
-            //}
+               }
 
-            //if (!context.Roles.Any(r => r.Name == "ProductOwners"))
-            //{
-            //    var store = new RoleStore<IdentityRole>(context);
-            //    var manager = new RoleManager<IdentityRole>(store);
-            //    var role = new IdentityRole { Name = "ProductOwners" };
 
-            //    manager.Create(role);
-            //}
-
+          
         }
     }
 }

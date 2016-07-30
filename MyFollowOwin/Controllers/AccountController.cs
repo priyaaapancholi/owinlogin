@@ -93,41 +93,7 @@ namespace MyFollowOwin.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/Login
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        var user1 = await UserManager.FindByEmailAsync(model.Email);
-        //        var user = await UserManager.FindAsync(user1.UserName, model.Password);
-        //        if (user != null)
-        //        {
-        //            if (user.EmailConfirmed == true)
-        //            {
-        //                await SignInAsync(user, model.RememberMe);
-        //                return RedirectToAction("Index","Home");
-
-        //            }
-        //            else
-        //            {
-        //                ModelState.AddModelError("", "Confirm Email Address.");
-        //                return RedirectToAction("Confirm");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", "Invalid username or password.");
-        //        }
-        //    }
-
-        //            return View(model);
-        //}
-
-        //
+       
         // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
@@ -152,10 +118,7 @@ namespace MyFollowOwin.Controllers
                 return View(model);
             }
 
-            // The following code protects for brute force attacks against the two factor codes. 
-            // If a user enters incorrect codes for a specified amount of time then the user account 
-            // will be locked out for a specified amount of time. 
-            // You can configure the account lockout settings in IdentityConfig
+          
             var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
@@ -200,29 +163,11 @@ namespace MyFollowOwin.Controllers
                 }
                 AddErrors(result);
             }
-            // If we got this far, something failed, redisplay form
+            
             return View(model);
          }
 
-        //if (ModelState.IsValid)
-        //{
-        //    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-        //    var result = await UserManager.CreateAsync(user, model.Password);
-        //    if (result.Succeeded)
-        //    {
-        //        await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-
-
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //    AddErrors(result);
-        //  }
-
-        // If we got this far, something failed, redisplay form
-        //return View(model);
-        //}
-
+      
 
 
 
@@ -262,12 +207,7 @@ namespace MyFollowOwin.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string Token, string Email)
         {
-            //if (userId == null || code == null)
-            //{
-            //    return View("Error");
-            //}
-            //var result = await UserManager.ConfirmEmailAsync(userId, code);
-            //return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            
 
             ApplicationUser user = this.UserManager.FindById(Token);
             if (user != null)
@@ -315,15 +255,10 @@ namespace MyFollowOwin.Controllers
                     return View("ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+           
             }
 
-            // If we got this far, something failed, redisplay form
+           
             return View(model);
         }
 
