@@ -67,3 +67,9 @@ c:\users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\b
 c:\users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\obj\Debug\MyFollowOwin.csprojResolveAssemblyReference.cache
 c:\users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\obj\Debug\MyFollowOwin.dll
 c:\users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\obj\Debug\MyFollowOwin.pdb
+C:\Users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\bin\System.Net.Http.Formatting.dll
+C:\Users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\bin\System.Web.Http.dll
+C:\Users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\bin\System.Web.Http.WebHost.dll
+C:\Users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\bin\System.Net.Http.Formatting.xml
+C:\Users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\bin\System.Web.Http.xml
+C:\Users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\bin\System.Web.Http.WebHost.xml
