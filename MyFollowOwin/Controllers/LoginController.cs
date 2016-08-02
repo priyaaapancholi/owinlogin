@@ -24,5 +24,11 @@ namespace MyFollowOwin.Controllers
         }
 
 
+        public ActionResult Admin()
+        {
+            return View();
+        }
+
+
     }
 }

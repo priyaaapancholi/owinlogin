@@ -72,16 +72,30 @@ namespace MyFollowOwin.Controllers
             {
                 var user1 = await UserManager.FindByEmailAsync(model.Email);
                 var user = await UserManager.FindAsync(user1.UserName, model.Password);
+                var userid = UserManager.FindByEmail(model.Email).Id;
                 if (user != null)
                 {
                     if (user.EmailConfirmed == true)
                     {
-                        //await SignInAsync(user);
+                        
                         await SignInAsync(user, model.RememberMe);
-                        //if (user.Roles.Equals("Admin"))
-                        //{
-                            return RedirectToAction("Index", "Home");
-                       // }
+                        if(UserManager.IsInRole(user.Id, "EndUser"))
+                        {
+
+                            return RedirectToAction("EndUser", "Login");
+                        }
+
+
+                        if (UserManager.IsInRole(user.Id, "Admin"))
+                        {
+
+                            return RedirectToAction("Admin", "Login");
+                        }
+
+                        
+
+
+
                     }
                     else
                     {
