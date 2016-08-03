@@ -12,22 +12,22 @@ namespace MyFollowOwin.Controllers
 
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Login
-        public ActionResult EndUser()
+        public ActionResult User()
         {
             return View();
         }
 
 
-        public ActionResult Ownershipform()
-        {
-            return View();
-        }
+        //public ActionResult Ownershipform()
+        //{
+        //    return View();
+        //}
 
 
-        public ActionResult Admin()
-        {
-            return View();
-        }
+        //public ActionResult Admin()
+        //{
+        //    return View();
+        //}
 
 
     }

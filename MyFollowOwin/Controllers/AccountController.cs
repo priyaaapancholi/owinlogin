@@ -82,15 +82,15 @@ namespace MyFollowOwin.Controllers
                         if(UserManager.IsInRole(user.Id, "EndUser"))
                         {
 
-                            return RedirectToAction("EndUser", "Login");
+                            return RedirectToAction("User", "Login");
                         }
 
 
-                        if (UserManager.IsInRole(user.Id, "Admin"))
-                        {
+                        //if (UserManager.IsInRole(user.Id, "Admin"))
+                        //{
 
-                            return RedirectToAction("Admin", "Login");
-                        }
+                        //    return RedirectToAction("Admin", "Login");
+                        //}
 
                         
 
