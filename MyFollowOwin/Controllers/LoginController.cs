@@ -12,7 +12,7 @@ namespace MyFollowOwin.Controllers
 
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Login
-        public ActionResult User()
+        public ActionResult Users()
         {
             return View();
         }

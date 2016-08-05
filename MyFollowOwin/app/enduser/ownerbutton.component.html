@@ -1,22 +1,22 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-   
+   <title>{{UserComponent.CompanyName}}</title>
 </head>
 <body>
     <div>
     <button class='btn-primary' (click)='showForm()'><!--{{ beOwner?'Fill Form':'BeOwner:)'}}-->BeOwner:) </button>
    </div>
     <br/><br/>
-    <div  class='form-group'>
-     <div class='form-horizontal'>
-     <ng-form *ngIf='beOwner' class='form-group'  method='post'  action='api/Test/Post' >
-        Company Name: <input type="text" name="CompanyName"><br/>
-        WebsiteUrl:<input type="text" name="WebsiteUrl"><br/>
-        Founded Year:<input type="text" name="CompanyName"><br/>
-        Description:<input type="text" name="WebsiteUrl"><br/><br/>
-        <input type="button" name="submit" value="submit">
-      </ng-form>
+    <div  class="form-group">
+     <div class="form-horizontal">
+     <form *ngIf="beOwner"  class = "form-horizontal">
+        Company Name: <input type="text" name="CompanyName"/><br/>
+        WebsiteUrl:<input type="text" name="WebsiteUrl" /><br/>
+        Founded Year:<input type="text" name="CompanyName" /><br/>
+        Description:<input type="text" name="WebsiteUrl"/><br/><br/>
+        <input type="button" name="submit" value="submit"/>
+      </form>
         </div> 
         </div>
 </body>

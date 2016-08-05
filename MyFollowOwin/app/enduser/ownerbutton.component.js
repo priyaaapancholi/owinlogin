@@ -9,19 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+//import { bootstrap }    from '@angular/platform-browser-dynamic';
+var http_1 = require('@angular/http');
+require('rxjs/Rx');
+require('rxjs/add/operator/map');
 var OwnerButtonComponent = (function () {
-    function OwnerButtonComponent() {
+    function OwnerButtonComponent(http) {
+        this.http = http;
         this.beOwner = false;
     }
+    OwnerButtonComponent.prototype.getData = function () {
+        var _this = this;
+        this.http.get('http://localhost:53754/api/Test')
+            .map(function (res) { return res.json(); })
+            .subscribe(function (data) {
+            _this.ucompo = data;
+            console.log(_this.ucompo);
+        });
+    };
     OwnerButtonComponent.prototype.showForm = function () {
         this.beOwner = !this.beOwner;
     };
     OwnerButtonComponent = __decorate([
         core_1.Component({
             selector: 'my-button',
-            templateUrl: 'app/enduser/ownerbutton.component.html'
+            templateUrl: 'app/enduser/ownerbutton.component.html',
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], OwnerButtonComponent);
     return OwnerButtonComponent;
 }());

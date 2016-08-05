@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ownerbutton_component_1 = require('./enduser/ownerbutton.component');
+//import {PostService} from './enduser/postservices';
 var AppComponent = (function () {
     function AppComponent() {
         this.pageTitle = 'My Follow';
@@ -18,7 +19,7 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'my-app',
             template: "<h1>{{pageTitle}}</h1>\n                  <my-button> </my-button>",
-            directives: [ownerbutton_component_1.OwnerButtonComponent]
+            directives: [ownerbutton_component_1.OwnerButtonComponent],
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

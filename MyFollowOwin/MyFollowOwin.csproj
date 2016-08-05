@@ -264,7 +264,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Confirm.cshtml" />
-    <Content Include="Views\Login\User.cshtml" />
+    <Content Include="Views\Login\Users.cshtml" />
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
   </ItemGroup>
@@ -284,6 +284,8 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\app.component.ts" />
+    <TypeScriptCompile Include="app\enduser\postservices.ts" />
+    <TypeScriptCompile Include="app\enduser\users.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\enduser\ownerbutton.component.ts" />
   </ItemGroup>

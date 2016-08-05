@@ -7,25 +7,37 @@ using System.Net.Http;
 using System.Web.Http;
 
 namespace MyFollowOwin.Controllers
-{
+{    [Route("api/[controller]")]
     public class TestController : ApiController
     {
 
         ApplicationDbContext db = new ApplicationDbContext();
-        public string Post(ApplicationUser user)
+
+        //GET api/<controller>
+
+        public IEnumerable<ApplicationUser> Get()
         {
-           
-            db.Users.Add(user);
-            db.SaveChanges();
-            return "Form submitted successfully!";
+            return db.Users;
         }
 
-        // GET api/<controller>
-        //
-        //public IEnumerable<ApplicationUser> Get()
+
+
+        //[HttpPost]
+        //[Route("apitest")]
+        //public string apitest([FromBody]string str)
         //{
-        //   return 
+        //    Console.WriteLine(str); // str is always null
+        //    return null;
         //}
+        //public string Post(ApplicationUser user)
+        //{
+
+        //    db.Users.Add(user);
+        //    db.SaveChanges();
+        //    return "Form submitted successfully!";
+        //}
+
+
 
         // GET api/<controller>/5
         //public string Get(int id)
