@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   
+</head>
+<body>
+    <h1 *ngFor="let owner of owners">
+        {{owner.CompanyName}}
+    </h1><br /><br />
+
+    
+
+    <div>
+           <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showForm()'><!--{{ beOwner?'Fill Form':'BeOwner:)'}}-->BeOwner:) </button>
+    </div><br /><br />
+    <div class="form-group">
+         <div class="form-horizontal">
+            <form *ngIf="beOwner" class="form-horizontal">
+            Company Name: <input type="text" name="CompanyName"/><br />
+            WebsiteUrl:<input type="text" name="WebsiteUrl" /><br />
+            Founded Year:<input type="text" name="FoundedYear" /><br />
+            Description:<input type="text" name="Description" /><br /><br />
+            <button class='btn-primary' (click)="onSubmit()">submit</button>
+            </form>
+         </div>
+    </div>
+
+    <!--<form [ngFormModel]="owner">
+       CompanyName: <input type="text" [ngFormControl]="owner.controls['cn']">
+       FoundedYear: <input type="text" [ngFormControl]="owner.controls['fy']">
+       Description: <input type="text" [ngFormControl]="owner.controls['ds']">
+       WebsiteUrl:<input type="text" [ngFormControl]="owner.controls['url']">
+       
+        <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)="demoSubmit(owner.value)">Done</button>
+    </form>-->
+
+
+</body>
+</html>

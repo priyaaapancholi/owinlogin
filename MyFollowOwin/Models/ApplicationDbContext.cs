@@ -25,6 +25,8 @@ namespace MyFollowOwin.Models
             return new ApplicationDbContext();
         }
 
+       // public System.Data.Entity.DbSet<MyFollowOwin.Models.ApplicationUser> ApplicationUsers { get; set; }
+
         //public System.Data.Entity.DbSet<MyFollowOwin.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
