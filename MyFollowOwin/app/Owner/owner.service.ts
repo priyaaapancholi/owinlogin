@@ -21,6 +21,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class OwnerService {
     private ownerUrl = 'api/Owners';
+    private owner1Url = 'api/Owners1';
     constructor(private http: Http) { }
 
 
@@ -30,6 +31,12 @@ export class OwnerService {
        
     }
 
+    getOwnerInfo() {
+        var tag= this.http.get(this.owner1Url)
+            .map(response => response.json());
+        console.log(tag);
+        return tag;
+    }
 
     
     setOwner(owner:Owner) {
@@ -38,9 +45,20 @@ export class OwnerService {
         });
 
         return this.http
-            .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
+            .post(this.owner1Url, JSON.stringify(owner), { headers: headers })
             .map(res => res.json().data)         
     }
+
+
+    //putOwner(owner: Owner) {
+    //    let headers = new Headers({
+    //        'Content-Type': 'application/json'
+    //    });
+
+    //    return this.http
+    //        .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
+    //        .map(res => res.json().data)
+    //}
     
    
 

@@ -17,23 +17,26 @@ namespace MyFollowOwin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/Owners
+        ApplicationUser user = new ApplicationUser();
+        
+        //GET: api/Owners
         public IEnumerable<ApplicationUser> GetApplicationUsers()
         {
             return db.Users.ToList();
         }
 
-        //// GET: api/ApplicationUsers/5
+        // GET: api/ApplicationUsers/5
         //[ResponseType(typeof(ApplicationUser))]
         //public IHttpActionResult GetApplicationUser(string id)
         //{
-        //    ApplicationUser applicationUser = db.ApplicationUsers.Find(id);
+        //    ApplicationUser applicationUser = db.Users.Find(id);
         //    if (applicationUser == null)
         //    {
         //        return NotFound();
         //    }
 
         //    return Ok(applicationUser);
+
         //}
 
         //// PUT: api/ApplicationUsers/5
@@ -72,27 +75,27 @@ namespace MyFollowOwin.Controllers
         //}
 
         // POST: api/Owners
-        [ResponseType(typeof(ApplicationUser))]
-        public IHttpActionResult PostApplicationUser(ApplicationUser applicationUser)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(ApplicationUser))]
+        //public IHttpActionResult PostApplicationUser(ApplicationUser applicationUser)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            db.Users.Add(applicationUser);
+        //    db.Users.Add(applicationUser);
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                throw;
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateException)
+        //    {
+        //        throw;
+        //    }
 
-            return CreatedAtRoute("DefaultApi", new { id = applicationUser.Id }, applicationUser);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = applicationUser.Id }, applicationUser);
+        //}
 
         //// DELETE: api/ApplicationUsers/5
         //[ResponseType(typeof(ApplicationUser))]

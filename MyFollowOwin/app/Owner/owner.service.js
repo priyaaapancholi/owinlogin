@@ -27,19 +27,34 @@ var OwnerService = (function () {
     function OwnerService(http) {
         this.http = http;
         this.ownerUrl = 'api/Owners';
+        this.owner1Url = 'api/Owners1';
     }
     OwnerService.prototype.getOwner = function () {
         return this.http.get(this.ownerUrl)
             .map(function (response) { return response.json(); });
+    };
+    OwnerService.prototype.getOwnerInfo = function () {
+        var tag = this.http.get(this.owner1Url)
+            .map(function (response) { return response.json(); });
+        console.log(tag);
+        return tag;
     };
     OwnerService.prototype.setOwner = function (owner) {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json'
         });
         return this.http
-            .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
+            .post(this.owner1Url, JSON.stringify(owner), { headers: headers })
             .map(function (res) { return res.json().data; });
     };
+    //putOwner(owner: Owner) {
+    //    let headers = new Headers({
+    //        'Content-Type': 'application/json'
+    //    });
+    //    return this.http
+    //        .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
+    //        .map(res => res.json().data)
+    //}
     //private extractData(res: Response) {
     //    let body = res.json();
     //    return body.data || {};

@@ -81,18 +81,16 @@ namespace MyFollowOwin.Controllers
                         await SignInAsync(user, model.RememberMe);
                         if(UserManager.IsInRole(user.Id, "EndUser"))
                         {
+                            TempData["mydata"] = user;
+                            return RedirectToAction("Index", "Login");
+                        }
 
-                            return RedirectToAction("Users", "Login");
+                        if (UserManager.IsInRole(user.Id, "Admin"))
+                        {
+                             return RedirectToAction("Admin", "Login");
                         }
 
 
-                        //if (UserManager.IsInRole(user.Id, "Admin"))
-                        //{
-
-                        //    return RedirectToAction("Admin", "Login");
-                        //}
-
-                        
 
 
 

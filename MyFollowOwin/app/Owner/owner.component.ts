@@ -33,6 +33,10 @@ export class OwnerComponent implements OnInit {
             });
     }
 
+
+   
+
+
     beOwner: boolean = false;
     showForm(): void{
            this.beOwner = !this.beOwner; 
@@ -40,7 +44,7 @@ export class OwnerComponent implements OnInit {
 
 
 
-    onSubmit() {
+    onSubmit(owner: Owner) {
         var postOwner = this.ownerservice.setOwner(this.owner)
             .subscribe((owners) => {
                 this.owners = owners
@@ -50,9 +54,6 @@ export class OwnerComponent implements OnInit {
       
     }
 
-    //demoSubmit() {
-    //    console.log(JSON.stringify(this.owner.CompanyName));
-    //}
-
+    
 
 }

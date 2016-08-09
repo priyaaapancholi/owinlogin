@@ -33,7 +33,7 @@ var OwnerComponent = (function () {
     OwnerComponent.prototype.showForm = function () {
         this.beOwner = !this.beOwner;
     };
-    OwnerComponent.prototype.onSubmit = function () {
+    OwnerComponent.prototype.onSubmit = function (owner) {
         var _this = this;
         var postOwner = this.ownerservice.setOwner(this.owner)
             .subscribe(function (owners) {
