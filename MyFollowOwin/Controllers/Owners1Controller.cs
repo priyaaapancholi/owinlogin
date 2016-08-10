@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MyFollowOwin.Models;
+using Microsoft.AspNet.Identity;
 
 namespace MyFollowOwin.Controllers
 {
@@ -17,11 +18,11 @@ namespace MyFollowOwin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        //// GET: api/Owners1
-        //public IQueryable<Owner> GetOwners()
-        //{
-        //    return db.Owners;
-        //}
+        // GET: api/Owners1
+        public IEnumerable<Owner> GetOwners()
+        {
+            return db.Owners.ToList();
+        }
 
         //// GET: api/Owners1/5
         //[ResponseType(typeof(Owner))]
@@ -70,7 +71,7 @@ namespace MyFollowOwin.Controllers
 
         //    return StatusCode(HttpStatusCode.NoContent);
         //}
-
+       
         // POST: api/Owners1
         [ResponseType(typeof(Owner))]
         public IHttpActionResult PostOwner(Owner owner)
@@ -79,9 +80,9 @@ namespace MyFollowOwin.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            
             db.Owners.Add(owner);
-            db.SaveChanges();
+            db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = owner.Id }, owner);
         }

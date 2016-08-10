@@ -1,16 +1,15 @@
-﻿//import { bootstrap }    from '@angular/platform-browser-dynamic';
-import {Component} from '@angular/core';
+﻿import {Component,OnInit} from '@angular/core';
 import { Owner }from './owner';
 import { OwnerService }from './owner.service';
-//import { HTTP_PROVIDERS } from '@angular/http';
+
 
 @Component({
     selector: 'my-admin',
-    templateUrl: 'app/Owner/admin.component.html'
-
+    templateUrl: 'app/Owner/admin.component.html',
+    providers: [OwnerService]
 })
 
-export class AdminComponent {
+export class AdminComponent implements OnInit {
 
     owners: Array<Owner>;
     owner: Owner;
@@ -22,18 +21,23 @@ export class AdminComponent {
 
     ngOnInit() {
         this.getOwnersDetail();
+       
     }
 
     getOwnersDetail() {
-        var displayOwner = this.ownerservice.getOwnerInfo()
+        var displayInfo = this.ownerservice.getOwnerInfo()
             .subscribe((owners) => {
                 this.owners = owners
             }, err => {
                 this.errorMessage = err;
             });
+
+       
+        return displayInfo;
+
+        
     }
 
 
 }
 
-//bootstrap(AdminComponent, [HTTP_PROVIDERS]);

@@ -34,10 +34,8 @@ var OwnerService = (function () {
             .map(function (response) { return response.json(); });
     };
     OwnerService.prototype.getOwnerInfo = function () {
-        var tag = this.http.get(this.owner1Url)
+        return this.http.get(this.owner1Url)
             .map(function (response) { return response.json(); });
-        console.log(tag);
-        return tag;
     };
     OwnerService.prototype.setOwner = function (owner) {
         var headers = new http_1.Headers({
@@ -54,6 +52,13 @@ var OwnerService = (function () {
     //    return this.http
     //        .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
     //        .map(res => res.json().data)
+    //}
+    //putOwner(owner: Owner) {
+    //    let headers = new Headers({
+    //        'Content-Type': 'application/json'
+    //    });
+    //    return this.http.put(this.ownerUrl, JSON.stringify(owner), { headers: headers })
+    //      .map(res => res.json().data)
     //}
     //private extractData(res: Response) {
     //    let body = res.json();

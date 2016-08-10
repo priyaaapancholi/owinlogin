@@ -8,11 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-//import { bootstrap }    from '@angular/platform-browser-dynamic';
 var core_1 = require('@angular/core');
 var owner_1 = require('./owner');
 var owner_service_1 = require('./owner.service');
-//import { HTTP_PROVIDERS } from '@angular/http';
 var AdminComponent = (function () {
     function AdminComponent(ownerservice) {
         this.ownerservice = ownerservice;
@@ -24,22 +22,23 @@ var AdminComponent = (function () {
     };
     AdminComponent.prototype.getOwnersDetail = function () {
         var _this = this;
-        var displayOwner = this.ownerservice.getOwnerInfo()
+        var displayInfo = this.ownerservice.getOwnerInfo()
             .subscribe(function (owners) {
             _this.owners = owners;
         }, function (err) {
             _this.errorMessage = err;
         });
+        return displayInfo;
     };
     AdminComponent = __decorate([
         core_1.Component({
             selector: 'my-admin',
-            templateUrl: 'app/Owner/admin.component.html'
+            templateUrl: 'app/Owner/admin.component.html',
+            providers: [owner_service_1.OwnerService]
         }), 
         __metadata('design:paramtypes', [owner_service_1.OwnerService])
     ], AdminComponent);
     return AdminComponent;
 }());
 exports.AdminComponent = AdminComponent;
-//bootstrap(AdminComponent, [HTTP_PROVIDERS]); 
 //# sourceMappingURL=admin.component.js.map

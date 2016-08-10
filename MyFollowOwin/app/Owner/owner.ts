@@ -4,4 +4,5 @@
     WebsiteUrl: string;
     FoundedYear: number;
     Description: string;
+    DOB = new Date().toLocaleDateString();
 }

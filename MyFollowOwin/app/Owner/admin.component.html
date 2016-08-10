@@ -3,10 +3,25 @@
 <head>
     <title></title>
 	<meta charset="utf-8" />
+    <!--<style>
+        table, th, td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+            table tr:nth-child(odd) {
+                background-color: #f1f1f1;
+            }
+
+            table tr:nth-child(even) {
+                background-color: #ffffff;
+            }
+    </style>--> 
 </head>
 <body>
     
-    <table>
+    <table  border="1" border-collapse="collapse" padding="5px">
         <tr>
         <th>CompanyName</th>
         <th>FoundedYear</th>
@@ -14,20 +29,23 @@
         <th>WebsiteUrl</th>
         </tr>
 
-        <tr>
-            <th>
-             {{owner.CompanyName}}
-            </th>
-            <th>
-                {{owner.FoundedYear}}
-            </th>
-            <th>
-                {{owner.Desciption}}
-            </th>
-            <th>
-                {{owner.WebsiteUrl}}
-            </th>
+        <tr *ngFor="let owner1 of owners">
+            <td>
+               {{owner1.CompanyName}}
+            </td>
+            <td>
+                {{owner1.FoundedYear}}
+            </td>
+            <td>
+                {{owner1.Description}}
+            </td>
+            <td>
+                {{owner1.WebsiteUrl}}
+            </td>
+            <button class='btn-primary'>Accept</button>
+            <button class='btn-primary'>Decline</button>
         </tr>
     </table>
+    
 </body>
 </html>

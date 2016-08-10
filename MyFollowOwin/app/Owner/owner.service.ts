@@ -32,13 +32,12 @@ export class OwnerService {
     }
 
     getOwnerInfo() {
-        var tag= this.http.get(this.owner1Url)
+      return this.http.get(this.owner1Url)
             .map(response => response.json());
-        console.log(tag);
-        return tag;
+        
+       
     }
 
-    
     setOwner(owner:Owner) {
         let headers = new Headers({
             'Content-Type': 'application/json'
@@ -59,7 +58,16 @@ export class OwnerService {
     //        .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
     //        .map(res => res.json().data)
     //}
-    
+
+
+    //putOwner(owner: Owner) {
+    //    let headers = new Headers({
+    //        'Content-Type': 'application/json'
+    //    });
+
+    //    return this.http.put(this.ownerUrl, JSON.stringify(owner), { headers: headers })
+    //      .map(res => res.json().data)
+    //}
    
 
     //private extractData(res: Response) {

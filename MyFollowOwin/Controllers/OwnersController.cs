@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MyFollowOwin.Models;
+using Microsoft.AspNet.Identity;
 
 namespace MyFollowOwin.Controllers
 {
@@ -16,7 +17,9 @@ namespace MyFollowOwin.Controllers
     public class OwnersController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+       
+        
+       
         ApplicationUser user = new ApplicationUser();
         
         //GET: api/Owners
@@ -39,63 +42,66 @@ namespace MyFollowOwin.Controllers
 
         //}
 
-        //// PUT: api/ApplicationUsers/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutApplicationUser(string id, ApplicationUser applicationUser)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // PUT: api/ApplicationUsers/5
+        [ResponseType(typeof(void))]
+        [Route]
+        public IHttpActionResult PutApplicationUser(string id, ApplicationUser applicationUser)
+        {
+            id = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Find(id);
+            applicationUser.Id = user.Id;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    if (id != applicationUser.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+            if (id != applicationUser.Id)
+            {
+                return BadRequest();
+            }
 
-        //    db.Entry(applicationUser).State = EntityState.Modified;
+            db.Entry(applicationUser).State = EntityState.Modified;
 
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!ApplicationUserExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+                throw;
 
-        // POST: api/Owners
-        //[ResponseType(typeof(ApplicationUser))]
-        //public IHttpActionResult PostApplicationUser(ApplicationUser applicationUser)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+            }
 
-        //    db.Users.Add(applicationUser);
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        throw;
-        //    }
+        //POST: api/Owners
+        [Route]
+        [ResponseType(typeof(ApplicationUser))]
+        public IHttpActionResult PostApplicationUser(ApplicationUser applicationUser)
+        {
+            var id = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Find(id);
+            applicationUser.Id = user.Id;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    return CreatedAtRoute("DefaultApi", new { id = applicationUser.Id }, applicationUser);
-        //}
+            db.Users.Add(applicationUser);
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = applicationUser.Id }, applicationUser);
+        }
 
         //// DELETE: api/ApplicationUsers/5
         //[ResponseType(typeof(ApplicationUser))]

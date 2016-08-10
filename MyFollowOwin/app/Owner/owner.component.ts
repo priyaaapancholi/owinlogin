@@ -11,6 +11,9 @@ import { OwnerService }from './owner.service';
     templateUrl: 'app/Owner/owner.component.html',
     providers: [OwnerService]
 })
+
+
+
 export class OwnerComponent implements OnInit {
     owners: Array<Owner>;
     owner: Owner;
@@ -31,6 +34,8 @@ export class OwnerComponent implements OnInit {
             }, err => {
                 this.errorMessage = err;
             });
+
+        return displayOwner;
     }
 
 

@@ -29,6 +29,7 @@ var OwnerComponent = (function () {
         }, function (err) {
             _this.errorMessage = err;
         });
+        return displayOwner;
     };
     OwnerComponent.prototype.showForm = function () {
         this.beOwner = !this.beOwner;
