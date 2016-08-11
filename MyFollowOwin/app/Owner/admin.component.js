@@ -9,13 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var owner_1 = require('./owner');
+var ProductOwner_1 = require('./ProductOwner');
 var owner_service_1 = require('./owner.service');
 var AdminComponent = (function () {
     function AdminComponent(ownerservice) {
         this.ownerservice = ownerservice;
         this.owners = new Array();
-        this.owner = new owner_1.Owner();
+        this.owner = new ProductOwner_1.ProductOwner();
     }
     AdminComponent.prototype.ngOnInit = function () {
         this.getOwnersDetail();

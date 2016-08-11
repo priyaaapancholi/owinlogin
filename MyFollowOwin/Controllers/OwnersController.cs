@@ -10,6 +10,10 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MyFollowOwin.Models;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace MyFollowOwin.Controllers
 {
@@ -21,11 +25,24 @@ namespace MyFollowOwin.Controllers
         
        
         ApplicationUser user = new ApplicationUser();
-        
+
         //GET: api/Owners
-        public IEnumerable<ApplicationUser> GetApplicationUsers()
+        [Authorize]
+        public IQueryable<ApplicationUser> GetApplicationUsers()
         {
-            return db.Users.ToList();
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            List<ApplicationUser> Users = db.Users.ToList();
+
+            foreach (ApplicationUser user in Users.ToList())
+            {
+                if (!((userManager.IsInRole(user.Id, "EndUser")) && (user.Owner.CompanyName != null)))
+                {
+                    Users.Remove(user);
+                }
+            }
+            //string[] usersInRole =RoleProvider.GetUsersInRole("EndUser");
+            return Users.AsQueryable();
+
         }
 
         // GET: api/ApplicationUsers/5
@@ -43,53 +60,54 @@ namespace MyFollowOwin.Controllers
         //}
 
         // PUT: api/ApplicationUsers/5
-        [ResponseType(typeof(void))]
-        [Route]
-        public IHttpActionResult PutApplicationUser(string id, ApplicationUser applicationUser)
-        {
-            id = User.Identity.GetUserId();
-            ApplicationUser user = db.Users.Find(id);
-            applicationUser.Id = user.Id;
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //[Route]
+        //public IHttpActionResult PutApplicationUser(string id, ApplicationUser applicationUser)
+        //{
+        //    id = User.Identity.GetUserId();
+        //    ApplicationUser user = db.Users.Find(id);
+        //    applicationUser.Id = user.Id;
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != applicationUser.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != applicationUser.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(applicationUser).State = EntityState.Modified;
+        //    db.Entry(applicationUser).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
 
-                throw;
+        //        throw;
 
-            }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
+
 
         //POST: api/Owners
         [Route]
-        [ResponseType(typeof(ApplicationUser))]
-        public IHttpActionResult PostApplicationUser(ApplicationUser applicationUser)
+        [ResponseType(typeof(Owner))]
+        public IHttpActionResult PostApplicationUser(Owner owner)
         {
-            var id = User.Identity.GetUserId();
-            ApplicationUser user = db.Users.Find(id);
-            applicationUser.Id = user.Id;
+           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            db.Users.Add(applicationUser);
+            var id = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Find(id);
+            user.Owner = owner;
+            db.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -97,10 +115,30 @@ namespace MyFollowOwin.Controllers
             }
             catch (DbUpdateException)
             {
-                throw;
+                if (ApplicationUserExists(user.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = applicationUser.Id }, applicationUser);
+            //catch (DbEntityValidationException dbEx)
+            //{
+            //    foreach (var validationErrors in dbEx.EntityValidationErrors)
+            //    {
+            //        foreach (var validationError in validationErrors.ValidationErrors)
+            //        {
+            //            Trace.TraceInformation("Property: {0} Error: {1}",
+            //                                    validationError.PropertyName,
+            //                                    validationError.ErrorMessage);
+            //        }
+            //    }
+            //}
+
+            return CreatedAtRoute("DefaultApi", new { id = user.Id }, owner);
         }
 
         //// DELETE: api/ApplicationUsers/5
@@ -128,9 +166,9 @@ namespace MyFollowOwin.Controllers
         //    base.Dispose(disposing);
         //}
 
-        //private bool ApplicationUserExists(string id)
-        //{
-        //    return db.ApplicationUsers.Count(e => e.Id == id) > 0;
-        //}
+        private bool ApplicationUserExists(string id)
+        {
+            return db.Users.Count(e => e.Id == id) > 0;
+        }
     }
 }

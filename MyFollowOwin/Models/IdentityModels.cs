@@ -33,15 +33,7 @@ namespace MyFollowOwin.Models
         //public string Password { get; set; }
 
         
-        public string CompanyName { get; set; }
-
-        [Url]
-        public string WebsiteURL { get; set; }
-
-        public int FoundedYear { get; set; }
-
-        public string Description { get; set; }
-
+       public Owner Owner { get; set; } 
         //refers relation between product owner and product..
          public virtual ICollection<Product> product { get; set; }
 

@@ -23,24 +23,30 @@
     
     <table  border="1" border-collapse="collapse" padding="5px">
         <tr>
+
+        <th>UserName</th>
         <th>CompanyName</th>
         <th>FoundedYear</th>
         <th>Description</th>
         <th>WebsiteUrl</th>
+        
         </tr>
 
         <tr *ngFor="let owner1 of owners">
             <td>
-               {{owner1.CompanyName}}
+                {{owner1.UserName}}
             </td>
             <td>
-                {{owner1.FoundedYear}}
+               {{owner1.Owner.CompanyName}}
             </td>
             <td>
-                {{owner1.Description}}
+                {{owner1.Owner.FoundedYear}}
             </td>
             <td>
-                {{owner1.WebsiteUrl}}
+                {{owner1.Owner.Description}}
+            </td>
+            <td>
+                {{owner1.Owner.WebsiteUrl}}
             </td>
             <button class='btn-primary'>Accept</button>
             <button class='btn-primary'>Decline</button>

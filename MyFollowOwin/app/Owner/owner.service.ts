@@ -2,6 +2,8 @@
 import { Http, Response, Headers} from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import { Owner }          from './owner';
+import { ProductOwner }          from './ProductOwner';
+
 // import 'rxjs/Rx'; // adds ALL RxJS statics & operators to Observable
 
 // See node_module/rxjs/Rxjs.js
@@ -21,7 +23,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class OwnerService {
     private ownerUrl = 'api/Owners';
-    private owner1Url = 'api/Owners1';
+    //private owner1Url = 'api/Owners1';
     constructor(private http: Http) { }
 
 
@@ -32,7 +34,7 @@ export class OwnerService {
     }
 
     getOwnerInfo() {
-      return this.http.get(this.owner1Url)
+      return this.http.get(this.ownerUrl)
             .map(response => response.json());
         
        
@@ -44,7 +46,7 @@ export class OwnerService {
         });
 
         return this.http
-            .post(this.owner1Url, JSON.stringify(owner), { headers: headers })
+            .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
             .map(res => res.json().data)         
     }
 

@@ -24,17 +24,17 @@ require('rxjs/add/operator/map');
 require('rxjs/add/operator/switchMap');
 require('rxjs/add/operator/toPromise');
 var OwnerService = (function () {
+    //private owner1Url = 'api/Owners1';
     function OwnerService(http) {
         this.http = http;
         this.ownerUrl = 'api/Owners';
-        this.owner1Url = 'api/Owners1';
     }
     OwnerService.prototype.getOwner = function () {
         return this.http.get(this.ownerUrl)
             .map(function (response) { return response.json(); });
     };
     OwnerService.prototype.getOwnerInfo = function () {
-        return this.http.get(this.owner1Url)
+        return this.http.get(this.ownerUrl)
             .map(function (response) { return response.json(); });
     };
     OwnerService.prototype.setOwner = function (owner) {
@@ -42,7 +42,7 @@ var OwnerService = (function () {
             'Content-Type': 'application/json'
         });
         return this.http
-            .post(this.owner1Url, JSON.stringify(owner), { headers: headers })
+            .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
             .map(function (res) { return res.json().data; });
     };
     //putOwner(owner: Owner) {

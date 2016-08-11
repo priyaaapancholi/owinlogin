@@ -1,5 +1,5 @@
 ﻿import {Component,OnInit} from '@angular/core';
-import { Owner }from './owner';
+import { ProductOwner }from './ProductOwner';
 import { OwnerService }from './owner.service';
 
 
@@ -11,12 +11,12 @@ import { OwnerService }from './owner.service';
 
 export class AdminComponent implements OnInit {
 
-    owners: Array<Owner>;
-    owner: Owner;
+    owners: Array<ProductOwner>;
+    owner: ProductOwner;
     errorMessage: string;
     constructor(private ownerservice: OwnerService) {
-        this.owners = new Array<Owner>();
-        this.owner = new Owner();
+        this.owners = new Array<ProductOwner>();
+        this.owner = new ProductOwner();
     }
 
     ngOnInit() {

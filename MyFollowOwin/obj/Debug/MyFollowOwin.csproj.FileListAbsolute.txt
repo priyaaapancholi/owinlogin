@@ -64,7 +64,6 @@ c:\users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\b
 c:\users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\bin\Microsoft.Owin.Security.Google.xml
 c:\users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\bin\Microsoft.Owin.Security.Twitter.xml
 c:\users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-c:\users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\obj\Debug\MyFollowOwin.csprojResolveAssemblyReference.cache
 c:\users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\obj\Debug\MyFollowOwin.dll
 c:\users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\obj\Debug\MyFollowOwin.pdb
 C:\Users\priya\documents\visual studio 2015\Projects\MyFollowOwin\MyFollowOwin\bin\System.Net.Http.Formatting.dll
