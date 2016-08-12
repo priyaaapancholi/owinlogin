@@ -48,10 +48,13 @@
             <td>
                 {{owner1.Owner.WebsiteUrl}}
             </td>
-            <button class='btn-primary'>Accept</button>
+            <td>
+            <button class='btn-primary' (click)="Approve(owner1.Id)">Accept</button>
             <button class='btn-primary'>Decline</button>
+            </td>
         </tr>
     </table>
     
 </body>
 </html>
+<!--click()="Approve(owner1.Id)"-->

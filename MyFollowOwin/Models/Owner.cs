@@ -9,7 +9,7 @@ namespace MyFollowOwin.Models
     public class Owner
     {
         public string CompanyName { get; set; }
-        public int FoundedYear { get; set; }
+        public int? FoundedYear { get; set; }
         public string Description { get; set; }
         [Url]
         public string WebsiteUrl { get; set; }

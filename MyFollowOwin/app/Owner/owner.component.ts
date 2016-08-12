@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Owner }from './owner';
-import { OwnerService }from './owner.service';
+import { UserService }from './users.service';
 
 
 
@@ -9,7 +9,7 @@ import { OwnerService }from './owner.service';
 @Component({
     selector: 'my-app',
     templateUrl: 'app/Owner/owner.component.html',
-    providers: [OwnerService]
+    providers: [UserService]
 })
 
 
@@ -18,7 +18,7 @@ export class OwnerComponent implements OnInit {
     owners: Array<Owner>;
     owner: Owner;
     errorMessage: string;
-    constructor(private ownerservice: OwnerService) {
+    constructor(private userservice: UserService) {
         this.owners = new Array<Owner>();
         this.owner = new Owner();
     }
@@ -28,7 +28,7 @@ export class OwnerComponent implements OnInit {
     }
 
     getOwners() {
-        var displayOwner = this.ownerservice.getOwner()
+        var displayOwner = this.userservice.getOwner()
             .subscribe((owners) => {
                 this.owners = owners
             }, err => {
@@ -50,7 +50,7 @@ export class OwnerComponent implements OnInit {
 
 
     onSubmit(owner: Owner) {
-        var postOwner = this.ownerservice.setOwner(this.owner)
+        var postOwner = this.userservice.setOwner(this.owner)
             .subscribe((owners) => {
                 this.owners = owners
             }, err => {

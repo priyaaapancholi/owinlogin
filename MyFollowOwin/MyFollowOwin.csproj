@@ -266,10 +266,11 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Confirm.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\EndUser.cshtml" />
     <Content Include="tsconfig.json" />
     <Content Include="typings.json" />
     <Content Include="Views\Login\Admin.cshtml" />
+    <Content Include="Views\Login\ProductOwner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -289,9 +290,10 @@
     <TypeScriptCompile Include="app\Owner\admin.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\Owner\owner.component.ts" />
-    <TypeScriptCompile Include="app\Owner\owner.service.ts" />
+    <TypeScriptCompile Include="app\Owner\ownerlogin.component.ts" />
+    <TypeScriptCompile Include="app\Owner\users.service.ts" />
     <TypeScriptCompile Include="app\Owner\owner.ts" />
-    <TypeScriptCompile Include="app\Owner\ProductOwner.ts" />
+    <TypeScriptCompile Include="app\Owner\applicationuser.ts" />
     <TypeScriptCompile Include="app\route.ts" />
   </ItemGroup>
   <PropertyGroup>

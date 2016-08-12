@@ -14,6 +14,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MyFollowOwin.Controllers
 {
@@ -59,7 +60,7 @@ namespace MyFollowOwin.Controllers
 
         //}
 
-        // PUT: api/ApplicationUsers/5
+        ////PUT: api/ApplicationUsers/5
         //[ResponseType(typeof(void))]
         //[Route]
         //public IHttpActionResult PutApplicationUser(string id, ApplicationUser applicationUser)
@@ -92,6 +93,58 @@ namespace MyFollowOwin.Controllers
 
         //    return StatusCode(HttpStatusCode.NoContent);
         //}
+
+
+
+        //PUT: api/ApplicationUsers/5
+        [ResponseType(typeof(void))]
+        [Route]
+        [HttpPut]
+        public IHttpActionResult PutApplicationUser(string id, ApplicationUser applicationUser)
+        {
+            var state = db.Users.FirstOrDefault(x => x.Id == id);
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            //if (id != applicationUser.Id)
+            //{
+            //    return BadRequest();
+            //}
+            //id = User.Identity.GetUserId();
+            //ApplicationUser user = db.Users.Find(id);
+            //applicationUser.Id = user.Id;
+
+            if (state != null)
+            {
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                ApplicationUser po = db.Users.Find(id);
+                user = db.Users.Find(po.Id);
+                UserManager.RemoveFromRole(user.Id, "EndUser");
+                UserManager.AddToRole(user.Id, "ProductOwner");
+            }
+
+            //db.Entry(applicationUser).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                throw;
+
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+
+
+
+
 
 
         //POST: api/Owners

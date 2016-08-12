@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var Observable_1 = require('rxjs/Observable');
+var owner_1 = require('./owner');
 // import 'rxjs/Rx'; // adds ALL RxJS statics & operators to Observable
 // See node_module/rxjs/Rxjs.js
 // Import just the rxjs statics and operators we need for THIS app.
@@ -45,25 +46,13 @@ var OwnerService = (function () {
             .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
             .map(function (res) { return res.json().data; });
     };
-    //putOwner(owner: Owner) {
-    //    let headers = new Headers({
-    //        'Content-Type': 'application/json'
-    //    });
-    //    return this.http
-    //        .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
-    //        .map(res => res.json().data)
-    //}
-    //putOwner(owner: Owner) {
-    //    let headers = new Headers({
-    //        'Content-Type': 'application/json'
-    //    });
-    //    return this.http.put(this.ownerUrl, JSON.stringify(owner), { headers: headers })
-    //      .map(res => res.json().data)
-    //}
-    //private extractData(res: Response) {
-    //    let body = res.json();
-    //    return body.data || {};
-    //}
+    OwnerService.prototype.UpdateOwnerState = function (owner) {
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/json',
+        });
+        console.log("put is invoked");
+        return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(owner_1.Owner), { headers: headers }).map(function (res) { return res.json(); });
+    };
     OwnerService.prototype.handleError = function (error) {
         var errMsg = (error.message) ? error.message :
             error.status ? error.status + " - " + error.statusText : 'Server error';
@@ -77,4 +66,23 @@ var OwnerService = (function () {
     return OwnerService;
 }());
 exports.OwnerService = OwnerService;
+//putOwner(owner: Owner) {
+//    let headers = new Headers({
+//        'Content-Type': 'application/json'
+//    });
+//    return this.http
+//        .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
+//        .map(res => res.json().data)
+//}
+//putOwner(owner: Owner) {
+//    let headers = new Headers({
+//        'Content-Type': 'application/json'
+//    });
+//    return this.http.put(this.ownerUrl, JSON.stringify(owner), { headers: headers })
+//      .map(res => res.json().data)
+//}
+//private extractData(res: Response) {
+//    let body = res.json();
+//    return body.data || {};
+//}
 //# sourceMappingURL=owner.service.js.map

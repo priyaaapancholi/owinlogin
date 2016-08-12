@@ -12,19 +12,16 @@ namespace MyFollowOwin.Controllers
 
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Login
-        public ActionResult Index()
+        public ActionResult EndUser()
         {
-            ApplicationUser user = TempData["mydata"] as ApplicationUser;
-            var userd = user;
-            return View(userd);
-           
+           return View();
         }
 
 
-        //public ActionResult Ownershipform()
-        //{
-        //    return View();
-        //}
+        public ActionResult ProductOwner()
+        {
+            return View();
+        }
 
 
         public ActionResult Admin()

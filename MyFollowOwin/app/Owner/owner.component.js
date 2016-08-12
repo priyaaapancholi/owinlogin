@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var owner_1 = require('./owner');
-var owner_service_1 = require('./owner.service');
+var users_service_1 = require('./users.service');
 var OwnerComponent = (function () {
-    function OwnerComponent(ownerservice) {
-        this.ownerservice = ownerservice;
+    function OwnerComponent(userservice) {
+        this.userservice = userservice;
         this.beOwner = false;
         this.owners = new Array();
         this.owner = new owner_1.Owner();
@@ -23,7 +23,7 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.getOwners = function () {
         var _this = this;
-        var displayOwner = this.ownerservice.getOwner()
+        var displayOwner = this.userservice.getOwner()
             .subscribe(function (owners) {
             _this.owners = owners;
         }, function (err) {
@@ -36,7 +36,7 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.onSubmit = function (owner) {
         var _this = this;
-        var postOwner = this.ownerservice.setOwner(this.owner)
+        var postOwner = this.userservice.setOwner(this.owner)
             .subscribe(function (owners) {
             _this.owners = owners;
         }, function (err) {
@@ -47,9 +47,9 @@ var OwnerComponent = (function () {
         core_1.Component({
             selector: 'my-app',
             templateUrl: 'app/Owner/owner.component.html',
-            providers: [owner_service_1.OwnerService]
+            providers: [users_service_1.UserService]
         }), 
-        __metadata('design:paramtypes', [owner_service_1.OwnerService])
+        __metadata('design:paramtypes', [users_service_1.UserService])
     ], OwnerComponent);
     return OwnerComponent;
 }());

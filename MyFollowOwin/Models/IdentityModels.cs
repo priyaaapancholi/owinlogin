@@ -27,12 +27,12 @@ namespace MyFollowOwin.Models
         [DataType(DataType.Date)]
         public DateTime DOB { get; set; }
 
-
+        
         public AddressInfo Address { get; set; }
 
         //public string Password { get; set; }
 
-        
+       
        public Owner Owner { get; set; } 
         //refers relation between product owner and product..
          public virtual ICollection<Product> product { get; set; }

@@ -81,8 +81,7 @@ namespace MyFollowOwin.Controllers
                         await SignInAsync(user, model.RememberMe);
                         if(UserManager.IsInRole(user.Id, "EndUser"))
                         {
-                            TempData["mydata"] = user;
-                            return RedirectToAction("Index", "Login");
+                            return RedirectToAction("EndUser", "Login");
                         }
 
                         if (UserManager.IsInRole(user.Id, "Admin"))
@@ -90,6 +89,10 @@ namespace MyFollowOwin.Controllers
                              return RedirectToAction("Admin", "Login");
                         }
 
+                        if (UserManager.IsInRole(user.Id, "ProductOwner"))
+                        {
+                            return RedirectToAction("ProductOwner", "Login");
+                        }
 
 
 
@@ -165,6 +168,7 @@ namespace MyFollowOwin.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Address = model.Address, DOB = model.DOB };
                 user.Email = model.Email;
                 user.EmailConfirmed = false;
@@ -198,10 +202,6 @@ namespace MyFollowOwin.Controllers
                 m.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
                
-                
-               
-            
-
                 smtp.Send(m);
                 smtp.Dispose();
             }
