@@ -9,15 +9,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var product_1 = require('./product');
+var users_service_1 = require('./users.service');
 var OwnerLoginComponent = (function () {
-    function OwnerLoginComponent() {
+    function OwnerLoginComponent(userservice) {
+        this.userservice = userservice;
+        this.addProduct = false;
+        this.addedProduct = false;
+        this.products = new Array();
+        this.product = new product_1.Product();
     }
+    OwnerLoginComponent.prototype.ngOnInit = function () {
+        this.getProducts();
+    };
+    OwnerLoginComponent.prototype.getProducts = function () {
+        var _this = this;
+        var displayProduct = this.userservice.getProduct()
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+        return displayProduct;
+    };
+    OwnerLoginComponent.prototype.showForm = function () {
+        this.addProduct = !this.addProduct;
+    };
+    OwnerLoginComponent.prototype.showProduct = function () {
+        this.addedProduct = !this.addedProduct;
+    };
+    OwnerLoginComponent.prototype.onSubmit = function (product) {
+        var _this = this;
+        var postProduct = this.userservice.setProduct(this.product)
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
     OwnerLoginComponent = __decorate([
         core_1.Component({
             selector: 'my-owner',
-            template: 'hello..i am Owner..!!!'
+            templateUrl: 'app/Owner/ownerlogin.component.html',
+            providers: [users_service_1.UserService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [users_service_1.UserService])
     ], OwnerLoginComponent);
     return OwnerLoginComponent;
 }());

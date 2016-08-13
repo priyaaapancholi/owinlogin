@@ -14,7 +14,7 @@ namespace MyFollowOwin.Models
         {
         }
 
-        DbSet<Product> Product { get; set; }
+        //DbSet<Product> Product { get; set; }
         DbSet<ProductUpdate> ProductUpdate { get; set; }
         DbSet<Follow> Follow { get; set; }
 
@@ -23,7 +23,13 @@ namespace MyFollowOwin.Models
             return new ApplicationDbContext();
         }
 
-      
+        public System.Data.Entity.DbSet<MyFollowOwin.Models.Product> Products { get; set; }
+
+        //public System.Data.Entity.DbSet<MyFollowOwin.Models.Follow> Follows { get; set; }
+
+        //public System.Data.Entity.DbSet<MyFollowOwin.Models.ApplicationUser> ApplicationUsers { get; set; }
+
+
 
         //public System.Data.Entity.DbSet<MyFollowOwin.Models.ApplicationUser> ApplicationUsers { get; set; }
     }

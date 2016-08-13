@@ -9,7 +9,7 @@ namespace MyFollowOwin.Models
     public abstract class CommonProperty
     {
         [Key]
-        [Required]
+       
         public string Id { get; set; }
 
         public DateTime CreatedDate { get; set; }

@@ -10,6 +10,7 @@ using System.Web.Security;
 using MyFollowOwin;
 using System.Web.Http;
 using MyFollowOwin.App_Start;
+//using System.Data.Entity;
 
 namespace MyFollowOwin
 {
@@ -26,6 +27,14 @@ namespace MyFollowOwin
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+
+
+
+
+
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
 
 
         }
