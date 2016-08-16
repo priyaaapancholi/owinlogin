@@ -1,6 +1,4 @@
-﻿
-
-enum Platform { Mobile, IOT, Web }
+﻿enum Platform { Mobile, IOT, Web }
 export class Product {
     Id: string;
     ProductName: string;
@@ -9,8 +7,8 @@ export class Product {
     PlaystoreURL: string;
     AppstoreURL: string;
     HomepageURL: string;
-    UserId: string;
-    CreatedDate: Date;
-    LastModifiedDate: Date;
+    //UserId: string;
+    //CreatedDate= new Date().toLocaleDateString();
+    //LastModifiedDate= new Date().toLocaleDateString();
     // DOB = new Date().toLocaleDateString();
 }

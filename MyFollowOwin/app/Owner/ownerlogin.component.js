@@ -16,6 +16,7 @@ var OwnerLoginComponent = (function () {
         this.userservice = userservice;
         this.addProduct = false;
         this.addedProduct = false;
+        this.editProduct = false;
         this.products = new Array();
         this.product = new product_1.Product();
     }
@@ -34,13 +35,41 @@ var OwnerLoginComponent = (function () {
     };
     OwnerLoginComponent.prototype.showForm = function () {
         this.addProduct = !this.addProduct;
+        this.editProduct = false;
+        this.addedProduct = false;
     };
     OwnerLoginComponent.prototype.showProduct = function () {
         this.addedProduct = !this.addedProduct;
+        this.editProduct = false;
+        this.addProduct = false;
+    };
+    OwnerLoginComponent.prototype.editForm = function (product) {
+        this.product = product;
+        this.editProduct = !this.editProduct;
+        //this.addedProduct = false;
+        this.addProduct = false;
     };
     OwnerLoginComponent.prototype.onSubmit = function (product) {
         var _this = this;
         var postProduct = this.userservice.setProduct(this.product)
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    OwnerLoginComponent.prototype.onDelete = function (product) {
+        var _this = this;
+        return this.userservice.deleteProduct(product)
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    OwnerLoginComponent.prototype.onEdit = function (product) {
+        var _this = this;
+        return this.userservice.editProduct(product)
             .subscribe(function (products) {
             _this.products = products;
         }, function (err) {

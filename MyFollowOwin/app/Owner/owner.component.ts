@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Owner }from './owner';
+import { Product} from './product';
 import { UserService }from './users.service';
 
 
@@ -17,6 +18,10 @@ import { UserService }from './users.service';
 export class OwnerComponent implements OnInit {
     owners: Array<Owner>;
     owner: Owner;
+
+
+    products: Array<Product>;
+    product: Product;
     errorMessage: string;
     constructor(private userservice: UserService) {
         this.owners = new Array<Owner>();
@@ -25,6 +30,7 @@ export class OwnerComponent implements OnInit {
 
     ngOnInit() {
         this.getOwners();
+        this.getProducts();
     }
 
     getOwners() {
@@ -44,8 +50,24 @@ export class OwnerComponent implements OnInit {
 
     beOwner: boolean = false;
     showForm(): void{
-           this.beOwner = !this.beOwner; 
+        this.beOwner = !this.beOwner; 
+        this.addedProduct = false;
     } 
+
+
+
+    //follower: boolean = false;
+    //onFollow(): void {
+    //    this.follower = !this.follower;
+    //    this.addedProduct = false;
+    //} 
+
+    addedProduct: boolean = false;
+    showProduct(): void {
+        this.addedProduct = !this.addedProduct;
+        this.beOwner = false;
+        
+    }
 
 
 
@@ -58,6 +80,21 @@ export class OwnerComponent implements OnInit {
             });
       
     }
+
+
+
+    getProducts() {
+        var displayProduct = this.userservice.getProduct()
+            .subscribe((products) => {
+                this.products = products
+            }, err => {
+                this.errorMessage = err;
+            });
+
+        return displayProduct;
+    }
+
+
 
     
 

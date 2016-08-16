@@ -42,20 +42,61 @@ export class OwnerLoginComponent implements OnInit{
     addProduct: boolean = false;
     showForm(): void {
         this.addProduct = !this.addProduct;
+        this.editProduct = false;
+        this.addedProduct = false;
     }
 
     addedProduct: boolean = false;
     showProduct(): void {
         this.addedProduct = !this.addedProduct;
+        this.editProduct = false;
+        this.addProduct = false;
+    }
+
+
+    editProduct: boolean = false;
+    editForm(product:Product): void {
+        this.product = product;
+        this.editProduct = !this.editProduct;
+        //this.addedProduct = false;
+        this.addProduct = false;
     }
 
     onSubmit(product: Product) {
+        
         var postProduct = this.userservice.setProduct(this.product)
             .subscribe((products) => {
                 this.products = products
             }, err => {
                 this.errorMessage = err;
             });
+
+    }
+
+
+    onDelete(product: Product) {
+
+        return this.userservice.deleteProduct(product)
+            .subscribe((products) => {
+                this.products = products
+            }, err => {
+                this.errorMessage = err;
+            });
+
+        
+    }
+
+
+
+    onEdit(product: Product) {
+
+        return this.userservice.editProduct(product)
+            .subscribe((products) => {
+                this.products = products
+            }, err => {
+                this.errorMessage = err;
+            });
+
 
     }
 

@@ -51,7 +51,7 @@ var UserService = (function () {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json',
         });
-        console.log("put is invoked");
+        // console.log("put is invoked");
         return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(owner_1.Owner), { headers: headers }).map(function (res) { return res.json(); });
     };
     UserService.prototype.getProduct = function () {
@@ -65,6 +65,16 @@ var UserService = (function () {
         return this.http
             .post(this.productUrl, JSON.stringify(product), { headers: headers })
             .map(function (res) { return res.json().data; });
+    };
+    UserService.prototype.deleteProduct = function (product) {
+        return this.http.delete(this.productUrl + '/' + product.Id).map(function (res) { return res.json(); });
+    };
+    UserService.prototype.editProduct = function (product) {
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/json',
+        });
+        // console.log("put is invoked");
+        return this.http.put(this.productUrl + '/' + product.Id, JSON.stringify(product), { headers: headers }).map(function (res) { return res.json(); });
     };
     UserService.prototype.handleError = function (error) {
         var errMsg = (error.message) ? error.message :

@@ -13,12 +13,16 @@ using Microsoft.AspNet.Identity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 
+
 namespace MyFollowOwin.Controllers
 {
     public class ProductsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+       
+//----------------------------------------------GET(PRODUCT)--------------------------------------------------------------        
+        
         // GET: api/Products
         public IEnumerable<Product> GetProducts()
         {
@@ -38,48 +42,85 @@ namespace MyFollowOwin.Controllers
         //    return Ok(product);
         //}
 
-        // PUT: api/Products/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutProduct(string id, Product product)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+//----------------------------------------------------------------------------------------------------------------     
+            
+            
+            
+            
+            
+            
+            
+            
+  //--------------------------------------------------PUT(PRODUCT)--------------------------------------------------------          
+            
+         // PUT: api/Products/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutProduct(string id, Product product)
+        {
+            DateTime Now = DateTime.Now;
+            product.LastModifiedDate = Now;
+            //var uid = User.Identity.GetUserId();
+            //ApplicationUser user = db.Users.Find(uid);
+            //product.UserId = user.Id;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    if (id != product.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+            if (id != product.Id)
+            {
+                return BadRequest();
+            }
 
-        //    db.Entry(product).State = EntityState.Modified;
+            db.Entry(product).State = EntityState.Modified;
 
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!ProductExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProductExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+//----------------------------------------------------------------------------------------------------------------
 
+        
+        
+        
+        
+        
+
+            
+            
+            
+            
+            
+            
+            
+//----------------------------------------POST(PRODUCT)-------------------------------------------------------------------       
+        
+        
         // POST: api/Products
         [ResponseType(typeof(Product))]
         public IHttpActionResult PostProduct(Product product)
         {
+            DateTime Now = DateTime.Now;
             var id = User.Identity.GetUserId();
             ApplicationUser user = db.Users.Find(id);
             product.UserId = user.Id;
+            product.CreatedDate = Now;
+            product.LastModifiedDate = Now;
+           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -91,33 +132,6 @@ namespace MyFollowOwin.Controllers
             {
                 db.SaveChanges();
             }
-
-            //catch (DbEntityValidationException dbEx)
-            //{
-            //    foreach (var validationErrors in dbEx.EntityValidationErrors)
-            //    {
-            //        foreach (var validationError in validationErrors.ValidationErrors)
-            //        {
-            //            Trace.TraceInformation("Property: {0} Error: {1}",
-            //                                    validationError.PropertyName,
-            //                                    validationError.ErrorMessage);
-            //        }
-            //    }
-            //}
-            //catch (DbUpdateException)
-            //{
-            //    if (ProductExists(product.Id))
-            //    {
-            //        return Conflict();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-
-
-            //}
-
 
 
             catch (DbEntityValidationException e)
@@ -141,30 +155,56 @@ namespace MyFollowOwin.Controllers
             return CreatedAtRoute("DefaultApi", new { id = product.Id }, product);
         }
 
-        // DELETE: api/Products/5
-        //    [ResponseType(typeof(Product))]
-        //    public IHttpActionResult DeleteProduct(string id)
-        //    {
-        //        Product product = db.Products.Find(id);
-        //        if (product == null)
-        //        {
-        //            return NotFound();
-        //        }
+//---------------------------------------------------------------------------------------------------------------
 
-        //        db.Products.Remove(product);
-        //        db.SaveChanges();
 
-        //        return Ok(product);
-        //    }
 
-        //    protected override void Dispose(bool disposing)
-        //    {
-        //        if (disposing)
-        //        {
-        //            db.Dispose();
-        //        }
-        //        base.Dispose(disposing);
-        //    }
+
+            
+            
+
+            
+            
+//-----------------------------------------------DELETE(PRODUCT)-----------------------------------------------------------
+
+
+       // DELETE: api/Products/5
+        [ResponseType(typeof(Product))]
+        public IHttpActionResult DeleteProduct(string id)
+        {
+            
+            Product product = db.Products.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            db.Products.Remove(product);
+            db.SaveChanges();
+
+            return Ok(product);
+        }
+
+
+
+
+//----------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+      protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         private bool ProductExists(string id)
         {

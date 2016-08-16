@@ -15,11 +15,14 @@ var OwnerComponent = (function () {
     function OwnerComponent(userservice) {
         this.userservice = userservice;
         this.beOwner = false;
+        this.follower = false;
+        this.addedProduct = false;
         this.owners = new Array();
         this.owner = new owner_1.Owner();
     }
     OwnerComponent.prototype.ngOnInit = function () {
         this.getOwners();
+        this.getProducts();
     };
     OwnerComponent.prototype.getOwners = function () {
         var _this = this;
@@ -33,6 +36,15 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.showForm = function () {
         this.beOwner = !this.beOwner;
+        this.addedProduct = false;
+    };
+    OwnerComponent.prototype.onFollow = function () {
+        this.follower = !this.follower;
+        this.addedProduct = false;
+    };
+    OwnerComponent.prototype.showProduct = function () {
+        this.addedProduct = !this.addedProduct;
+        this.beOwner = false;
     };
     OwnerComponent.prototype.onSubmit = function (owner) {
         var _this = this;
@@ -42,6 +54,16 @@ var OwnerComponent = (function () {
         }, function (err) {
             _this.errorMessage = err;
         });
+    };
+    OwnerComponent.prototype.getProducts = function () {
+        var _this = this;
+        var displayProduct = this.userservice.getProduct()
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+        return displayProduct;
     };
     OwnerComponent = __decorate([
         core_1.Component({

@@ -55,7 +55,7 @@ export class UserService {
         let headers = new Headers({
             'Content-Type': 'application/json',
         });
-        console.log("put is invoked");
+       // console.log("put is invoked");
         return this.http.put(this.ownerUrl +'/'+ owner.Id, JSON.stringify(Owner), { headers: headers }).map(res => res.json());
     }
 
@@ -78,6 +78,22 @@ export class UserService {
             .map(res => res.json().data)
     }
 
+
+    deleteProduct(product: Product) {
+
+        return this.http.delete(this.productUrl + '/' + product.Id).map(res => res.json());
+    }
+
+
+
+
+    editProduct(product: Product) {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+        });
+        // console.log("put is invoked");
+        return this.http.put(this.productUrl + '/' + product.Id, JSON.stringify(product), { headers: headers }).map(res => res.json());
+    }
 
 
 

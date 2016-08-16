@@ -9,11 +9,12 @@ namespace MyFollowOwin.Models
     public abstract class CommonProperty
     {
         [Key]
-       
         public string Id { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime CreatedDate { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime LastModifiedDate { get; set; }
     }
 }

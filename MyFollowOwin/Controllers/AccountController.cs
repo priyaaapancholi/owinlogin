@@ -169,7 +169,12 @@ namespace MyFollowOwin.Controllers
             if (ModelState.IsValid)
             {
                 
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Address = model.Address, DOB = model.DOB };
+                var user = new ApplicationUser
+                                    {   UserName = model.UserName,
+                                        Email = model.Email,
+                                        Address = model.Address, DOB = model.DOB,
+                                        Owner = new Owner()
+                                    };
                 user.Email = model.Email;
                 user.EmailConfirmed = false;
                 var result = await UserManager.CreateAsync(user, model.Password);
