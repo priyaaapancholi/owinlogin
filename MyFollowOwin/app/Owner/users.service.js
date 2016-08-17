@@ -30,6 +30,7 @@ var UserService = (function () {
         this.http = http;
         this.ownerUrl = 'api/Owners';
         this.productUrl = 'api/Products';
+        this.followUrl = 'api/Follows';
     }
     UserService.prototype.getOwner = function () {
         return this.http.get(this.ownerUrl)
@@ -75,6 +76,14 @@ var UserService = (function () {
         });
         // console.log("put is invoked");
         return this.http.put(this.productUrl + '/' + product.Id, JSON.stringify(product), { headers: headers }).map(function (res) { return res.json(); });
+    };
+    UserService.prototype.followProduct = function (product) {
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/json'
+        });
+        return this.http
+            .post(this.followUrl + '/' + product.Id, JSON.stringify(product.Id), { headers: headers })
+            .map(function (res) { return res.json().data; });
     };
     UserService.prototype.handleError = function (error) {
         var errMsg = (error.message) ? error.message :

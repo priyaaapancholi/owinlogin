@@ -1,87 +1,28 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { Owner }from './owner';
-import { Product} from './product';
-import { UserService }from './users.service';
-
-
-
-
+﻿import {Component, OnInit} from '@angular/core';
+import { Product }from './../Product/product';  
+import { UserService }from './../users.service'; 
 
 @Component({
-    selector: 'my-app',
+    selector: 'my-owner',
     templateUrl: 'app/Owner/owner.component.html',
     providers: [UserService]
 })
 
 
 
-export class OwnerComponent implements OnInit {
-    owners: Array<Owner>;
-    owner: Owner;
-
+export class OwnerLoginComponent implements OnInit{
 
     products: Array<Product>;
     product: Product;
     errorMessage: string;
     constructor(private userservice: UserService) {
-        this.owners = new Array<Owner>();
-        this.owner = new Owner();
+        this.products = new Array<Product>();
+        this.product = new Product();
     }
 
     ngOnInit() {
-        this.getOwners();
         this.getProducts();
     }
-
-    getOwners() {
-        var displayOwner = this.userservice.getOwner()
-            .subscribe((owners) => {
-                this.owners = owners
-            }, err => {
-                this.errorMessage = err;
-            });
-
-        return displayOwner;
-    }
-
-
-   
-
-
-    beOwner: boolean = false;
-    showForm(): void{
-        this.beOwner = !this.beOwner; 
-        this.addedProduct = false;
-    } 
-
-
-
-    //follower: boolean = false;
-    //onFollow(): void {
-    //    this.follower = !this.follower;
-    //    this.addedProduct = false;
-    //} 
-
-    addedProduct: boolean = false;
-    showProduct(): void {
-        this.addedProduct = !this.addedProduct;
-        this.beOwner = false;
-        
-    }
-
-
-
-    onSubmit(owner: Owner) {
-        var postOwner = this.userservice.setOwner(this.owner)
-            .subscribe((owners) => {
-                this.owners = owners
-            }, err => {
-                this.errorMessage = err;
-            });
-      
-    }
-
-
 
     getProducts() {
         var displayProduct = this.userservice.getProduct()
@@ -96,6 +37,72 @@ export class OwnerComponent implements OnInit {
 
 
 
-    
+    onSubmit(product: Product) {
+        
+        var postProduct = this.userservice.setProduct(this.product)
+            .subscribe((products) => {
+                this.products = products
+            }, err => {
+                this.errorMessage = err;
+            });
+
+    }
+
+
+    onDelete(product: Product) {
+
+        return this.userservice.deleteProduct(product)
+            .subscribe((products) => {
+                this.products = products
+            }, err => {
+                this.errorMessage = err;
+            });
+
+        
+    }
+
+
+
+    onEdit(product: Product) {
+
+        return this.userservice.editProduct(product)
+            .subscribe((products) => {
+                this.products = products
+            }, err => {
+                this.errorMessage = err;
+            });
+
+
+    }
+
+
+
+
+
+
+    addProduct: boolean = false;
+    showForm(): void {
+        this.addProduct = !this.addProduct;
+        this.editProduct = false;
+        this.addedProduct = false;
+    }
+
+    addedProduct: boolean = false;
+    showProduct(): void {
+        this.addedProduct = !this.addedProduct;
+        this.editProduct = false;
+        this.addProduct = false;
+    }
+
+
+    editProduct: boolean = false;
+    editForm(product: Product): void {
+        this.product = product;
+        this.editProduct = !this.editProduct;
+        //this.addedProduct = false;
+        this.addProduct = false;
+    }
+
+
 
 }

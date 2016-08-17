@@ -1,5 +1,5 @@
 ﻿import { provideRouter, RouterConfig }  from '@angular/router';
-import { OwnerComponent }from './Owner/owner.component';
+import { OwnerComponent }from './EndUser/enduser.component';
 const routes: RouterConfig = [{
     path: "Users/owner",
     component: OwnerComponent,

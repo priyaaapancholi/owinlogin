@@ -9,53 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var owner_1 = require('./owner');
-var users_service_1 = require('./users.service');
-var OwnerComponent = (function () {
-    function OwnerComponent(userservice) {
+var product_1 = require('./../Product/product');
+var users_service_1 = require('./../users.service');
+var OwnerLoginComponent = (function () {
+    function OwnerLoginComponent(userservice) {
         this.userservice = userservice;
-        this.beOwner = false;
-        this.follower = false;
+        this.addProduct = false;
         this.addedProduct = false;
-        this.owners = new Array();
-        this.owner = new owner_1.Owner();
+        this.editProduct = false;
+        this.products = new Array();
+        this.product = new product_1.Product();
     }
-    OwnerComponent.prototype.ngOnInit = function () {
-        this.getOwners();
+    OwnerLoginComponent.prototype.ngOnInit = function () {
         this.getProducts();
     };
-    OwnerComponent.prototype.getOwners = function () {
-        var _this = this;
-        var displayOwner = this.userservice.getOwner()
-            .subscribe(function (owners) {
-            _this.owners = owners;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
-        return displayOwner;
-    };
-    OwnerComponent.prototype.showForm = function () {
-        this.beOwner = !this.beOwner;
-        this.addedProduct = false;
-    };
-    OwnerComponent.prototype.onFollow = function () {
-        this.follower = !this.follower;
-        this.addedProduct = false;
-    };
-    OwnerComponent.prototype.showProduct = function () {
-        this.addedProduct = !this.addedProduct;
-        this.beOwner = false;
-    };
-    OwnerComponent.prototype.onSubmit = function (owner) {
-        var _this = this;
-        var postOwner = this.userservice.setOwner(this.owner)
-            .subscribe(function (owners) {
-            _this.owners = owners;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
-    };
-    OwnerComponent.prototype.getProducts = function () {
+    OwnerLoginComponent.prototype.getProducts = function () {
         var _this = this;
         var displayProduct = this.userservice.getProduct()
             .subscribe(function (products) {
@@ -65,15 +33,58 @@ var OwnerComponent = (function () {
         });
         return displayProduct;
     };
-    OwnerComponent = __decorate([
+    OwnerLoginComponent.prototype.onSubmit = function (product) {
+        var _this = this;
+        var postProduct = this.userservice.setProduct(this.product)
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    OwnerLoginComponent.prototype.onDelete = function (product) {
+        var _this = this;
+        return this.userservice.deleteProduct(product)
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    OwnerLoginComponent.prototype.onEdit = function (product) {
+        var _this = this;
+        return this.userservice.editProduct(product)
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    OwnerLoginComponent.prototype.showForm = function () {
+        this.addProduct = !this.addProduct;
+        this.editProduct = false;
+        this.addedProduct = false;
+    };
+    OwnerLoginComponent.prototype.showProduct = function () {
+        this.addedProduct = !this.addedProduct;
+        this.editProduct = false;
+        this.addProduct = false;
+    };
+    OwnerLoginComponent.prototype.editForm = function (product) {
+        this.product = product;
+        this.editProduct = !this.editProduct;
+        //this.addedProduct = false;
+        this.addProduct = false;
+    };
+    OwnerLoginComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
+            selector: 'my-owner',
             templateUrl: 'app/Owner/owner.component.html',
             providers: [users_service_1.UserService]
         }), 
         __metadata('design:paramtypes', [users_service_1.UserService])
-    ], OwnerComponent);
-    return OwnerComponent;
+    ], OwnerLoginComponent);
+    return OwnerLoginComponent;
 }());
-exports.OwnerComponent = OwnerComponent;
+exports.OwnerLoginComponent = OwnerLoginComponent;
 //# sourceMappingURL=owner.component.js.map

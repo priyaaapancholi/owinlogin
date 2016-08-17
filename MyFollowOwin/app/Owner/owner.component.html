@@ -1,33 +1,38 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-   
+    <title></title>
+	<meta charset="utf-8" />
 </head>
 <body>
-    <h2 *ngFor="let owner of owners">
-        {{owner.Id}}
-    </h2><br /><br />
-
-    
-
-    <div>
-           <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showForm()'><!--{{ beOwner?'Fill Form':'BeOwner:)'}}-->BeOwner:) </button>
-        <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showProduct()'><!--{{ beOwner?'Fill Form':'BeOwner:)'}}-->Products </button>
-    </div><br /><br />
+    <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showForm()'><!--{{ beOwner?'Fill Form':'BeOwner:)'}}-->AddProduct</button>
+   
+    <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showProduct()'><!--{{ beOwner?'Fill Form':'BeOwner:)'}}-->AddedProducts</button><br/><br/>
     <div class="form-group">
-         <div class="form-horizontal">
-            <form *ngIf="beOwner" #addOwnerForm="ngForm"  class="form-horizontal">
-                <b>CompanyName:</b><input type="text" #CompanyName="ngForm" ngControl="CompanyName" [(ngModel)]="owner.CompanyName" required /><br/>
-                <b>WebsiteUrl:</b><input type="text" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" required /><br/>
-                <b>FoundedYear:</b><input type="number" #FoundedYear="ngForm" ngControl="FoundedYear" [(ngModel)]="owner.FoundedYear" required /><br/>
-                <b>Description:</b><input type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="owner.Description" required /><br/><br/>
-           
-            <button class='btn-primary' (click)="onSubmit(owner)">submit</button>
+        <div class="form-horizontal">
+            <form *ngIf="addProduct" #addProduct="ngForm" class="form-horizontal">
+                <!--<b>ProductId:</b><input class="form-control" type="text" #Id="ngForm" ngControl="Id" [(ngModel)]="product.Id" required />-->
+                <b>ProductName:</b><input class="form-control" type="text" #ProductName="ngForm" ngControl="ProductName" [(ngModel)]="product.ProductName" required />
+                <!--<b>ProductName:</b><input class="form-control" type="text" #ProductName="ngForm" ngControl="ProductName" [(ngModel)]="product.ProductName" required /><br />-->
+                <b>Description:</b><input class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" required />
+                <b>Type:</b>
+                <select class="form-control" #Type="ngForm" ngControl="Type" [(ngModel)]="product.Type" required>
+                <option value="Mobile">Mobile</option>
+                <option value="IOT" ng-selected="true">IOT</option>
+                <option value="Web">Web</option>
+                </select>
+                <!--<input class="form-control" type="text" #Type="ngForm" ngControl="Type" [(ngModel)]="product.Type" required /><br />-->
+                <b>HomepageURL:</b><input class="form-control" type="text" #HomepageURL="ngForm" ngControl="HomepageURL" [(ngModel)]="product.HomepageURL" required />
+                <b>PlaystoreURL:</b><input class="form-control" type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreURL" [(ngModel)]="product.PlaystoreURL" required />
+                <b>AppstoreURL:</b><input class="form-control" type="text" #AppstoreURL="ngForm" ngControl="AppstoreURL" [(ngModel)]="product.AppstoreURL" required /><br/>
+                <!--<b>CreatedDate:</b><input class="form-control"type="date" #CreatedDate="ngForm" ngControl="CreatedDate" [(ngModel)]="product.CreatedDate" required /><br />
+                <b>LastModifiedDate:</b><input class="form-control" type="date" #LastModifiedDate="ngForm" ngControl="LastModifiedDate" [(ngModel)]="product.LastModifiedDate" required /><br /><br />-->
+
+                <button class='btn-primary' (click)="onSubmit(product)">Add</button>
             </form>
-         </div>
+        </div>
     </div>
 
-   
 
     <div class='table-responsive' *ngIf="addedProduct">
         <table class='table'>
@@ -39,8 +44,8 @@
                 <th>HomepageURL</th>
                 <th>PlaystoreURL</th>
                 <th>AppstoreURL</th>
-                <th>CreatedDate</th>
-                <th>LastModifiedDate</th>
+                <!--<th>CreatedDate</th>
+                <th>LastModifiedDate</th>-->
             </tr>
 
             <tr *ngFor="let product of products">
@@ -65,21 +70,46 @@
                 <td>
                     {{product.AppstoreURL}}
                 </td>
-                <td>
+                <!--<td>
                     {{product.CreatedDate}}
                 </td>
                 <td>
                     {{product.LastModifiedDate}}
-                </td>
+                </td>-->
                 <td>
-                    <button class='btn-primary' (click)="viewDetail(product)">View</button>
-                    <button class='btn-primary' (click)="onFollow(product)"> follow</button>
-                    <button class='btn-primary' (click)="onUnfollow(product)">UnFollow</button>
-
+                    <button class='btn-primary' (click)="editForm(product)">Edit</button>
+                    <button class='btn-primary' (click)="onDelete(product)">Delete</button>
+                    
                 </td>
             </tr>
         </table>
-    </div>
+</div>
 
+        <div>
+
+            <form *ngIf="editProduct" #addProduct="ngForm" class="form-horizontal">
+                
+                <b>ProductId:</b>
+                <select class="form-control" #Id="ngForm" ngControl="Id" [(ngModel)]="product.Id" required>
+                   <option *ngFor="let product of products">{{product.Id}}</option>
+                </select>
+                <b>ProductName:</b><input class="form-control" type="text" #ProductName="ngForm" ngControl="ProductName" [(ngModel)]="product.ProductName" required />
+                <b>Description:</b><input class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" required />
+                <b>Type:</b>
+                <select class="form-control" #Type="ngForm" ngControl="Type" [(ngModel)]="product.Type" required>
+                    <option value="Mobile">Mobile</option>
+                    <option value="IOT" ng-selected="true">IOT</option>
+                    <option value="Web">Web</option>
+                </select>
+                <!--<input class="form-control" type="text" #Type="ngForm" ngControl="Type" [(ngModel)]="product.Type" required /><br />-->
+                <b>HomepageURL:</b><input class="form-control" type="text" #HomepageURL="ngForm" ngControl="HomepageURL" [(ngModel)]="product.HomepageURL" required />
+                <b>PlaystoreURL:</b><input class="form-control" type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreURL" [(ngModel)]="product.PlaystoreURL" required />
+                <b>AppstoreURL:</b><input class="form-control" type="text" #AppstoreURL="ngForm" ngControl="AppstoreURL" [(ngModel)]="product.AppstoreURL" required /><br />
+                <button class='btn-primary' (click)="onEdit(product)">Edit</button>
+</form>
+
+
+
+    </div> 
 </body>
 </html>

@@ -11,7 +11,7 @@ namespace sMyFollowOwin.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<MyFollowOwin.Models.ApplicationDbContext>
     {
-        public enum Roles { Admin,EndUser,ProductOwner}
+        public enum Roles { Admin, EndUser, ProductOwner }
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
@@ -30,8 +30,8 @@ namespace sMyFollowOwin.Migrations
 
                     manager.Create(roles);
 
-                    
-                   
+
+
 
                 }
             }
@@ -45,31 +45,33 @@ namespace sMyFollowOwin.Migrations
                 UserName = "Priya",
                 Email = "xyz@promactinfo.com",
                 EmailConfirmed = true,
-                DOB =Convert.ToDateTime("08-08-2016"),
+                DOB = Convert.ToDateTime("08-08-2016"),
+                Owner = new Owner(),
                 Address = new AddressInfo
                 {
                     Street1 = "7,jay mangal soc.,nr.uma char rasta",
-                    Street2 =  "waghodia road",
-                    CityName="vadodara",
-                    StateName="gujarat",
-                     PIN= 390019,
-                    ContactNo="1234567890"
+                    Street2 = "waghodia road",
+                    CityName = "vadodara",
+                    StateName = "gujarat",
+                    PIN = 390019,
+                    ContactNo = "1234567890"
                 }
+               
             };
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             if (userManager.FindByName("Priya") == null)
-               {    
-                   var result = userManager.Create(user, "Pp@1234");
+            {
+                var result = userManager.Create(user, "Pp@1234");
 
-                   if (result.Succeeded)
-                   {
-                        userManager.AddToRole(user.Id, "Admin");
-                   }
+                if (result.Succeeded)
+                {
+                    userManager.AddToRole(user.Id, "Admin");
+                }
 
-               }
+            }
 
 
-          
+
         }
     }
 }

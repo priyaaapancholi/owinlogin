@@ -7,16 +7,18 @@ using System.Web;
 
 namespace MyFollowOwin.Models
 {
-    public class Follow:CommonProperty
+    public class Follow : CommonProperty
     {
-         //refers relation between user and follow class..
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
-        public virtual ApplicationUser User { get; set; }
 
-        //refers relation between product and follow class..
-        public string ProductId { get; set; }
-        [ForeignKey("Id")]
-        public virtual Product Product { get; set; }
+
+            public string UserId { get; set; }
+            [ForeignKey("UserId")]
+            public ApplicationUser Users { get; set; }
+
+
+            public int ProductId { get; set; }
+            [ForeignKey("ProductId")]
+            public Product Products { get; set; }
+
+        }
     }
-}

@@ -55,7 +55,7 @@ namespace MyFollowOwin.Controllers
             
          // PUT: api/Products/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutProduct(string id, Product product)
+        public IHttpActionResult PutProduct(int id, Product product)
         {
             DateTime Now = DateTime.Now;
             product.LastModifiedDate = Now;
@@ -112,6 +112,8 @@ namespace MyFollowOwin.Controllers
         
         // POST: api/Products
         [ResponseType(typeof(Product))]
+        [Route]
+        [HttpPost]
         public IHttpActionResult PostProduct(Product product)
         {
             DateTime Now = DateTime.Now;
@@ -206,7 +208,7 @@ namespace MyFollowOwin.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ProductExists(string id)
+        private bool ProductExists(int id)
         {
             return db.Products.Count(e => e.Id == id) > 0;
         }

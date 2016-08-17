@@ -25,7 +25,7 @@ namespace MyFollowOwin.Models
         public string Introduction { get; set; }
 
         //refers relation between product and product updates(Details)..
-        public string ProductId { get; set; }
+        public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
 

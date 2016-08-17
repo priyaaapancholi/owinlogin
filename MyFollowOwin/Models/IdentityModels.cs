@@ -32,41 +32,23 @@ namespace MyFollowOwin.Models
 
         //public string Password { get; set; }
 
-       
-       public Owner Owner { get; set; } 
+        public Owner Owner { get; set; } 
+        
+        
+        
+        
+        
         //refers relation between product owner and product..
          public virtual ICollection<Product> product { get; set; }
 
-        //refers relation between follow product and user
-        public virtual ICollection<Follow> folllow { get; set; }
+        ////refers relation between follow product and user
+        //public virtual ICollection<Follow> follow { get; set; }
 
 
 
 
 
-        public class AddressInfo
-        {
-            [Required]
-            public string Street1 { get; set; }
-
-            [Required]
-            public string Street2 { get; set; }
-
-            [Required]
-            public string CityName { get; set; }
-
-            [Required]
-            public string StateName { get; set; }
-
-            [Required]
-            public int PIN { get; set; }
-
-            [Required]
-            [Phone]
-            public string ContactNo { get; set; }
-
-           
-        }
+      
 
       
     }

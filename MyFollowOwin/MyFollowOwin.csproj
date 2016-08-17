@@ -194,6 +194,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AddressInfo.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\CommonProperty.cs" />
     <Compile Include="Models\Follow.cs" />
@@ -206,9 +207,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\Owner\admin.component.html" />
+    <Content Include="app\Admin\admin.component.html" />
+    <Content Include="app\EndUser\enduser.component.html" />
     <Content Include="app\Owner\owner.component.html" />
-    <Content Include="app\Owner\ownerlogin.component.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -290,14 +291,15 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\Owner\admin.component.ts" />
+    <TypeScriptCompile Include="app\Admin\admin.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\Follow\follow.ts" />
+    <TypeScriptCompile Include="app\EndUser\enduser.component.ts" />
     <TypeScriptCompile Include="app\Owner\owner.component.ts" />
-    <TypeScriptCompile Include="app\Owner\ownerlogin.component.ts" />
-    <TypeScriptCompile Include="app\Owner\product.ts" />
-    <TypeScriptCompile Include="app\Owner\users.service.ts" />
+    <TypeScriptCompile Include="app\Product\product.ts" />
+    <TypeScriptCompile Include="app\users.service.ts" />
     <TypeScriptCompile Include="app\Owner\owner.ts" />
-    <TypeScriptCompile Include="app\Owner\applicationuser.ts" />
+    <TypeScriptCompile Include="app\EndUser\applicationuser.ts" />
     <TypeScriptCompile Include="app\route.ts" />
   </ItemGroup>
   <PropertyGroup>

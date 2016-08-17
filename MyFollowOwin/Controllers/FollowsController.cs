@@ -74,12 +74,18 @@ namespace MyFollowOwin.Controllers
 
         // POST: api/Follows
         [ResponseType(typeof(Follow))]
-        public IHttpActionResult PostFollow(Follow follow)
+        public IHttpActionResult PostFollow([FromBody]int productId)
         {
-
+            Follow follow = new Follow();
             var id = User.Identity.GetUserId();
             ApplicationUser user = db.Users.Find(id);
+
             follow.UserId = user.Id;
+            follow.ProductId = productId;
+            follow.CreatedDate = DateTime.Today;
+            follow.LastModifiedDate = DateTime.Today;
+
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -131,7 +137,7 @@ namespace MyFollowOwin.Controllers
         //    base.Dispose(disposing);
         //}
 
-        private bool FollowExists(string id)
+        private bool FollowExists(int id)
         {
             return db.Follows.Count(e => e.Id == id) > 0;
         }

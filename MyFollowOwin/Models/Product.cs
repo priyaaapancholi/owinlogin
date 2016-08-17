@@ -40,8 +40,8 @@ namespace MyFollowOwin.Models
         //refers relation between product and productupdates(details)..
         public virtual ICollection<ProductUpdate> ProductUpdate { get; set; }
 
-        //refers relation between user and followproducts..
-        public virtual ICollection<Follow> Folllow { get; set; }
+        ////refers relation between user and followproducts..
+        //public virtual ICollection<Follow> Follow { get; set; }
     }
 
     }

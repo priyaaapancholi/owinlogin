@@ -107,7 +107,7 @@ namespace MyFollowOwin.Models
         public virtual ICollection<Product> product { get; set; }
 
         //refers relation between follow product and user
-        public virtual ICollection<Follow> folllow { get; set; }
+        public virtual ICollection<Follow> follow { get; set; }
 
 
     }
