@@ -14,6 +14,7 @@ var users_service_1 = require('./../users.service');
 var OwnerLoginComponent = (function () {
     function OwnerLoginComponent(userservice) {
         this.userservice = userservice;
+        this.platforms = product_1.Platform;
         this.addProduct = false;
         this.addedProduct = false;
         this.editProduct = false;

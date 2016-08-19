@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Owner }from './../Owner/owner';
-import { Product} from './../Product/product';
+import { Product, Platform} from './../Product/product';
 import { Follow }from './../Follow/follow';
 import { UserService }from './../users.service';
 
@@ -17,6 +17,8 @@ import { UserService }from './../users.service';
 
 
 export class OwnerComponent implements OnInit {
+   platforms = Platform;
+
     owners: Array<Owner>;
     owner: Owner;
 
@@ -98,21 +100,37 @@ export class OwnerComponent implements OnInit {
     }
 
 
-    
+    hidebutton: any[] = [];
     followProducts(product: Product) {
-       
+        this.hidebutton[product.Id] = true;
         var followProduct = this.userservice.followProduct(product)
             .subscribe((products) => {
-                this.products = products
+                this.products = products;
+                this.getProducts();
             }, err => {
                 this.errorMessage = err;
             });
-       // this.getProducts();
+       // 
        
     }
 
 
 
+
+
+    //hidebutton: any[] = [];
+    unfollowProducts(product:Product) {
+        this.hidebutton[product.Id] = false;
+        var unfollowProduct = this.userservice.unfollowProduct(product)
+            .subscribe((products) => {
+                this.products = products;
+                this.getProducts();
+            }, err => {
+                this.errorMessage = err;
+            });
+        // 
+
+    }
    
 
 }

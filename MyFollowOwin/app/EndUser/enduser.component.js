@@ -10,12 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var owner_1 = require('./../Owner/owner');
+var product_1 = require('./../Product/product');
 var users_service_1 = require('./../users.service');
 var OwnerComponent = (function () {
     function OwnerComponent(userservice) {
         this.userservice = userservice;
+        this.platforms = product_1.Platform;
         this.beOwner = false;
         this.addedProduct = false;
+        this.hidebutton = [];
         this.owners = new Array();
         this.owner = new owner_1.Owner();
     }
@@ -62,13 +65,28 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.followProducts = function (product) {
         var _this = this;
+        this.hidebutton[product.Id] = true;
         var followProduct = this.userservice.followProduct(product)
             .subscribe(function (products) {
             _this.products = products;
+            _this.getProducts();
         }, function (err) {
             _this.errorMessage = err;
         });
-        this.getProducts();
+        // 
+    };
+    //hidebutton: any[] = [];
+    OwnerComponent.prototype.unfollowProducts = function (product) {
+        var _this = this;
+        this.hidebutton[product.Id] = false;
+        var unfollowProduct = this.userservice.unfollowProduct(product)
+            .subscribe(function (products) {
+            _this.products = products;
+            _this.getProducts();
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+        // 
     };
     OwnerComponent = __decorate([
         core_1.Component({

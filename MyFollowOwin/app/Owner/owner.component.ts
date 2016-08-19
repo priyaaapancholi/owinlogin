@@ -1,5 +1,5 @@
 ﻿import {Component, OnInit} from '@angular/core';
-import { Product }from './../Product/product';  
+import { Product, Platform}from './../Product/product';  
 import { UserService }from './../users.service'; 
 
 @Component({
@@ -11,7 +11,7 @@ import { UserService }from './../users.service';
 
 
 export class OwnerLoginComponent implements OnInit{
-
+    platforms = Platform;
     products: Array<Product>;
     product: Product;
     errorMessage: string;
@@ -23,6 +23,7 @@ export class OwnerLoginComponent implements OnInit{
     ngOnInit() {
         this.getProducts();
     }
+
 
     getProducts() {
         var displayProduct = this.userservice.getProduct()

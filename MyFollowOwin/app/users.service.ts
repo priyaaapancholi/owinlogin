@@ -4,6 +4,7 @@ import { Observable }     from 'rxjs/Observable';
 import { Owner }          from './Owner/owner';
 import { Product }          from './Product/product';
 import { ApplicationUser }  from './EndUser/applicationuser';
+import { Follow }          from './Follow/follow';
 
 
 
@@ -78,7 +79,12 @@ export class UserService {
     }
 
 
+    /*to unfollow the product i.e whenever user unfollows the product it will be deleted from follow table(enduser.component.ts)*/
+    unfollowProduct(product:Product) {
 
+        return this.http.delete(this.followUrl + '/' + product.Id).map(res => res.json());   
+       
+    }
 
 
 
@@ -145,8 +151,6 @@ export class UserService {
         // console.log("put is invoked");
         return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(Owner), { headers: headers }).map(res => res.json());
     }
-
-
 
 
 

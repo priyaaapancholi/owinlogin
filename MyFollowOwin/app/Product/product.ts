@@ -1,4 +1,4 @@
-﻿enum Platform { Mobile, IOT, Web }
+﻿export enum Platform { Mobile, IOT, Web }
 export class Product {
     Id: number;
     ProductName: string;

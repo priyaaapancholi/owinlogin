@@ -112,30 +112,42 @@ namespace MyFollowOwin.Controllers
             return CreatedAtRoute("DefaultApi", new { id = follow.Id }, follow);
         }
 
-        //// DELETE: api/Follows/5
-        //[ResponseType(typeof(Follow))]
-        //public IHttpActionResult DeleteFollow(string id)
-        //{
-        //    Follow follow = db.Follows.Find(id);
-        //    if (follow == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // DELETE: api/Follows/5
+        [ResponseType(typeof(Follow))]
+        public IHttpActionResult DeleteFollow(int id)
+        {
+           
+            Follow follow = new Follow();
+            var uid = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Find(uid);
 
-        //    db.Follows.Remove(follow);
-        //    db.SaveChanges();
+            follow.UserId = user.Id;
+            follow.ProductId = id;
+            //follow.Id=db.Follows.Find()
 
-        //    return Ok(follow);
-        //}
+            if ((follow.UserId.Equals(user.Id)) && (follow.ProductId == id))
+            {
+                follow = db.Follows.Find(id);
+                db.Follows.Remove(follow);
+                db.SaveChanges();
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+            }
+
+            else {
+
+                return NotFound();
+            }
+            return Ok(follow);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         private bool FollowExists(int id)
         {

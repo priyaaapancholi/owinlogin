@@ -60,6 +60,10 @@ var UserService = (function () {
         return this.http.get(this.productUrl)
             .map(function (response) { return response.json(); });
     };
+    /*to unfollow the product i.e whenever user unfollows the product it will be deleted from follow table(enduser.component.ts)*/
+    UserService.prototype.unfollowProduct = function (product) {
+        return this.http.delete(this.followUrl + '/' + product.Id).map(function (res) { return res.json(); });
+    };
     /*to add new product in database(owner.component.ts)*/
     UserService.prototype.setProduct = function (product) {
         var headers = new http_1.Headers({
