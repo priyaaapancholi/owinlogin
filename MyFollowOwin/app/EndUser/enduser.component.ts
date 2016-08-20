@@ -17,7 +17,7 @@ import { UserService }from './../users.service';
 
 
 export class OwnerComponent implements OnInit {
-   platforms = Platform;
+    platforms = Platform;
 
     owners: Array<Owner>;
     owner: Owner;
@@ -53,14 +53,15 @@ export class OwnerComponent implements OnInit {
     }
 
 
-   
+
 
 
     beOwner: boolean = false;
-    showForm(): void{
-        this.beOwner = !this.beOwner; 
+    showForm(): void {
+        this.beOwner = !this.beOwner;
         this.addedProduct = false;
-    } 
+        this.followedProduct = false;
+    }
 
 
 
@@ -69,21 +70,28 @@ export class OwnerComponent implements OnInit {
     showProduct(): void {
         this.addedProduct = !this.addedProduct;
         this.beOwner = false;
-        
+        this.followedProduct = false;
+
     }
+
+
+
+
+
+
 
 
 
     onSubmit(owner: Owner) {
 
-      
+
         var postOwner = this.userservice.setOwner(this.owner)
             .subscribe((owners) => {
                 this.owners = owners
             }, err => {
                 this.errorMessage = err;
             });
-      
+
     }
 
 
@@ -100,9 +108,9 @@ export class OwnerComponent implements OnInit {
     }
 
 
-    hidebutton: any[] = [];
+    following: any[] = [];
     followProducts(product: Product) {
-        this.hidebutton[product.Id] = true;
+        this.following[product.Id] = true;
         var followProduct = this.userservice.followProduct(product)
             .subscribe((products) => {
                 this.products = products;
@@ -110,17 +118,17 @@ export class OwnerComponent implements OnInit {
             }, err => {
                 this.errorMessage = err;
             });
-       // 
-       
+        // 
+
     }
 
 
 
 
 
-    //hidebutton: any[] = [];
-    unfollowProducts(product:Product) {
-        this.hidebutton[product.Id] = false;
+
+    unfollowProducts(product: Product) {
+        this.following[product.Id] = false;
         var unfollowProduct = this.userservice.unfollowProduct(product)
             .subscribe((products) => {
                 this.products = products;
@@ -131,6 +139,42 @@ export class OwnerComponent implements OnInit {
         // 
 
     }
-   
+
+
+
+
+
+
+    //followedProduct: boolean = false;
+    //followedProducts() {
+    //   this.followedProduct = !this.followedProduct;
+    //   this.beOwner = false;
+    //   this.addedProduct = false;
+
+    //    var followedProduct = this.userservice.followedProduct()
+    //        .subscribe((follows) => {
+    //            this.follows = follows;
+
+    //        }, err => {
+    //            this.errorMessage = err;
+    //        });
+
+
+    //}
+    followedProduct: boolean = false;
+    followedProducts() {
+        this.followedProduct = !this.followedProduct;
+        this.beOwner = false;
+        this.addedProduct = false;
+
+        var followedProduct = this.userservice.followedProduct()
+            .subscribe((products) => {
+                this.products = products;
+
+               
+            }, err => {
+                this.errorMessage = err;
+            });
+    }
 
 }

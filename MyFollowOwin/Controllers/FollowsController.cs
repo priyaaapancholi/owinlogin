@@ -17,7 +17,7 @@ namespace MyFollowOwin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        //// GET: api/Follows
+        // GET: api/Follows
         //public IQueryable<Follow> GetFollows()
         //{
 
@@ -112,33 +112,34 @@ namespace MyFollowOwin.Controllers
             return CreatedAtRoute("DefaultApi", new { id = follow.Id }, follow);
         }
 
+    
+        
         // DELETE: api/Follows/5
         [ResponseType(typeof(Follow))]
         public IHttpActionResult DeleteFollow(int id)
         {
-           
-            Follow follow = new Follow();
-            var uid = User.Identity.GetUserId();
-            ApplicationUser user = db.Users.Find(uid);
-
-            follow.UserId = user.Id;
-            follow.ProductId = id;
-            //follow.Id=db.Follows.Find()
-
-            if ((follow.UserId.Equals(user.Id)) && (follow.ProductId == id))
+            //Product p1 = db.Products.Find(id);
+            var Id = User.Identity.GetUserId();
+            Follow follow1 = new Follow();
+            foreach (Follow follower in db.Follows.ToList())
             {
-                follow = db.Follows.Find(id);
-                db.Follows.Remove(follow);
-                db.SaveChanges();
-
+                if ((follower.UserId == Id) && (follower.ProductId == id))
+                { follow1 = follower; }
             }
 
-            else {
-
+            if (follow1 == null)
+            {
                 return NotFound();
             }
-            return Ok(follow);
+
+            db.Follows.Remove(follow1);
+            db.SaveChanges();
+
+            return Ok(follow1);
         }
+
+
+
 
         protected override void Dispose(bool disposing)
         {

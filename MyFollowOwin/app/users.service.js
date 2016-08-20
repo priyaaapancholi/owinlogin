@@ -57,12 +57,15 @@ var UserService = (function () {
     };
     /*to get the list of products(owner.component.ts)(enduser.component.ts)*/
     UserService.prototype.getProduct = function () {
-        return this.http.get(this.productUrl)
-            .map(function (response) { return response.json(); });
+        return this.http.get(this.productUrl).map(function (response) { return response.json(); });
     };
     /*to unfollow the product i.e whenever user unfollows the product it will be deleted from follow table(enduser.component.ts)*/
     UserService.prototype.unfollowProduct = function (product) {
-        return this.http.delete(this.followUrl + '/' + product.Id).map(function (res) { return res.json(); });
+        return this.http.delete(this.followUrl + '/' + product.Id).map(function (res) { return res.json().data; });
+    };
+    /*to get the followed products for particular user(enduser.component.ts)*/
+    UserService.prototype.followedProduct = function () {
+        return this.http.get(this.productUrl + '/5').map(function (response) { return response.json(); });
     };
     /*to add new product in database(owner.component.ts)*/
     UserService.prototype.setProduct = function (product) {

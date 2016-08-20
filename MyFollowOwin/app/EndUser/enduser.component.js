@@ -18,7 +18,20 @@ var OwnerComponent = (function () {
         this.platforms = product_1.Platform;
         this.beOwner = false;
         this.addedProduct = false;
-        this.hidebutton = [];
+        this.following = [];
+        //followedProduct: boolean = false;
+        //followedProducts() {
+        //   this.followedProduct = !this.followedProduct;
+        //   this.beOwner = false;
+        //   this.addedProduct = false;
+        //    var followedProduct = this.userservice.followedProduct()
+        //        .subscribe((follows) => {
+        //            this.follows = follows;
+        //        }, err => {
+        //            this.errorMessage = err;
+        //        });
+        //}
+        this.followedProduct = false;
         this.owners = new Array();
         this.owner = new owner_1.Owner();
     }
@@ -39,10 +52,12 @@ var OwnerComponent = (function () {
     OwnerComponent.prototype.showForm = function () {
         this.beOwner = !this.beOwner;
         this.addedProduct = false;
+        this.followedProduct = false;
     };
     OwnerComponent.prototype.showProduct = function () {
         this.addedProduct = !this.addedProduct;
         this.beOwner = false;
+        this.followedProduct = false;
     };
     OwnerComponent.prototype.onSubmit = function (owner) {
         var _this = this;
@@ -65,7 +80,7 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.followProducts = function (product) {
         var _this = this;
-        this.hidebutton[product.Id] = true;
+        this.following[product.Id] = true;
         var followProduct = this.userservice.followProduct(product)
             .subscribe(function (products) {
             _this.products = products;
@@ -75,10 +90,9 @@ var OwnerComponent = (function () {
         });
         // 
     };
-    //hidebutton: any[] = [];
     OwnerComponent.prototype.unfollowProducts = function (product) {
         var _this = this;
-        this.hidebutton[product.Id] = false;
+        this.following[product.Id] = false;
         var unfollowProduct = this.userservice.unfollowProduct(product)
             .subscribe(function (products) {
             _this.products = products;
@@ -87,6 +101,18 @@ var OwnerComponent = (function () {
             _this.errorMessage = err;
         });
         // 
+    };
+    OwnerComponent.prototype.followedProducts = function () {
+        var _this = this;
+        this.followedProduct = !this.followedProduct;
+        this.beOwner = false;
+        this.addedProduct = false;
+        var followedProduct = this.userservice.followedProduct()
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
     };
     OwnerComponent = __decorate([
         core_1.Component({

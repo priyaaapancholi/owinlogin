@@ -29,31 +29,38 @@ namespace MyFollowOwin.Controllers
             return db.Products.ToList();
         }
 
-        // GET: api/Products/5
-        //[ResponseType(typeof(Product))]
-        //public IHttpActionResult GetProduct(string id)
-        //{
-        //    Product product = db.Products.Find(id);
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
+    
+       //GET: api/Products/5
+       //[ResponseType(typeof(Product))]
+       [HttpGet]
+        public IQueryable<Product> GetProduct(int id)
+        {
+            var Id = User.Identity.GetUserId();
+            List<Product> products = new List<Product>();
+            foreach (var follower in db.Follows.ToList())
+            {
+                if (follower.UserId == Id)
+                {
+                    Product product = db.Products.Find(follower.ProductId);
+                    products.Add(product);
+                }
 
-        //    return Ok(product);
-        //}
+            }
+            return products.AsQueryable();
+        }
 
-//----------------------------------------------------------------------------------------------------------------     
-            
-            
-            
-            
-            
-            
-            
-            
-  //--------------------------------------------------PUT(PRODUCT)--------------------------------------------------------          
-            
-         // PUT: api/Products/5
+        //----------------------------------------------------------------------------------------------------------------     
+
+
+
+
+
+
+
+
+        //--------------------------------------------------PUT(PRODUCT)--------------------------------------------------------          
+
+        // PUT: api/Products/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutProduct(int id, Product product)
         {

@@ -72,9 +72,8 @@ export class UserService {
 
     /*to get the list of products(owner.component.ts)(enduser.component.ts)*/
     getProduct() {
-        return this.http.get(this.productUrl)
-            .map(response => response.json());
 
+        return this.http.get(this.productUrl).map(response => response.json());
 
     }
 
@@ -82,10 +81,18 @@ export class UserService {
     /*to unfollow the product i.e whenever user unfollows the product it will be deleted from follow table(enduser.component.ts)*/
     unfollowProduct(product:Product) {
 
-        return this.http.delete(this.followUrl + '/' + product.Id).map(res => res.json());   
+        return this.http.delete(this.followUrl + '/' + product.Id).map(res => res.json().data)  
        
     }
 
+
+   
+    /*to get the followed products for particular user(enduser.component.ts)*/
+    followedProduct() { 
+
+        return this.http.get(this.productUrl + '/5').map(response => response.json());
+
+    }
 
 
 
