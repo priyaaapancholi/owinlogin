@@ -65,7 +65,7 @@ var UserService = (function () {
     };
     /*to get the followed products for particular user(enduser.component.ts)*/
     UserService.prototype.followedProduct = function () {
-        return this.http.get(this.productUrl + '/5').map(function (response) { return response.json(); });
+        return this.http.get(this.productUrl + '/1').map(function (response) { return response.json(); });
     };
     /*to add new product in database(owner.component.ts)*/
     UserService.prototype.setProduct = function (product) {
@@ -87,6 +87,10 @@ var UserService = (function () {
         });
         // console.log("put is invoked");
         return this.http.put(this.productUrl + '/' + product.Id, JSON.stringify(product), { headers: headers }).map(function (res) { return res.json(); });
+    };
+    /**/
+    UserService.prototype.getAllProduct = function () {
+        return this.http.get(this.productUrl + '/1').map(function (response) { return response.json(); });
     };
     /*gets owners info i.e info of users that filled a form to become product_owner i.e
    to show the requests of users who want to become a product owner(admin.component.ts)*/

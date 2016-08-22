@@ -12,7 +12,8 @@ using MyFollowOwin.Models;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
-
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace MyFollowOwin.Controllers
 {
@@ -20,14 +21,41 @@ namespace MyFollowOwin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-       
-//----------------------------------------------GET(PRODUCT)--------------------------------------------------------------        
-        
+
+        //----------------------------------------------GET(PRODUCT)--------------------------------------------------------------        
+
         // GET: api/Products
         public IEnumerable<Product> GetProducts()
         {
-            return db.Products.ToList();
+            //return db.Products.ToList();
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var Id = User.Identity.GetUserId();
+            bool ProductOwner = userManager.IsInRole(Id, "ProductOwner");
+            bool EndUser = userManager.IsInRole(Id, "EndUser");
+
+            List<Product> products = db.Products.ToList();
+            foreach (var product in products.ToList())
+            {
+                if (ProductOwner)
+                {
+                    if (product.UserId != Id)
+                        products.Remove(product);
+                }
+             
+                if (EndUser)
+                {
+                    return db.Products.ToList();
+                }
+            }
+            return products.AsQueryable();
         }
+       
+
+
+   
+
+      
+
 
     
        //GET: api/Products/5
@@ -37,6 +65,19 @@ namespace MyFollowOwin.Controllers
         {
             var Id = User.Identity.GetUserId();
             List<Product> products = new List<Product>();
+
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            bool ProductOwner = userManager.IsInRole(Id, "ProductOwner");
+            foreach (var product in db.Products.ToList())
+            {
+                if (ProductOwner)
+                {
+                    if (product.UserId != Id)
+                        products.Add(product);
+                }
+            }
+
             foreach (var follower in db.Follows.ToList())
             {
                 if (follower.UserId == Id)

@@ -90,7 +90,7 @@ export class UserService {
     /*to get the followed products for particular user(enduser.component.ts)*/
     followedProduct() { 
 
-        return this.http.get(this.productUrl + '/5').map(response => response.json());
+        return this.http.get(this.productUrl + '/1').map(response => response.json());
 
     }
 
@@ -129,7 +129,12 @@ export class UserService {
     }
 
 
-  
+    /**/
+    getAllProduct() {
+
+        return this.http.get(this.productUrl + '/1').map(response => response.json());
+
+    }
 
 
 

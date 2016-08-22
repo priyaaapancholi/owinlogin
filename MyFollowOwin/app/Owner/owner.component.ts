@@ -1,4 +1,4 @@
-﻿import {Component, OnInit} from '@angular/core';
+﻿import {Component, /*OnInit*/} from '@angular/core';
 import { Product, Platform}from './../Product/product';  
 import { UserService }from './../users.service'; 
 
@@ -10,7 +10,7 @@ import { UserService }from './../users.service';
 
 
 
-export class OwnerLoginComponent implements OnInit{
+export class OwnerLoginComponent /*implements OnInit*/{
     platforms = Platform;
     products: Array<Product>;
     product: Product;
@@ -20,12 +20,17 @@ export class OwnerLoginComponent implements OnInit{
         this.product = new Product();
     }
 
-    ngOnInit() {
-        this.getProducts();
-    }
+    //ngOnInit() {
+    //    this.getProducts();
+       
+    //}
 
-
+    addedProduct: boolean = false;
     getProducts() {
+        this.addedProduct = !this.addedProduct;
+        this.editProduct = false;
+        this.addProduct = false;
+        this.allProduct = false;
         var displayProduct = this.userservice.getProduct()
             .subscribe((products) => {
                 this.products = products
@@ -36,10 +41,29 @@ export class OwnerLoginComponent implements OnInit{
         return displayProduct;
     }
 
+    allProduct: boolean = false;
+    getAllProducts() {
+        this.allProduct = !this.allProduct;
+        this.editProduct = false;
+        this.addProduct = false;
+        this.addedProduct = false;
+        var showProduct = this.userservice.getAllProduct()
+            .subscribe((products) => {
+                this.products = products
+            }, err => {
+                this.errorMessage = err;
+            });
+
+        //return showProduct;
+    }
+
+
+    
+    
 
 
     onSubmit(product: Product) {
-        
+        this.addProduct = false;
         var postProduct = this.userservice.setProduct(this.product)
             .subscribe((products) => {
                 this.products = products
@@ -88,12 +112,13 @@ export class OwnerLoginComponent implements OnInit{
         this.addedProduct = false;
     }
 
-    addedProduct: boolean = false;
-    showProduct(): void {
-        this.addedProduct = !this.addedProduct;
-        this.editProduct = false;
-        this.addProduct = false;
-    }
+    //addedProduct: boolean = false;
+    //showProduct(): void {
+    //    this.addedProduct = !this.addedProduct;
+    //    this.editProduct = false;
+    //    this.addProduct = false;
+    //    this.allProduct = false;
+    //}
 
 
     editProduct: boolean = false;
@@ -102,8 +127,27 @@ export class OwnerLoginComponent implements OnInit{
         this.editProduct = !this.editProduct;
         //this.addedProduct = false;
         this.addProduct = false;
+        this.allProduct = false;
     }
 
+
+    //allProduct: boolean = false;
+    //showAllProduct(): void {
+    //    this.allProduct = !this.allProduct;
+    //    this.editProduct = false;
+    //    this.addProduct = false;
+    //    this.addedProduct = false;
+    //}
+ 
+
+    //allProduct: boolean = false;
+    //showAllProduct():void {
+    //    this.allProduct = !this.allProduct;
+    //    this.editProduct = false;
+    //    this.addProduct = false;
+    //    this.addedProduct = false;
+    //    //this.getAllProducts();
+    //}
 
 
 }
