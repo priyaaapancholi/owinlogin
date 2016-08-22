@@ -83,7 +83,7 @@ var OwnerComponent = (function () {
         this.following[product.Id] = true;
         var followProduct = this.userservice.followProduct(product)
             .subscribe(function (products) {
-            _this.products = products;
+            _this.followProduct = products;
             _this.getProducts();
         }, function (err) {
             _this.errorMessage = err;
@@ -109,7 +109,7 @@ var OwnerComponent = (function () {
         this.addedProduct = false;
         var followedProduct = this.userservice.followedProduct()
             .subscribe(function (products) {
-            _this.products = products;
+            _this.FollowedProduct = products;
         }, function (err) {
             _this.errorMessage = err;
         });

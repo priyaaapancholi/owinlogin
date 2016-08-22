@@ -22,7 +22,7 @@ namespace MyFollowOwin.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
 
-        //----------------------------------------------GET(PRODUCT)--------------------------------------------------------------        
+ //----------------------------------------------GET(PRODUCT)--------------------------------------------------------------        
 
         // GET: api/Products
         public IEnumerable<Product> GetProducts()
@@ -69,6 +69,7 @@ namespace MyFollowOwin.Controllers
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
             bool ProductOwner = userManager.IsInRole(Id, "ProductOwner");
+            bool EndUser = userManager.IsInRole(Id, "EndUser");
             foreach (var product in db.Products.ToList())
             {
                 if (ProductOwner)
@@ -76,21 +77,27 @@ namespace MyFollowOwin.Controllers
                     if (product.UserId != Id)
                         products.Add(product);
                 }
+
+
             }
 
-            foreach (var follower in db.Follows.ToList())
-            {
-                if (follower.UserId == Id)
-                {
-                    Product product = db.Products.Find(follower.ProductId);
-                    products.Add(product);
-                }
 
+            if (EndUser)
+            {
+                foreach (var follower in db.Follows.ToList())
+                {
+                    if (follower.UserId == Id)
+                    {
+                        Product product = db.Products.Find(follower.ProductId);
+                        products.Add(product);
+                    }
+
+                }
             }
             return products.AsQueryable();
         }
 
-        //----------------------------------------------------------------------------------------------------------------     
+  //----------------------------------------------------------------------------------------------------------------     
 
 
 
@@ -99,7 +106,7 @@ namespace MyFollowOwin.Controllers
 
 
 
-        //--------------------------------------------------PUT(PRODUCT)--------------------------------------------------------          
+ //--------------------------------------------------PUT(PRODUCT)--------------------------------------------------------          
 
         // PUT: api/Products/5
         [ResponseType(typeof(void))]

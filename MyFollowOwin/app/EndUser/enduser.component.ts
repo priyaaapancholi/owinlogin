@@ -25,7 +25,8 @@ export class OwnerComponent implements OnInit {
 
     products: Array<Product>;
     product: Product;
-
+    followProduct: Array<Product>;
+    FollowedProduct: Array<Product>;
 
     follows: Array<Follow>;
     follow: Follow;
@@ -113,7 +114,7 @@ export class OwnerComponent implements OnInit {
         this.following[product.Id] = true;
         var followProduct = this.userservice.followProduct(product)
             .subscribe((products) => {
-                this.products = products;
+                this.followProduct = products;
                 this.getProducts();
             }, err => {
                 this.errorMessage = err;
@@ -169,7 +170,7 @@ export class OwnerComponent implements OnInit {
 
         var followedProduct = this.userservice.followedProduct()
             .subscribe((products) => {
-                this.products = products;
+                this.FollowedProduct = products;
 
                
             }, err => {

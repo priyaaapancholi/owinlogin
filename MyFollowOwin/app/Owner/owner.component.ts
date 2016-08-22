@@ -13,6 +13,7 @@ import { UserService }from './../users.service';
 export class OwnerLoginComponent /*implements OnInit*/{
     platforms = Platform;
     products: Array<Product>;
+    allProducts: Array<Product>;
     product: Product;
     errorMessage: string;
     constructor(private userservice: UserService) {
@@ -22,7 +23,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
 
     //ngOnInit() {
     //    this.getProducts();
-       
+    //    this.getAllProducts();
     //}
 
     addedProduct: boolean = false;
@@ -43,18 +44,18 @@ export class OwnerLoginComponent /*implements OnInit*/{
 
     allProduct: boolean = false;
     getAllProducts() {
-        this.allProduct = !this.allProduct;
+        this.allProduct = true;
         this.editProduct = false;
         this.addProduct = false;
         this.addedProduct = false;
         var showProduct = this.userservice.getAllProduct()
             .subscribe((products) => {
-                this.products = products
+                this.allProducts = products
             }, err => {
                 this.errorMessage = err;
             });
 
-        //return showProduct;
+        return showProduct;
     }
 
 
@@ -110,6 +111,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.addProduct = !this.addProduct;
         this.editProduct = false;
         this.addedProduct = false;
+        this.allProduct = false;
     }
 
     //addedProduct: boolean = false;
@@ -148,6 +150,39 @@ export class OwnerLoginComponent /*implements OnInit*/{
     //    this.addedProduct = false;
     //    //this.getAllProducts();
     //}
+
+    following: any[] = [];
+    followProducts(product: Product) {
+        this.following[product.Id] = true;
+        var followProduct = this.userservice.followProduct(product)
+            .subscribe((products) => {
+                this.products = products;
+                this.getAllProducts();
+            }, err => {
+                this.errorMessage = err;
+            });
+        
+
+    }
+
+
+
+
+
+
+    unfollowProducts(product: Product) {
+        this.following[product.Id] = false;
+        var unfollowProduct = this.userservice.unfollowProduct(product)
+            .subscribe((products) => {
+                this.products = products;
+                this.getAllProducts();
+            }, err => {
+                this.errorMessage = err;
+            });
+         
+
+    }
+
 
 
 }
