@@ -93,9 +93,9 @@ export class OwnerComponent implements OnInit {
     }
 
 
-    followProducts(product: Product) {
-        this.following[product.Id] = true;
-        var followProduct = this.userService.followProduct(product)
+    followProducts(productId:number) {
+        this.following[productId] = true;
+        var followProduct = this.userService.followProduct(productId)
             .subscribe((products) => {
                 this.followProduct = products;
                 this.getProducts();
@@ -105,9 +105,9 @@ export class OwnerComponent implements OnInit {
     }
 
 
-    unfollowProducts(product: Product) {
-        this.following[product.Id] = false;
-        var unfollowProduct = this.userService.unfollowProduct(product)
+    unfollowProducts(productId: number) {
+        this.following[productId] = false;
+        var unfollowProduct = this.userService.unfollowProduct(productId)
             .subscribe((products) => {
                 this.products = products;
                 this.getProducts();

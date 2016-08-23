@@ -63,10 +63,10 @@ var OwnerComponent = (function () {
             _this.errorMessage = err;
         });
     };
-    OwnerComponent.prototype.followProducts = function (product) {
+    OwnerComponent.prototype.followProducts = function (productId) {
         var _this = this;
-        this.following[product.Id] = true;
-        var followProduct = this.userService.followProduct(product)
+        this.following[productId] = true;
+        var followProduct = this.userService.followProduct(productId)
             .subscribe(function (products) {
             _this.followProduct = products;
             _this.getProducts();
@@ -74,10 +74,10 @@ var OwnerComponent = (function () {
             _this.errorMessage = err;
         });
     };
-    OwnerComponent.prototype.unfollowProducts = function (product) {
+    OwnerComponent.prototype.unfollowProducts = function (productId) {
         var _this = this;
-        this.following[product.Id] = false;
-        var unfollowProduct = this.userService.unfollowProduct(product)
+        this.following[productId] = false;
+        var unfollowProduct = this.userService.unfollowProduct(productId)
             .subscribe(function (products) {
             _this.products = products;
             _this.getProducts();

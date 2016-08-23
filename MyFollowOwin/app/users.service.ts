@@ -30,6 +30,7 @@ export class UserService {
     private ownerUrl = 'api/Owners';
     private productUrl = 'api/Products';
     private followUrl = 'api/Follows';
+    private productUpdateUrl = 'api/ProductUpdates';
     //private owner1Url = 'api/Owners1';
     constructor(private http: Http) { }
 
@@ -59,13 +60,13 @@ export class UserService {
 
 
     /*to follow product(enduser.component.ts)*/
-    followProduct(product: Product) {
+    followProduct(productId: number) {
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
 
         return this.http
-            .post(this.followUrl + '/' + product.Id, JSON.stringify(product.Id), { headers: headers })
+            .post(this.followUrl + '/' + productId, JSON.stringify(productId), { headers: headers })
             .map(res => res.json().data)
     }
 
@@ -79,9 +80,9 @@ export class UserService {
 
 
     /*to unfollow the product i.e whenever user unfollows the product it will be deleted from follow table(enduser.component.ts)*/
-    unfollowProduct(product:Product) {
+    unfollowProduct(productId:number) {
 
-        return this.http.delete(this.followUrl + '/' + product.Id).map(res => res.json().data)  
+        return this.http.delete(this.followUrl + '/' + productId).map(res => res.json().data)  
        
     }
 
@@ -137,6 +138,17 @@ export class UserService {
 
     }
 
+
+    setProductUpdates(product: Product) {
+
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        return this.http
+            .post(this.productUpdateUrl + '/' + product.Id, JSON.stringify(product), { headers: headers })
+            .map(res => res.json().data)
+     }
 
 
 

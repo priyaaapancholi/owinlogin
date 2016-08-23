@@ -31,6 +31,7 @@ var UserService = (function () {
         this.ownerUrl = 'api/Owners';
         this.productUrl = 'api/Products';
         this.followUrl = 'api/Follows';
+        this.productUpdateUrl = 'api/ProductUpdates';
     }
     /*gets owner info in enduser.component.ts*/
     UserService.prototype.getOwner = function () {
@@ -47,12 +48,12 @@ var UserService = (function () {
             .map(function (res) { return res.json().data; });
     };
     /*to follow product(enduser.component.ts)*/
-    UserService.prototype.followProduct = function (product) {
+    UserService.prototype.followProduct = function (productId) {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json'
         });
         return this.http
-            .post(this.followUrl + '/' + product.Id, JSON.stringify(product.Id), { headers: headers })
+            .post(this.followUrl + '/' + productId, JSON.stringify(productId), { headers: headers })
             .map(function (res) { return res.json().data; });
     };
     /*to get the list of products(owner.component.ts)(enduser.component.ts)*/
@@ -60,8 +61,8 @@ var UserService = (function () {
         return this.http.get(this.productUrl).map(function (response) { return response.json(); });
     };
     /*to unfollow the product i.e whenever user unfollows the product it will be deleted from follow table(enduser.component.ts)*/
-    UserService.prototype.unfollowProduct = function (product) {
-        return this.http.delete(this.followUrl + '/' + product.Id).map(function (res) { return res.json().data; });
+    UserService.prototype.unfollowProduct = function (productId) {
+        return this.http.delete(this.followUrl + '/' + productId).map(function (res) { return res.json().data; });
     };
     /*to get the followed products for particular user(enduser.component.ts)*/
     UserService.prototype.followedProduct = function () {
@@ -91,6 +92,14 @@ var UserService = (function () {
     /*to get products list(except its own products)for particular owner(owner.component.ts)*/
     UserService.prototype.getAllProduct = function () {
         return this.http.get(this.productUrl + '/1').map(function (response) { return response.json(); });
+    };
+    UserService.prototype.setProductUpdates = function (product) {
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/json'
+        });
+        return this.http
+            .post(this.productUpdateUrl + '/' + product.Id, JSON.stringify(product), { headers: headers })
+            .map(function (res) { return res.json().data; });
     };
     /*gets owners info i.e info of users that filled a form to become product_owner i.e
    to show the requests of users who want to become a product owner(admin.component.ts)*/

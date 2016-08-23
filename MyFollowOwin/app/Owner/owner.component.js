@@ -118,10 +118,10 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
     //    this.addedProduct = false;
     //    //this.getAllProducts();
     //}
-    OwnerLoginComponent /*implements OnInit*/.prototype.followProducts = function (product) {
+    OwnerLoginComponent /*implements OnInit*/.prototype.followProducts = function (productId) {
         var _this = this;
-        this.following[product.Id] = true;
-        var followProduct = this.userService.followProduct(product)
+        this.following[productId] = true;
+        var followProduct = this.userService.followProduct(productId)
             .subscribe(function (products) {
             _this.products = products;
             _this.getAllProducts();
@@ -129,13 +129,22 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
             _this.errorMessage = err;
         });
     };
-    OwnerLoginComponent /*implements OnInit*/.prototype.unfollowProducts = function (product) {
+    OwnerLoginComponent /*implements OnInit*/.prototype.unfollowProducts = function (productId) {
         var _this = this;
-        this.following[product.Id] = false;
-        var unfollowProduct = this.userService.unfollowProduct(product)
+        this.following[productId] = false;
+        var unfollowProduct = this.userService.unfollowProduct(productId)
             .subscribe(function (products) {
             _this.products = products;
             _this.getAllProducts();
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    OwnerLoginComponent /*implements OnInit*/.prototype.onUpdate = function (product) {
+        var _this = this;
+        var postProductUpdate = this.userService.setProductUpdates(product)
+            .subscribe(function (products) {
+            _this.products = products;
         }, function (err) {
             _this.errorMessage = err;
         });

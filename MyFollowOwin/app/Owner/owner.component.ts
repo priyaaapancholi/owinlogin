@@ -145,9 +145,9 @@ export class OwnerLoginComponent /*implements OnInit*/{
     //}
 
     
-    followProducts(product: Product) {
-        this.following[product.Id] = true;
-        var followProduct = this.userService.followProduct(product)
+    followProducts(productId: number) {
+        this.following[productId] = true;
+        var followProduct = this.userService.followProduct(productId)
             .subscribe((products) => {
                 this.products = products;
                 this.getAllProducts();
@@ -157,9 +157,9 @@ export class OwnerLoginComponent /*implements OnInit*/{
     }
 
 
-    unfollowProducts(product: Product) {
-        this.following[product.Id] = false;
-        var unfollowProduct = this.userService.unfollowProduct(product)
+    unfollowProducts(productId: number) {
+        this.following[productId] = false;
+        var unfollowProduct = this.userService.unfollowProduct(productId)
             .subscribe((products) => {
                 this.products = products;
                 this.getAllProducts();
@@ -170,7 +170,15 @@ export class OwnerLoginComponent /*implements OnInit*/{
 
 
   
-
+    onUpdate(product: Product) {
+       
+        var postProductUpdate = this.userService.setProductUpdates(product)
+            .subscribe((products) => {
+                this.products = products
+            }, err => {
+                this.errorMessage = err;
+            });  
+     }
 
 
 }

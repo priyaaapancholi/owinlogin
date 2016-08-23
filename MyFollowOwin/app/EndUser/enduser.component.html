@@ -75,8 +75,8 @@
                 </td>-->
                 <td>
                     <button class='btn-primary' (click)="viewDetail(product)">View</button>
-                    <button class='btn-primary' [hidden]="following[product.Id]" (click)="followProducts(product)">follow</button>
-                    <button class='btn-primary' [hidden]="!following[product.Id]" (click)="unfollowProducts(product)">unfollow</button>
+                    <button class='btn-primary' [hidden]="following[product.Id]" (click)="followProducts(product.Id)">follow</button>
+                    <button class='btn-primary' [hidden]="!following[product.Id]" (click)="unfollowProducts(product.Id)">unfollow</button>
                 </td>
             </tr>
         </table>

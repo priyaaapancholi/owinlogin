@@ -189,6 +189,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OwnersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ProductUpdatesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,7 +278,6 @@
     <Content Include="Views\Login\ProductOwner.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\ProductUpdate\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -293,10 +293,11 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\Admin\admin.component.ts" />
+    <TypeScriptCompile Include="app\EndUser\enduser.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\Follow\follow.ts" />
-    <TypeScriptCompile Include="app\EndUser\enduser.component.ts" />
     <TypeScriptCompile Include="app\Owner\owner.component.ts" />
+    <TypeScriptCompile Include="app\ProductUpdate\productupdate.ts" />
     <TypeScriptCompile Include="app\Product\product.ts" />
     <TypeScriptCompile Include="app\users.service.ts" />
     <TypeScriptCompile Include="app\Owner\owner.ts" />
