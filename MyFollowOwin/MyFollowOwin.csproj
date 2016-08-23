@@ -277,6 +277,7 @@
     <Content Include="Views\Login\ProductOwner.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\ProductUpdate\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

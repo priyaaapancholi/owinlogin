@@ -31,33 +31,32 @@ export class OwnerComponent implements OnInit {
     follows: Array<Follow>;
     follow: Follow;
 
+    beOwner: boolean = false;
+    addedProduct: boolean = false;
+    following: any[] = [];
+    followedProduct: boolean = false;
     errorMessage: string;
-    constructor(private userservice: UserService) {
+
+    constructor(private userService: UserService) {
         this.owners = new Array<Owner>();
         this.owner = new Owner();
     }
 
     ngOnInit() {
-        this.getOwners();
+        //this.getOwners();
         this.getProducts();
     }
 
-    getOwners() {
-        var displayOwner = this.userservice.getOwner()
-            .subscribe((owners) => {
-                this.owners = owners
-            }, err => {
-                this.errorMessage = err;
-            });
-
-        return displayOwner;
-    }
+    //getOwners() {
+    //    var displayOwner = this.userService.getOwner()
+    //        .subscribe((owners) => {
+    //            this.owners = owners
+    //        }, err => {
+    //            this.errorMessage = err;
+    //        });
+    //}
 
 
-
-
-
-    beOwner: boolean = false;
     showForm(): void {
         this.beOwner = !this.beOwner;
         this.addedProduct = false;
@@ -65,9 +64,6 @@ export class OwnerComponent implements OnInit {
     }
 
 
-
-
-    addedProduct: boolean = false;
     showProduct(): void {
         this.addedProduct = !this.addedProduct;
         this.beOwner = false;
@@ -76,103 +72,59 @@ export class OwnerComponent implements OnInit {
     }
 
 
-
-
-
-
-
-
-
     onSubmit(owner: Owner) {
-
-
-        var postOwner = this.userservice.setOwner(this.owner)
+           var postOwner = this.userService.setOwner(this.owner)
             .subscribe((owners) => {
                 this.owners = owners
             }, err => {
                 this.errorMessage = err;
             });
-
+          
     }
 
 
-
     getProducts() {
-        var displayProduct = this.userservice.getProduct()
+        var displayProduct = this.userService.getProduct()
             .subscribe((products) => {
                 this.products = products
             }, err => {
                 this.errorMessage = err;
             });
-
-        return displayProduct;
     }
 
 
-    following: any[] = [];
     followProducts(product: Product) {
         this.following[product.Id] = true;
-        var followProduct = this.userservice.followProduct(product)
+        var followProduct = this.userService.followProduct(product)
             .subscribe((products) => {
                 this.followProduct = products;
                 this.getProducts();
             }, err => {
                 this.errorMessage = err;
             });
-        // 
-
     }
-
-
-
-
 
 
     unfollowProducts(product: Product) {
         this.following[product.Id] = false;
-        var unfollowProduct = this.userservice.unfollowProduct(product)
+        var unfollowProduct = this.userService.unfollowProduct(product)
             .subscribe((products) => {
                 this.products = products;
                 this.getProducts();
             }, err => {
                 this.errorMessage = err;
             });
-        // 
-
     }
 
 
-
-
-
-
-    //followedProduct: boolean = false;
-    //followedProducts() {
-    //   this.followedProduct = !this.followedProduct;
-    //   this.beOwner = false;
-    //   this.addedProduct = false;
-
-    //    var followedProduct = this.userservice.followedProduct()
-    //        .subscribe((follows) => {
-    //            this.follows = follows;
-
-    //        }, err => {
-    //            this.errorMessage = err;
-    //        });
-
-
-    //}
-    followedProduct: boolean = false;
     followedProducts() {
         this.followedProduct = !this.followedProduct;
         this.beOwner = false;
         this.addedProduct = false;
 
-        var followedProduct = this.userservice.followedProduct()
+        var followedProduct = this.userService.followedProduct()
             .subscribe((products) => {
                 this.FollowedProduct = products;
-
-               
             }, err => {
                 this.errorMessage = err;
             });

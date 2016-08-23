@@ -12,11 +12,19 @@ import { UserService }from './../users.service';
 
 export class OwnerLoginComponent /*implements OnInit*/{
     platforms = Platform;
+
     products: Array<Product>;
     allProducts: Array<Product>;
     product: Product;
+
+    addedProduct: boolean = false;
+    allProduct: boolean = false;
+    addProduct: boolean = false;
+    editProduct: boolean = false;
+    following: any[] = [];
     errorMessage: string;
-    constructor(private userservice: UserService) {
+
+    constructor(private userService: UserService) {
         this.products = new Array<Product>();
         this.product = new Product();
     }
@@ -26,93 +34,79 @@ export class OwnerLoginComponent /*implements OnInit*/{
     //    this.getAllProducts();
     //}
 
-    addedProduct: boolean = false;
+    
     getProducts() {
         this.addedProduct = !this.addedProduct;
         this.editProduct = false;
         this.addProduct = false;
         this.allProduct = false;
-        var displayProduct = this.userservice.getProduct()
+        var displayProduct = this.userService.getProduct()
             .subscribe((products) => {
                 this.products = products
             }, err => {
                 this.errorMessage = err;
             });
 
-        return displayProduct;
+        //return displayProduct;
     }
 
-    allProduct: boolean = false;
+    
     getAllProducts() {
         this.allProduct = true;
         this.editProduct = false;
         this.addProduct = false;
         this.addedProduct = false;
-        var showProduct = this.userservice.getAllProduct()
+        var showProduct = this.userService.getAllProduct()
             .subscribe((products) => {
                 this.allProducts = products
             }, err => {
                 this.errorMessage = err;
             });
 
-        return showProduct;
+        //return showProduct;
     }
-
-
-    
-    
 
 
     onSubmit(product: Product) {
         this.addProduct = false;
-        var postProduct = this.userservice.setProduct(this.product)
+        var postProduct = this.userService.setProduct(this.product)
             .subscribe((products) => {
                 this.products = products
             }, err => {
                 this.errorMessage = err;
             });
-
     }
 
 
     onDelete(product: Product) {
 
-        return this.userservice.deleteProduct(product)
+        return this.userService.deleteProduct(product)
             .subscribe((products) => {
                 this.products = products
             }, err => {
                 this.errorMessage = err;
             });
-
-        
     }
-
 
 
     onEdit(product: Product) {
 
-        return this.userservice.editProduct(product)
+        return this.userService.editProduct(product)
             .subscribe((products) => {
                 this.products = products
             }, err => {
                 this.errorMessage = err;
             });
-
-
     }
 
 
-
-
-
-
-    addProduct: boolean = false;
-    showForm(): void {
+   showForm(): void {
         this.addProduct = !this.addProduct;
         this.editProduct = false;
         this.addedProduct = false;
         this.allProduct = false;
     }
+
 
     //addedProduct: boolean = false;
     //showProduct(): void {
@@ -123,7 +117,6 @@ export class OwnerLoginComponent /*implements OnInit*/{
     //}
 
 
-    editProduct: boolean = false;
     editForm(product: Product): void {
         this.product = product;
         this.editProduct = !this.editProduct;
@@ -151,37 +144,32 @@ export class OwnerLoginComponent /*implements OnInit*/{
     //    //this.getAllProducts();
     //}
 
-    following: any[] = [];
+    
     followProducts(product: Product) {
         this.following[product.Id] = true;
-        var followProduct = this.userservice.followProduct(product)
+        var followProduct = this.userService.followProduct(product)
             .subscribe((products) => {
                 this.products = products;
                 this.getAllProducts();
             }, err => {
                 this.errorMessage = err;
             });
-        
-
     }
-
-
-
-
 
 
     unfollowProducts(product: Product) {
         this.following[product.Id] = false;
-        var unfollowProduct = this.userservice.unfollowProduct(product)
+        var unfollowProduct = this.userService.unfollowProduct(product)
             .subscribe((products) => {
                 this.products = products;
                 this.getAllProducts();
             }, err => {
                 this.errorMessage = err;
             });
-         
-
     }
+
+
+  
 
 
 

@@ -5,22 +5,22 @@ import { Owner }          from './Owner/owner';
 import { Product }          from './Product/product';
 import { ApplicationUser }  from './EndUser/applicationuser';
 import { Follow }          from './Follow/follow';
-
+import 'rxjs/add/operator/map';
 
 
 // import 'rxjs/Rx'; // adds ALL RxJS statics & operators to Observable
 // See node_module/rxjs/Rxjs.js
 // Import just the rxjs statics and operators we need for THIS app.
 // Statics
-import 'rxjs/add/observable/throw';
+//import 'rxjs/add/observable/throw';
 
-// Operators
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/toPromise';
+//// Operators
+//import 'rxjs/add/operator/catch';
+//import 'rxjs/add/operator/debounceTime';
+//import 'rxjs/add/operator/distinctUntilChanged';
+
+//import 'rxjs/add/operator/switchMap';
+//import 'rxjs/add/operator/toPromise';
 
 
 
@@ -100,6 +100,7 @@ export class UserService {
 
 
 
+
     /*to add new product in database(owner.component.ts)*/
     setProduct(product: Product) {
         let headers = new Headers({
@@ -129,7 +130,7 @@ export class UserService {
     }
 
 
-    /**/
+    /*to get products list(except its own products)for particular owner(owner.component.ts)*/
     getAllProduct() {
 
         return this.http.get(this.productUrl + '/1').map(response => response.json());
@@ -156,7 +157,7 @@ export class UserService {
 
     /*to update owners state i.e once approve button is clicked end user will become a product owner and its role will be changed automatically.
     (admin.component.ts)*/
-    UpdateOwnerState(owner: ApplicationUser) {
+    updateOwnerState(owner: ApplicationUser) {
         let headers = new Headers({
             'Content-Type': 'application/json',
         });
@@ -186,28 +187,4 @@ export class UserService {
 
 
 
- //putOwner(owner: Owner) {
-    //    let headers = new Headers({
-    //        'Content-Type': 'application/json'
-    //    });
-
-    //    return this.http
-    //        .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
-    //        .map(res => res.json().data)
-    //}
-
-
-    //putOwner(owner: Owner) {
-    //    let headers = new Headers({
-    //        'Content-Type': 'application/json'
-    //    });
-
-    //    return this.http.put(this.ownerUrl, JSON.stringify(owner), { headers: headers })
-    //      .map(res => res.json().data)
-    //}
-
-
-    //private extractData(res: Response) {
-    //    let body = res.json();
-    //    return body.data || {};
-    //}
+ 

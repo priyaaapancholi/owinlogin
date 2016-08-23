@@ -13,42 +13,28 @@ var owner_1 = require('./../Owner/owner');
 var product_1 = require('./../Product/product');
 var users_service_1 = require('./../users.service');
 var OwnerComponent = (function () {
-    function OwnerComponent(userservice) {
-        this.userservice = userservice;
+    function OwnerComponent(userService) {
+        this.userService = userService;
         this.platforms = product_1.Platform;
         this.beOwner = false;
         this.addedProduct = false;
         this.following = [];
-        //followedProduct: boolean = false;
-        //followedProducts() {
-        //   this.followedProduct = !this.followedProduct;
-        //   this.beOwner = false;
-        //   this.addedProduct = false;
-        //    var followedProduct = this.userservice.followedProduct()
-        //        .subscribe((follows) => {
-        //            this.follows = follows;
-        //        }, err => {
-        //            this.errorMessage = err;
-        //        });
-        //}
         this.followedProduct = false;
         this.owners = new Array();
         this.owner = new owner_1.Owner();
     }
     OwnerComponent.prototype.ngOnInit = function () {
-        this.getOwners();
+        //this.getOwners();
         this.getProducts();
     };
-    OwnerComponent.prototype.getOwners = function () {
-        var _this = this;
-        var displayOwner = this.userservice.getOwner()
-            .subscribe(function (owners) {
-            _this.owners = owners;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
-        return displayOwner;
-    };
+    //getOwners() {
+    //    var displayOwner = this.userService.getOwner()
+    //        .subscribe((owners) => {
+    //            this.owners = owners
+    //        }, err => {
+    //            this.errorMessage = err;
+    //        });
+    //}
     OwnerComponent.prototype.showForm = function () {
         this.beOwner = !this.beOwner;
         this.addedProduct = false;
@@ -61,7 +47,7 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.onSubmit = function (owner) {
         var _this = this;
-        var postOwner = this.userservice.setOwner(this.owner)
+        var postOwner = this.userService.setOwner(this.owner)
             .subscribe(function (owners) {
             _this.owners = owners;
         }, function (err) {
@@ -70,44 +56,41 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.getProducts = function () {
         var _this = this;
-        var displayProduct = this.userservice.getProduct()
+        var displayProduct = this.userService.getProduct()
             .subscribe(function (products) {
             _this.products = products;
         }, function (err) {
             _this.errorMessage = err;
         });
-        return displayProduct;
     };
     OwnerComponent.prototype.followProducts = function (product) {
         var _this = this;
         this.following[product.Id] = true;
-        var followProduct = this.userservice.followProduct(product)
+        var followProduct = this.userService.followProduct(product)
             .subscribe(function (products) {
             _this.followProduct = products;
             _this.getProducts();
         }, function (err) {
             _this.errorMessage = err;
         });
-        // 
     };
     OwnerComponent.prototype.unfollowProducts = function (product) {
         var _this = this;
         this.following[product.Id] = false;
-        var unfollowProduct = this.userservice.unfollowProduct(product)
+        var unfollowProduct = this.userService.unfollowProduct(product)
             .subscribe(function (products) {
             _this.products = products;
             _this.getProducts();
         }, function (err) {
             _this.errorMessage = err;
         });
-        // 
     };
     OwnerComponent.prototype.followedProducts = function () {
         var _this = this;
         this.followedProduct = !this.followedProduct;
         this.beOwner = false;
         this.addedProduct = false;
-        var followedProduct = this.userservice.followedProduct()
+        var followedProduct = this.userService.followedProduct()
             .subscribe(function (products) {
             _this.FollowedProduct = products;
         }, function (err) {

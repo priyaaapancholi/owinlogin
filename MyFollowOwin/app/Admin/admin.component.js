@@ -12,9 +12,8 @@ var core_1 = require('@angular/core');
 var applicationuser_1 = require('./../EndUser/applicationuser');
 var users_service_1 = require('./../users.service');
 var AdminComponent = (function () {
-    function AdminComponent(userservice) {
-        this.userservice = userservice;
-        this.Click = false;
+    function AdminComponent(userService) {
+        this.userService = userService;
         this.owners = new Array();
         this.owner = new applicationuser_1.ApplicationUser();
     }
@@ -23,34 +22,31 @@ var AdminComponent = (function () {
     };
     AdminComponent.prototype.getOwnersDetail = function () {
         var _this = this;
-        var displayInfo = this.userservice.getOwnerInfo()
+        var displayInfo = this.userService.getOwnerInfo()
             .subscribe(function (owners) {
             _this.owners = owners;
             //console.log(owners);
         }, function (err) {
             _this.errorMessage = err;
         });
-        return displayInfo;
     };
-    AdminComponent.prototype.UpdateOwnerData = function () {
+    AdminComponent.prototype.updateOwnerData = function () {
         var _this = this;
-        this.userservice.UpdateOwnerState(this.owner)
-            .subscribe(function (owners) {
-            _this.owners = owners;
+        this.userService.updateOwnerState(this.owner)
+            .subscribe(function (owner) {
+            _this.owners = owner;
         }, function (err) {
             _this.errorMessage = err;
         });
     };
-    AdminComponent.prototype.Approve = function (ownerId) {
-        this.Click = true;
+    AdminComponent.prototype.approve = function (ownerId) {
         this.owner.Id = ownerId;
-        //this.owner.OwnerStates = 1;
-        this.UpdateOwnerData();
+        this.updateOwnerData();
     };
     AdminComponent = __decorate([
         core_1.Component({
             selector: 'my-admin',
-            templateUrl: 'app/Owner/admin.component.html',
+            templateUrl: 'app/Admin/admin.component.html',
             providers: [users_service_1.UserService]
         }), 
         __metadata('design:paramtypes', [users_service_1.UserService])

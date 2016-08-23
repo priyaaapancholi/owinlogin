@@ -5,7 +5,7 @@ import { UserService }from './../users.service';
 
 @Component({
     selector: 'my-admin',
-    templateUrl: 'app/Owner/admin.component.html',
+    templateUrl: 'app/Admin/admin.component.html',
     providers: [UserService]
 })
 
@@ -14,7 +14,8 @@ export class AdminComponent implements OnInit {
     owners: Array<ApplicationUser>;
     owner: ApplicationUser;
     errorMessage: string;
-    constructor(private userservice: UserService) {
+
+    constructor(private userService: UserService) {
         this.owners = new Array<ApplicationUser>();
         this.owner = new ApplicationUser();
     }
@@ -24,24 +25,22 @@ export class AdminComponent implements OnInit {
        
     }
 
+
     getOwnersDetail() {
-     var displayInfo= this.userservice.getOwnerInfo()
+     var displayInfo= this.userService.getOwnerInfo()
             .subscribe((owners) => {
                 this.owners = owners
                 //console.log(owners);
             }, err => {
                 this.errorMessage = err;
             });
-             
-        return displayInfo;
      }
 
 
-
-    UpdateOwnerData() {
-        this.userservice.UpdateOwnerState(this.owner)
-            .subscribe((owners) => {
-                this.owners = owners
+     updateOwnerData() {
+        this.userService.updateOwnerState(this.owner)
+            .subscribe((owner) => {
+                this.owners = owner
             },
             err => {
                 this.errorMessage = err;
@@ -49,12 +48,10 @@ export class AdminComponent implements OnInit {
     }
 
 
-    Click: boolean = false;
-    Approve(ownerId: number) {
-        this.Click= true;
+   
+    approve(ownerId: number) {
         this.owner.Id = ownerId;
-        //this.owner.OwnerStates = 1;
-        this.UpdateOwnerData();
+        this.updateOwnerData();
     }
 
 

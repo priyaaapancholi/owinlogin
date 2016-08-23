@@ -20,9 +20,9 @@
         <div class="form-horizontal">
             <form *ngIf="beOwner" #addOwnerForm="ngForm" class="form-horizontal">
                 <b>CompanyName:</b><input class="form-control" type="text" #CompanyName="ngForm" ngControl="CompanyName" [(ngModel)]="owner.CompanyName" required /><br />
-                <b>WebsiteUrl:</b><input class="form-control" type="text" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" required /><br />
-                <b>FoundedYear:</b><input class="form-control" type="number" #FoundedYear="ngForm" ngControl="FoundedYear" [(ngModel)]="owner.FoundedYear" required /><br />
-                <b>Description:</b><input class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="owner.Description" required /><br /><br />
+                <b>WebsiteUrl:</b><input class="form-control" type="text" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" required/><br />
+                <b>FoundedYear:</b><input class="form-control" type="number" #FoundedYear="ngForm" ngControl="FoundedYear" [(ngModel)]="owner.FoundedYear" required/><br />
+                <b>Description:</b><input class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="owner.Description" required/><br /><br />
 
                 <button class='btn-primary' (click)="onSubmit(owner)">submit</button>
             </form>
@@ -77,9 +77,6 @@
                     <button class='btn-primary' (click)="viewDetail(product)">View</button>
                     <button class='btn-primary' [hidden]="following[product.Id]" (click)="followProducts(product)">follow</button>
                     <button class='btn-primary' [hidden]="!following[product.Id]" (click)="unfollowProducts(product)">unfollow</button>
-                    
-                     <!--<button class='btn-primary' (click)="onUnfollow(product)">UnFollow</button>-->
-
                 </td>
             </tr>
         </table>
