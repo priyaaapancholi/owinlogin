@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var product_1 = require('./../Product/product');
 var users_service_1 = require('./../users.service');
+var productupdate_1 = require('./../ProductUpdate/productupdate');
 var OwnerLoginComponent /*implements OnInit*/ = (function () {
     function OwnerLoginComponent /*implements OnInit*/(userService) {
         this.userService = userService;
@@ -20,10 +21,12 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         this.addProduct = false;
         this.editProduct = false;
         this.deleteProduct = false;
-        //updateProduct: boolean = false;
+        this.updateProduct = false;
         this.following = [];
         this.products = new Array();
         this.product = new product_1.Product();
+        this.productUpdate = new productupdate_1.ProductUpdate();
+        this.productUpdates = new Array();
     }
     //ngOnInit() {
     //    this.getProducts();
@@ -134,6 +137,25 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
             .subscribe(function (products) {
             _this.products = products;
             _this.getAllProducts();
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    OwnerLoginComponent /*implements OnInit*/.prototype.onUpdate = function (productId) {
+        this.pid = productId;
+        this.updateProduct = !this.updateProduct;
+        //this.productUpdate.ProductId = productId;
+        this.editProduct = false;
+        //this.addedProduct = false;
+        this.addProduct = false;
+        this.allProduct = false;
+    };
+    OwnerLoginComponent /*implements OnInit*/.prototype.updateForm = function (productUpdate) {
+        var _this = this;
+        productUpdate.ProductId = this.pid;
+        this.userService.updateProduct(productUpdate)
+            .subscribe(function (productUpdates) {
+            _this.productUpdates = productUpdates;
         }, function (err) {
             _this.errorMessage = err;
         });

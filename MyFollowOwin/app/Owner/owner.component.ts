@@ -14,25 +14,29 @@ import { ProductUpdate }from './../ProductUpdate/productupdate';
 export class OwnerLoginComponent /*implements OnInit*/{
     platforms = Platform;
 
+    product: Product;
     products: Array<Product>;
     allProducts: Array<Product>;
-    product: Product;
+    
 
     productUpdate: ProductUpdate;
     productUpdates: Array<ProductUpdate>;
-
+    
     addedProduct: boolean = false;
     allProduct: boolean = false;
     addProduct: boolean = false;
     editProduct: boolean = false;
     deleteProduct: boolean = false;
-    //updateProduct: boolean = false;
+    updateProduct: boolean = false;
+    pid: number;
     following: any[] = [];
     errorMessage: string;
 
     constructor(private userService: UserService) {
         this.products = new Array<Product>();
         this.product = new Product();
+        this.productUpdate = new ProductUpdate();
+        this.productUpdates = new Array<ProductUpdate>();
     }
 
     //ngOnInit() {
@@ -46,9 +50,11 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.editProduct = false;
         this.addProduct = false;
         this.allProduct = false;
+       
         var displayProduct = this.userService.getProduct()
             .subscribe((products) => {
                 this.products = products
+                
             }, err => {
                 this.errorMessage = err;
             });
@@ -90,13 +96,16 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.editProduct = false;
         this.addProduct = false;
         this.allProduct = false;
-       
+        
+        
         return this.userService.deleteProduct(productId)
             .subscribe((products) => {
                 this.products = products
             }, err => {
                 this.errorMessage = err;
             });
+
+        
     }
 
 
@@ -173,27 +182,30 @@ export class OwnerLoginComponent /*implements OnInit*/{
     }
 
 
-  
-    //onUpdate(productId: number) {
-    //    this.product.Id = productId;
-    //    this.editProduct = false;
-    //    //this.addedProduct = false;
-    //    this.addProduct = false;
-    //    this.allProduct = false;
-    //    this.updateProduct = !this.updateProduct;
+    
+    onUpdate(productId: number) {
+        this.pid = productId;
+        this.updateProduct = !this.updateProduct;
+        //this.productUpdate.ProductId = productId;
+        this.editProduct = false;
+        //this.addedProduct = false;
+        this.addProduct = false;
+        this.allProduct = false;
        
-    //}
+       
+    }
 
+    
+    updateForm(productUpdate: ProductUpdate) {
 
-    //updateForm(product: Product) {
+        productUpdate.ProductId = this.pid;
+        this.userService.updateProduct(productUpdate)
+            .subscribe((productUpdates) => {
+                this.productUpdates = productUpdates
+            }, err => {
+                this.errorMessage = err;
+            });
 
-    //    return this.userService.updateProduct(product)
-    //        .subscribe((products) => {
-    //            this.products = products
-    //        }, err => {
-    //            this.errorMessage = err;
-    //        });
-
-    //}
+    }
 
 }

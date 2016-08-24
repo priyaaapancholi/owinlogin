@@ -1,5 +1,4 @@
 "use strict";
-//export enum Platform { Mobile, IOT, Web }
 var ProductUpdate = (function () {
     function ProductUpdate() {
     }

@@ -47,6 +47,7 @@ namespace MyFollowOwin.Controllers
                     return db.Products.ToList();
                 }
             }
+
             return products.AsQueryable();
         }
        

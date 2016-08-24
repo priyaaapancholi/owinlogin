@@ -13,17 +13,17 @@ var http_1 = require('@angular/http');
 var Observable_1 = require('rxjs/Observable');
 var owner_1 = require('./Owner/owner');
 require('rxjs/add/operator/map');
-// import 'rxjs/Rx'; // adds ALL RxJS statics & operators to Observable
-// See node_module/rxjs/Rxjs.js
-// Import just the rxjs statics and operators we need for THIS app.
+require('rxjs/Rx'); // adds ALL RxJS statics & operators to Observable
+//See node_module/rxjs/Rxjs.js
+//Import just the rxjs statics and operators we need for THIS app.
 // Statics
-//import 'rxjs/add/observable/throw';
-//// Operators
-//import 'rxjs/add/operator/catch';
-//import 'rxjs/add/operator/debounceTime';
-//import 'rxjs/add/operator/distinctUntilChanged';
-//import 'rxjs/add/operator/switchMap';
-//import 'rxjs/add/operator/toPromise';
+require('rxjs/add/observable/throw');
+// Operators
+require('rxjs/add/operator/catch');
+require('rxjs/add/operator/debounceTime');
+require('rxjs/add/operator/distinctUntilChanged');
+require('rxjs/add/operator/switchMap');
+require('rxjs/add/operator/toPromise');
 var UserService = (function () {
     //private owner1Url = 'api/Owners1';
     function UserService(http) {
@@ -93,14 +93,16 @@ var UserService = (function () {
     UserService.prototype.getAllProduct = function () {
         return this.http.get(this.productUrl + '/1').map(function (response) { return response.json(); });
     };
-    //updateProduct(product: Product) {
-    //    let headers = new Headers({
-    //        'Content-Type': 'application/json'
-    //    });
-    //    return this.http
-    //        .post(this.productUpdateUrl + '/' + product.Id, JSON.stringify(product), { headers: headers })
-    //        .map(res => res.json().data)
-    // }
+    /*to post the updates on productupdate table(owner.component.ts)*/
+    UserService.prototype.updateProduct = function (productUpdate) {
+        alert("I am here");
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/json'
+        });
+        return this.http
+            .post(this.productUpdateUrl, JSON.stringify(productUpdate), { headers: headers })
+            .map(function (res) { return res.json().data; });
+    };
     /*gets owners info i.e info of users that filled a form to become product_owner i.e
    to show the requests of users who want to become a product owner(admin.component.ts)*/
     UserService.prototype.getOwnerInfo = function () {

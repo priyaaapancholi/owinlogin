@@ -84,7 +84,7 @@
                 <td>
                     <button class='btn-primary' (click)="onEdit(product)">Edit</button>
                     <button class='btn-primary' (click)="onDelete(product.Id)">Delete</button>
-                   
+                    <button class='btn-primary' (click)="onUpdate(product.Id)">Update</button>
                 </td>
             </tr>
         </table>
@@ -197,18 +197,31 @@
 
     <!--<div>
 
-        <form *ngIf="updateProduct" #addProduct="ngForm" class="form-horizontal">
+        <form *ngIf="updateProduct" #productUpdate="ngForm" class="form-horizontal">
 
            
-            <label>Detail:</label><textarea class="form-control" type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="update.Detail" required></textarea>
-            <label>Media:</label><input class="form-control" type="text" #Media="ngForm" ngControl="Media" [(ngModel)]="update.Media" required />
-            <label>Introduction:</label><textarea class="form-control" type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="update.Introduction" required></textarea><br/>
-            <button class='btn-primary' (click)="updateForm(update)">Update</button>
+            <label>Detail:</label><input class="form-control" type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="productUpdate.Detail" required/>
+            <label>Media:</label><input class="form-control" type="text" #Media="ngForm" ngControl="Media" [(ngModel)]="productUpdate.Media" required />
+            <label>Introduction:</label><input class="form-control" type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="productUpdate.Introduction" required/><br/>
+            <button class='btn-primary' (click)="updateForm(productUpdate)">Update</button>
         </form>
 
 
 
     </div>-->
+
+
+    
+    <div class="form-group">
+        <div class="form-horizontal">
+            <form *ngIf="updateProduct" #addUpdate="ngForm" class="form-horizontal">
+                <label>Detail:</label><input class="form-control" #Detail="ngForm" type="text" ngControl="Detail" [(ngModel)]="productUpdate.Detail" required />    
+                <label>Media:</label><input  class="form-control" type="text" #Media="ngForm" ngControl="Media" [(ngModel)]="productUpdate.Media" required />
+                <label>Introduction:</label><input class="form-control" type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="productUpdate.Introduction" required />             
+                <button class='btn-primary' (click)="updateForm(productUpdate)">Update</button>
+            </form>
+        </div>
+    </div>
 
 
    

@@ -3,24 +3,25 @@ import { Http, Response, Headers} from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import { Owner }          from './Owner/owner';
 import { Product }          from './Product/product';
+import { ProductUpdate }          from './ProductUpdate/productupdate';
 import { ApplicationUser }  from './EndUser/applicationuser';
 import { Follow }          from './Follow/follow';
 import 'rxjs/add/operator/map';
 
 
-// import 'rxjs/Rx'; // adds ALL RxJS statics & operators to Observable
-// See node_module/rxjs/Rxjs.js
-// Import just the rxjs statics and operators we need for THIS app.
+ import 'rxjs/Rx'; // adds ALL RxJS statics & operators to Observable
+ //See node_module/rxjs/Rxjs.js
+ //Import just the rxjs statics and operators we need for THIS app.
 // Statics
-//import 'rxjs/add/observable/throw';
+import 'rxjs/add/observable/throw';
 
-//// Operators
-//import 'rxjs/add/operator/catch';
-//import 'rxjs/add/operator/debounceTime';
-//import 'rxjs/add/operator/distinctUntilChanged';
+// Operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
-//import 'rxjs/add/operator/switchMap';
-//import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/toPromise';
 
 
 
@@ -139,30 +140,17 @@ export class UserService {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //updateProduct(product: Product) {
-
-    //    let headers = new Headers({
-    //        'Content-Type': 'application/json'
-    //    });
-
-    //    return this.http
-    //        .post(this.productUpdateUrl + '/' + product.Id, JSON.stringify(product), { headers: headers })
-    //        .map(res => res.json().data)
-    // }
+    /*to post the updates on productupdate table(owner.component.ts)*/
+    updateProduct(productUpdate: ProductUpdate) {
+        alert("I am here");
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+        
+        return this.http
+            .post(this.productUpdateUrl, JSON.stringify(productUpdate), { headers: headers })
+            .map(res => res.json().data)
+     }
 
 
 
@@ -215,6 +203,11 @@ export class UserService {
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
     }
+
+
+     
+
+
 }
 
 

@@ -11,7 +11,6 @@ namespace MyFollowOwin.Models
     public class ProductUpdate
     {
         [Key]
-        [Required]
         public int ProductUpdateId { get; set; }
 
         [Required]

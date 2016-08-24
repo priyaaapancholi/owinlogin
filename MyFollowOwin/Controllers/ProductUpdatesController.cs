@@ -72,10 +72,9 @@ namespace MyFollowOwin.Controllers
 
         // POST: api/ProductUpdates
         [ResponseType(typeof(ProductUpdate))]
-        public IHttpActionResult PostProductUpdate([FromBody]int productId)
+        public IHttpActionResult PostProductUpdate(ProductUpdate productUpdate)
         {
-            ProductUpdate productUpdate = new ProductUpdate();
-            if (!ModelState.IsValid)
+             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
