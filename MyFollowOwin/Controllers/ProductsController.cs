@@ -170,13 +170,12 @@ namespace MyFollowOwin.Controllers
         [Route]
         [HttpPost]
         public IHttpActionResult PostProduct(Product product)
-        {
-            DateTime Now = DateTime.Now;
+        { 
             var id = User.Identity.GetUserId();
             ApplicationUser user = db.Users.Find(id);
             product.UserId = user.Id;
-            product.CreatedDate = Now;
-            product.LastModifiedDate = Now;
+            product.CreatedDate = DateTime.Now; 
+            product.LastModifiedDate = DateTime.Now; 
            
             if (!ModelState.IsValid)
             {
@@ -227,7 +226,7 @@ namespace MyFollowOwin.Controllers
 
        // DELETE: api/Products/5
         [ResponseType(typeof(Product))]
-        public IHttpActionResult DeleteProduct(string id)
+        public IHttpActionResult DeleteProduct(int id)
         {
             
             Product product = db.Products.Find(id);

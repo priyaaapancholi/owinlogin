@@ -16,64 +16,65 @@ namespace MyFollowOwin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/ProductUpdates
-        public IQueryable<ProductUpdate> GetProductUpdates()
-        {
-            return db.ProductUpdates;
-        }
+        //// GET: api/ProductUpdates
+        //public IQueryable<ProductUpdate> GetProductUpdates()
+        //{
+        //    return db.ProductUpdates;
+        //}
 
-        // GET: api/ProductUpdates/5
-        [ResponseType(typeof(ProductUpdate))]
-        public IHttpActionResult GetProductUpdate(int id)
-        {
-            ProductUpdate productUpdate = db.ProductUpdates.Find(id);
-            if (productUpdate == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/ProductUpdates/5
+        //[ResponseType(typeof(ProductUpdate))]
+        //public IHttpActionResult GetProductUpdate(int id)
+        //{
+        //    ProductUpdate productUpdate = db.ProductUpdates.Find(id);
+        //    if (productUpdate == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(productUpdate);
-        }
+        //    return Ok(productUpdate);
+        //}
 
-        // PUT: api/ProductUpdates/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutProductUpdate(int id, ProductUpdate productUpdate)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/ProductUpdates/5
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutProductUpdate(int id, ProductUpdate productUpdate)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != productUpdate.ProductUpdateId)
-            {
-                return BadRequest();
-            }
+        //    if (id != productUpdate.ProductUpdateId)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(productUpdate).State = EntityState.Modified;
+        //    db.Entry(productUpdate).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductUpdateExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!ProductUpdateExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/ProductUpdates
         [ResponseType(typeof(ProductUpdate))]
-        public IHttpActionResult PostProductUpdate(ProductUpdate productUpdate)
+        public IHttpActionResult PostProductUpdate([FromBody]int productId)
         {
+            ProductUpdate productUpdate = new ProductUpdate();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -85,30 +86,30 @@ namespace MyFollowOwin.Controllers
             return CreatedAtRoute("DefaultApi", new { id = productUpdate.ProductUpdateId }, productUpdate);
         }
 
-        // DELETE: api/ProductUpdates/5
-        [ResponseType(typeof(ProductUpdate))]
-        public IHttpActionResult DeleteProductUpdate(int id)
-        {
-            ProductUpdate productUpdate = db.ProductUpdates.Find(id);
-            if (productUpdate == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/ProductUpdates/5
+        //[ResponseType(typeof(ProductUpdate))]
+        //public IHttpActionResult DeleteProductUpdate(int id)
+        //{
+        //    ProductUpdate productUpdate = db.ProductUpdates.Find(id);
+        //    if (productUpdate == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.ProductUpdates.Remove(productUpdate);
-            db.SaveChanges();
+        //    db.ProductUpdates.Remove(productUpdate);
+        //    db.SaveChanges();
 
-            return Ok(productUpdate);
-        }
+        //    return Ok(productUpdate);
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
         private bool ProductUpdateExists(int id)
         {

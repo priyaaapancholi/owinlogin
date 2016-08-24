@@ -39,15 +39,15 @@ export class UserService {
 
 
 
-    /*gets owner info in enduser.component.ts*/
-    getOwner() {
-        return this.http.get(this.ownerUrl)
-            .map(response => response.json());
+    ///*gets owner info in enduser.component.ts*/
+    //getOwner() {
+    //    return this.http.get(this.ownerUrl)
+    //        .map(response => response.json());
        
-    }
+    //}
 
 
-    /*post owner details in existing application user database(enduser.component.ts)*/
+    /*post owner details in existing applicationuser database table(enduser.component.ts)*/
     setOwner(owner: Owner) {
         let headers = new Headers({
             'Content-Type': 'application/json'
@@ -115,9 +115,9 @@ export class UserService {
 
 
     /*to delete added product(owner.component.ts)*/
-    deleteProduct(product: Product) {
+    deleteProduct(productId: number) {
 
-        return this.http.delete(this.productUrl + '/' + product.Id).map(res => res.json());
+        return this.http.delete(this.productUrl + '/' + productId).map(res => res.json());
     }
 
 
@@ -139,16 +139,39 @@ export class UserService {
     }
 
 
-    setProductUpdates(product: Product) {
 
-        let headers = new Headers({
-            'Content-Type': 'application/json'
-        });
 
-        return this.http
-            .post(this.productUpdateUrl + '/' + product.Id, JSON.stringify(product), { headers: headers })
-            .map(res => res.json().data)
-     }
+
+
+
+
+
+
+
+
+
+
+
+
+    //updateProduct(product: Product) {
+
+    //    let headers = new Headers({
+    //        'Content-Type': 'application/json'
+    //    });
+
+    //    return this.http
+    //        .post(this.productUpdateUrl + '/' + product.Id, JSON.stringify(product), { headers: headers })
+    //        .map(res => res.json().data)
+    // }
+
+
+
+
+
+
+
+
+
 
 
 

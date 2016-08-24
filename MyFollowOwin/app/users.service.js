@@ -33,12 +33,12 @@ var UserService = (function () {
         this.followUrl = 'api/Follows';
         this.productUpdateUrl = 'api/ProductUpdates';
     }
-    /*gets owner info in enduser.component.ts*/
-    UserService.prototype.getOwner = function () {
-        return this.http.get(this.ownerUrl)
-            .map(function (response) { return response.json(); });
-    };
-    /*post owner details in existing application user database(enduser.component.ts)*/
+    ///*gets owner info in enduser.component.ts*/
+    //getOwner() {
+    //    return this.http.get(this.ownerUrl)
+    //        .map(response => response.json());
+    //}
+    /*post owner details in existing applicationuser database table(enduser.component.ts)*/
     UserService.prototype.setOwner = function (owner) {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json'
@@ -78,8 +78,8 @@ var UserService = (function () {
             .map(function (res) { return res.json().data; });
     };
     /*to delete added product(owner.component.ts)*/
-    UserService.prototype.deleteProduct = function (product) {
-        return this.http.delete(this.productUrl + '/' + product.Id).map(function (res) { return res.json(); });
+    UserService.prototype.deleteProduct = function (productId) {
+        return this.http.delete(this.productUrl + '/' + productId).map(function (res) { return res.json(); });
     };
     /*to edit product details(owner.component.ts)*/
     UserService.prototype.editProduct = function (product) {
@@ -93,14 +93,14 @@ var UserService = (function () {
     UserService.prototype.getAllProduct = function () {
         return this.http.get(this.productUrl + '/1').map(function (response) { return response.json(); });
     };
-    UserService.prototype.setProductUpdates = function (product) {
-        var headers = new http_1.Headers({
-            'Content-Type': 'application/json'
-        });
-        return this.http
-            .post(this.productUpdateUrl + '/' + product.Id, JSON.stringify(product), { headers: headers })
-            .map(function (res) { return res.json().data; });
-    };
+    //updateProduct(product: Product) {
+    //    let headers = new Headers({
+    //        'Content-Type': 'application/json'
+    //    });
+    //    return this.http
+    //        .post(this.productUpdateUrl + '/' + product.Id, JSON.stringify(product), { headers: headers })
+    //        .map(res => res.json().data)
+    // }
     /*gets owners info i.e info of users that filled a form to become product_owner i.e
    to show the requests of users who want to become a product owner(admin.component.ts)*/
     UserService.prototype.getOwnerInfo = function () {

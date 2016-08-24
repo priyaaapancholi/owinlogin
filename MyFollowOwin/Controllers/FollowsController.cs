@@ -79,11 +79,10 @@ namespace MyFollowOwin.Controllers
             Follow follow = new Follow();
             var id = User.Identity.GetUserId();
             ApplicationUser user = db.Users.Find(id);
-
             follow.UserId = user.Id;
             follow.ProductId = productId;
-            follow.CreatedDate = DateTime.Today;
-            follow.LastModifiedDate = DateTime.Today;
+            follow.CreatedDate = DateTime.Now;
+            follow.LastModifiedDate = DateTime.Now;
 
 
             if (!ModelState.IsValid)

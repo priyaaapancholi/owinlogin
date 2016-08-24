@@ -19,10 +19,10 @@
     <div class="form-group">
         <div class="form-horizontal">
             <form *ngIf="beOwner" #addOwnerForm="ngForm" class="form-horizontal">
-                <b>CompanyName:</b><input class="form-control" type="text" #CompanyName="ngForm" ngControl="CompanyName" [(ngModel)]="owner.CompanyName" required /><br />
-                <b>WebsiteUrl:</b><input class="form-control" type="text" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" required/><br />
-                <b>FoundedYear:</b><input class="form-control" type="number" #FoundedYear="ngForm" ngControl="FoundedYear" [(ngModel)]="owner.FoundedYear" required/><br />
-                <b>Description:</b><input class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="owner.Description" required/><br /><br />
+                <label>CompanyName:</label><input class="form-control" type="text" #CompanyName="ngForm" ngControl="CompanyName" [(ngModel)]="owner.CompanyName" required maxlength="40"/><br />
+                <label for="WebsiteUrl">WebsiteUrl:</label><input id="WebsiteUrl" class="form-control" type="text" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" required/><div [hidden]="WebsiteUrl.valid || WebsiteUrl.pristine" class="alert alert-danger">URL must start with http://</div><br />
+                <label>FoundedYear:</label><input class="form-control" type="number" #FoundedYear="ngForm" ngControl="FoundedYear" [(ngModel)]="owner.FoundedYear" required/><br />
+                <label>Description:</label><textarea class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="owner.Description" required maxlength="125"></textarea><br /><br />
 
                 <button class='btn-primary' (click)="onSubmit(owner)">submit</button>
             </form>

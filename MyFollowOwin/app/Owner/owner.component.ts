@@ -1,6 +1,7 @@
 ﻿import {Component, /*OnInit*/} from '@angular/core';
 import { Product, Platform}from './../Product/product';  
 import { UserService }from './../users.service'; 
+import { ProductUpdate }from './../ProductUpdate/productupdate';
 
 @Component({
     selector: 'my-owner',
@@ -17,10 +18,15 @@ export class OwnerLoginComponent /*implements OnInit*/{
     allProducts: Array<Product>;
     product: Product;
 
+    productUpdate: ProductUpdate;
+    productUpdates: Array<ProductUpdate>;
+
     addedProduct: boolean = false;
     allProduct: boolean = false;
     addProduct: boolean = false;
     editProduct: boolean = false;
+    deleteProduct: boolean = false;
+    //updateProduct: boolean = false;
     following: any[] = [];
     errorMessage: string;
 
@@ -47,7 +53,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
                 this.errorMessage = err;
             });
 
-        //return displayProduct;
+      
     }
 
     
@@ -56,6 +62,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.editProduct = false;
         this.addProduct = false;
         this.addedProduct = false;
+        //this.updateProduct = false;
         var showProduct = this.userService.getAllProduct()
             .subscribe((products) => {
                 this.allProducts = products
@@ -63,12 +70,12 @@ export class OwnerLoginComponent /*implements OnInit*/{
                 this.errorMessage = err;
             });
 
-        //return showProduct;
+       
     }
 
 
     onSubmit(product: Product) {
-        this.addProduct = false;
+       
         var postProduct = this.userService.setProduct(this.product)
             .subscribe((products) => {
                 this.products = products
@@ -78,9 +85,13 @@ export class OwnerLoginComponent /*implements OnInit*/{
     }
 
 
-    onDelete(product: Product) {
-
-        return this.userService.deleteProduct(product)
+    onDelete(productId: number) {
+        this.deleteProduct = !this.deleteProduct;
+        this.editProduct = false;
+        this.addProduct = false;
+        this.allProduct = false;
+       
+        return this.userService.deleteProduct(productId)
             .subscribe((products) => {
                 this.products = products
             }, err => {
@@ -89,14 +100,15 @@ export class OwnerLoginComponent /*implements OnInit*/{
     }
 
 
-    onEdit(product: Product) {
-
+    editForm(product:Product) {
+        
         return this.userService.editProduct(product)
             .subscribe((products) => {
                 this.products = products
             }, err => {
                 this.errorMessage = err;
             });
+        
     }
 
 
@@ -105,6 +117,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.editProduct = false;
         this.addedProduct = false;
         this.allProduct = false;
+        //this.updateProduct = false;
     }
 
 
@@ -117,12 +130,13 @@ export class OwnerLoginComponent /*implements OnInit*/{
     //}
 
 
-    editForm(product: Product): void {
+    onEdit(product: Product): void {
         this.product = product;
         this.editProduct = !this.editProduct;
         //this.addedProduct = false;
         this.addProduct = false;
         this.allProduct = false;
+        //this.updateProduct = false;
     }
 
 
@@ -134,16 +148,6 @@ export class OwnerLoginComponent /*implements OnInit*/{
     //    this.addedProduct = false;
     //}
  
-
-    //allProduct: boolean = false;
-    //showAllProduct():void {
-    //    this.allProduct = !this.allProduct;
-    //    this.editProduct = false;
-    //    this.addProduct = false;
-    //    this.addedProduct = false;
-    //    //this.getAllProducts();
-    //}
-
     
     followProducts(productId: number) {
         this.following[productId] = true;
@@ -170,15 +174,26 @@ export class OwnerLoginComponent /*implements OnInit*/{
 
 
   
-    onUpdate(product: Product) {
+    //onUpdate(productId: number) {
+    //    this.product.Id = productId;
+    //    this.editProduct = false;
+    //    //this.addedProduct = false;
+    //    this.addProduct = false;
+    //    this.allProduct = false;
+    //    this.updateProduct = !this.updateProduct;
        
-        var postProductUpdate = this.userService.setProductUpdates(product)
-            .subscribe((products) => {
-                this.products = products
-            }, err => {
-                this.errorMessage = err;
-            });  
-     }
+    //}
 
+
+    //updateForm(product: Product) {
+
+    //    return this.userService.updateProduct(product)
+    //        .subscribe((products) => {
+    //            this.products = products
+    //        }, err => {
+    //            this.errorMessage = err;
+    //        });
+
+    //}
 
 }
