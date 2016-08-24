@@ -15,25 +15,43 @@ namespace MyFollowOwin.Controllers
     public class ProductUpdatesController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        List<ProductUpdate> productUpdates = new List<ProductUpdate>();
+       
+        
         //// GET: api/ProductUpdates
         //public IQueryable<ProductUpdate> GetProductUpdates()
         //{
         //    return db.ProductUpdates;
         //}
 
-        //// GET: api/ProductUpdates/5
-        //[ResponseType(typeof(ProductUpdate))]
-        //public IHttpActionResult GetProductUpdate(int id)
-        //{
-        //    ProductUpdate productUpdate = db.ProductUpdates.Find(id);
-        //    if (productUpdate == null)
-        //    {
-        //        return NotFound();
-        //    }
+       
+            
+            // GET: api/ProductUpdates/5
+        [ResponseType(typeof(ProductUpdate))]
+        public IQueryable<ProductUpdate> GetProductUpdate(int id)
+        {
 
-        //    return Ok(productUpdate);
-        //}
+            foreach (var productUpdate in db.ProductUpdates.ToList())
+            {
+                if (productUpdate.ProductId==id)
+                {
+                    productUpdates.Add(productUpdate); 
+                }
+
+
+            }
+
+
+            //ProductUpdate productUpdate = db.ProductUpdates.Find(id);
+            //if (productUpdate == null)
+            //{
+            //    return NotFound();
+            //}
+
+            return productUpdates.AsQueryable();
+
+
+        }
 
         //// PUT: api/ProductUpdates/5
         //[ResponseType(typeof(void))]

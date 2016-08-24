@@ -169,7 +169,7 @@
                     {{product.LastModifiedDate}}
                 </td>-->
                 <td>
-                    <button class='btn-primary' (click)="viewDetail(product)">View</button>
+                    <button class='btn-primary' (click)="viewUpdates(product.Id)">View</button>
                     <button class='btn-primary' [hidden]="following[product.Id]" (click)="followProducts(product.Id)">follow</button>
                     <button class='btn-primary' [hidden]="!following[product.Id]" (click)="unfollowProducts(product.Id)">unfollow</button>
 
@@ -222,6 +222,41 @@
             </form>
         </div>
     </div>
+
+
+
+
+
+
+
+    <div class='table-responsive' *ngIf="view">
+        <table class='table'>
+            <tr>
+                <th>Detail</th>
+                <th>Media</th>
+                <th>Introduction</th>
+                
+               
+               
+            </tr>
+
+            <tr *ngFor="let productUpdate of productUpdates">
+                <td>
+                    {{productUpdate.Detail}}
+                </td>
+                <td>
+                    {{productUpdate.Media}}
+                </td>
+                <td>
+                    {{productUpdate.Introduction}}
+                </td>
+               
+               
+            </tr>
+        </table>
+    </div>
+
+
 
 
    

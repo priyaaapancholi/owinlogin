@@ -142,7 +142,7 @@ export class UserService {
 
     /*to post the updates on productupdate table(owner.component.ts)*/
     updateProduct(productUpdate: ProductUpdate) {
-        alert("I am here");
+        
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -153,8 +153,12 @@ export class UserService {
      }
 
 
+    
+    viewProductUpdates(productId:number) {
 
+        return this.http.get(this.productUpdateUrl + '/'+ productId).map(response => response.json());
 
+    }
 
 
 

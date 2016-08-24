@@ -28,6 +28,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
     editProduct: boolean = false;
     deleteProduct: boolean = false;
     updateProduct: boolean = false;
+    view: boolean = false;
     pid: number;
     following: any[] = [];
     errorMessage: string;
@@ -50,6 +51,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.editProduct = false;
         this.addProduct = false;
         this.allProduct = false;
+        this.view = false;
        
         var displayProduct = this.userService.getProduct()
             .subscribe((products) => {
@@ -68,7 +70,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.editProduct = false;
         this.addProduct = false;
         this.addedProduct = false;
-        //this.updateProduct = false;
+        this.updateProduct = false;
         var showProduct = this.userService.getAllProduct()
             .subscribe((products) => {
                 this.allProducts = products
@@ -78,6 +80,39 @@ export class OwnerLoginComponent /*implements OnInit*/{
 
        
     }
+
+
+    viewUpdates(productId:number) {
+        this.view = !this.view;
+        //this.allProduct = false;
+        this.editProduct = false;
+        this.addProduct = false;
+        this.updateProduct = false;
+       
+
+        var viewProductUpdate = this.userService.viewProductUpdates(productId)
+            .subscribe((productUpdates) => {
+                this.productUpdates = productUpdates
+            }, err => {
+                this.errorMessage = err;
+            });
+       
+    }
+
+
+    //viewProductUpdates(productUpdate: ProductUpdate) {
+    //    productUpdate.ProductId = this.pid;
+
+    //    var viewProductUpdate = this.userService.viewProductUpdates(productUpdate)
+    //        .subscribe((products) => {
+    //            this.allProducts = products
+    //        }, err => {
+    //            this.errorMessage = err;
+    //        });
+
+
+    //}
+
 
 
     onSubmit(product: Product) {
@@ -126,7 +161,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.editProduct = false;
         this.addedProduct = false;
         this.allProduct = false;
-        //this.updateProduct = false;
+        this.updateProduct = false;
     }
 
 
@@ -145,7 +180,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         //this.addedProduct = false;
         this.addProduct = false;
         this.allProduct = false;
-        //this.updateProduct = false;
+        this.updateProduct = false;
     }
 
 

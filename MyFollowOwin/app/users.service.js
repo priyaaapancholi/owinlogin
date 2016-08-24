@@ -95,13 +95,15 @@ var UserService = (function () {
     };
     /*to post the updates on productupdate table(owner.component.ts)*/
     UserService.prototype.updateProduct = function (productUpdate) {
-        alert("I am here");
         var headers = new http_1.Headers({
             'Content-Type': 'application/json'
         });
         return this.http
             .post(this.productUpdateUrl, JSON.stringify(productUpdate), { headers: headers })
             .map(function (res) { return res.json().data; });
+    };
+    UserService.prototype.viewProductUpdates = function (productId) {
+        return this.http.get(this.productUpdateUrl + '/' + productId).map(function (response) { return response.json(); });
     };
     /*gets owners info i.e info of users that filled a form to become product_owner i.e
    to show the requests of users who want to become a product owner(admin.component.ts)*/
