@@ -47,12 +47,12 @@ export class OwnerLoginComponent /*implements OnInit*/{
 
     
     getProducts() {
-        this.addedProduct = !this.addedProduct;
+        this.addedProduct = true/*!this.addedProduct*/;
         this.editProduct = false;
         this.addProduct = false;
         this.allProduct = false;
         this.view = false;
-       
+        this.updateProduct = false;
         var displayProduct = this.userService.getProduct()
             .subscribe((products) => {
                 this.products = products
@@ -104,7 +104,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
 
 
     showForm(): void {
-        this.addProduct = !this.addProduct;
+        this.addProduct = true;
         this.editProduct = false;
         this.addedProduct = false;
         this.allProduct = false;
@@ -113,14 +113,14 @@ export class OwnerLoginComponent /*implements OnInit*/{
     } 
 
     onSubmit(product: Product) {
-        this.addProduct = false;
+        //this.addProduct = false;
         var postProduct = this.userService.setProduct(product)
-            .subscribe((products) => {
-                this.products = products
-            }, err => {
-                this.errorMessage = err;
-            });
-       
+            .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => { this.addProduct= false; }
+
+            );    
     }
 
 
@@ -129,41 +129,18 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.editProduct = false;
         this.addProduct = false;
         this.allProduct = false;
-        this.view = true;
+        this.view = false;
         
         return this.userService.deleteProduct(productId)
-            .subscribe((products) => {
-                this.products = products
-            }, err => {
-                this.errorMessage = err;
-            });
+        .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => { this.getProducts(); }
 
+            );    
         
     }
 
-
-    editForm(product:Product) {
-        
-        return this.userService.editProduct(product)
-            .subscribe((products) => {
-                this.products = products
-            }, err => {
-                this.errorMessage = err;
-            });
-        
-    }
-
-
-  
-
-
-    //addedProduct: boolean = false;
-    //showProduct(): void {
-    //    this.addedProduct = !this.addedProduct;
-    //    this.editProduct = false;
-    //    this.addProduct = false;
-    //    this.allProduct = false;
-    //}
 
 
     onEdit(product: Product): void {
@@ -173,28 +150,34 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.addProduct = false;
         this.allProduct = false;
         this.updateProduct = false;
-        this.view = true;
+        this.view = false;
     }
 
 
-    //allProduct: boolean = false;
-    //showAllProduct(): void {
-    //    this.allProduct = !this.allProduct;
-    //    this.editProduct = false;
-    //    this.addProduct = false;
-    //    this.addedProduct = false;
-    //}
+    editForm(product: Product) {
+
+        return this.userService.editProduct(product)
+            .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => { this.getProducts(); }
+
+            );   
+
+    }
+
+
  
     
     followProducts(productId: number) {
         this.following[productId] = true;
         var followProduct = this.userService.followProduct(productId)
-            .subscribe((products) => {
-                this.products = products;
-                this.getAllProducts();
-            }, err => {
-                this.errorMessage = err;
-            });
+            .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => { this.getAllProducts(); }
+
+            );    
     }
 
 
@@ -202,12 +185,12 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.following[productId] = false;
         this.view =false;
         var unfollowProduct = this.userService.unfollowProduct(productId)
-            .subscribe((products) => {
-                this.products = products;
-                this.getAllProducts();
-            }, err => {
-                this.errorMessage = err;
-            });
+            .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => { this.getAllProducts(); }
+
+            );    
     }
 
 
@@ -220,21 +203,23 @@ export class OwnerLoginComponent /*implements OnInit*/{
         //this.addedProduct = false;
         this.addProduct = false;
         this.allProduct = false;
-        this.view = true;
+        this.view = false;
        
        
     }
 
     
+
     updateForm(productUpdate: ProductUpdate) {
 
         productUpdate.ProductId = this.pid;
         this.userService.updateProduct(productUpdate)
-            .subscribe((productUpdates) => {
-                this.productUpdates = productUpdates
-            }, err => {
-                this.errorMessage = err;
-            });
+            .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => { this.getProducts(); }
+
+            );   
 
     }
 

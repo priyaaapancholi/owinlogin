@@ -39,12 +39,18 @@ export class AdminComponent implements OnInit {
 
      updateOwnerData() {
         this.userService.updateOwnerState(this.owner)
-            .subscribe((owner) => {
-                this.owners = owner
-            },
-            err => {
-                this.errorMessage = err;
-            });
+            //.subscribe((owner) => {
+            //    this.owners = owner
+            //},
+            //err => {
+            //    this.errorMessage = err;
+            //});
+             .subscribe(
+             function (response) { console.log("Success Response" + response) },
+             function (error) { console.log("Error happened" + error) },
+             () => { this.getOwnersDetail(); }
+
+             );        
     }
 
 

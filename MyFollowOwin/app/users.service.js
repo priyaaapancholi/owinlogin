@@ -53,8 +53,7 @@ var UserService = (function () {
             'Content-Type': 'application/json'
         });
         return this.http
-            .post(this.followUrl + '/' + productId, JSON.stringify(productId), { headers: headers })
-            .map(function (res) { return res.json().data; });
+            .post(this.followUrl + '/' + productId, JSON.stringify(productId), { headers: headers });
     };
     /*to get the list of products(owner.component.ts)(enduser.component.ts)*/
     UserService.prototype.getProduct = function () {
@@ -62,7 +61,7 @@ var UserService = (function () {
     };
     /*to unfollow the product i.e whenever user unfollows the product it will be deleted from follow table(enduser.component.ts)*/
     UserService.prototype.unfollowProduct = function (productId) {
-        return this.http.delete(this.followUrl + '/' + productId).map(function (res) { return res.json().data; });
+        return this.http.delete(this.followUrl + '/' + productId);
     };
     /*to get the followed products for particular user(enduser.component.ts)*/
     UserService.prototype.followedProduct = function () {
@@ -74,12 +73,11 @@ var UserService = (function () {
             'Content-Type': 'application/json'
         });
         return this.http
-            .post(this.productUrl, JSON.stringify(product), { headers: headers })
-            .map(function (res) { return res.json().data; });
+            .post(this.productUrl, JSON.stringify(product), { headers: headers });
     };
     /*to delete added product(owner.component.ts)*/
     UserService.prototype.deleteProduct = function (productId) {
-        return this.http.delete(this.productUrl + '/' + productId).map(function (res) { return res.json(); });
+        return this.http.delete(this.productUrl + '/' + productId);
     };
     /*to edit product details(owner.component.ts)*/
     UserService.prototype.editProduct = function (product) {
@@ -87,7 +85,7 @@ var UserService = (function () {
             'Content-Type': 'application/json',
         });
         // console.log("put is invoked");
-        return this.http.put(this.productUrl + '/' + product.Id, JSON.stringify(product), { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.put(this.productUrl + '/' + product.Id, JSON.stringify(product), { headers: headers });
     };
     /*to get products list(except its own products)for particular owner(owner.component.ts)*/
     UserService.prototype.getAllProduct = function () {
@@ -99,8 +97,7 @@ var UserService = (function () {
             'Content-Type': 'application/json'
         });
         return this.http
-            .post(this.productUpdateUrl, JSON.stringify(productUpdate), { headers: headers })
-            .map(function (res) { return res.json().data; });
+            .post(this.productUpdateUrl, JSON.stringify(productUpdate), { headers: headers });
     };
     UserService.prototype.viewProductUpdates = function (productId) {
         return this.http.get(this.productUpdateUrl + '/' + productId).map(function (response) { return response.json(); });
@@ -118,7 +115,7 @@ var UserService = (function () {
             'Content-Type': 'application/json',
         });
         // console.log("put is invoked");
-        return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(owner_1.Owner), { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(owner_1.Owner), { headers: headers });
     };
     UserService.prototype.handleError = function (error) {
         var errMsg = (error.message) ? error.message :

@@ -61,34 +61,11 @@ export class OwnerComponent implements OnInit {
     //        });
     //}
 
-
-    showForm(): void {
-        this.beOwner = !this.beOwner;
-        this.addedProduct = false;
-        this.followedProduct = false;
-    }
-
-
     showProduct(): void {
         this.addedProduct = !this.addedProduct;
         this.beOwner = false;
         this.followedProduct = false;
 
-    }
-
-
-    onSubmit(owner: Owner) {
-        this.beOwner = false;
-        var postOwner = this.userService.setOwner(owner)
-            .subscribe((owners) => {
-                this.owners = owners
-            }, err => {
-                this.errorMessage = err;
-            });
-               //.subscribe(
-               //function (response) { console.log("Success Response" + response) },
-               //function (error) { console.log("Error happened" + error) },
-        //() => { })
     }
 
 
@@ -102,15 +79,51 @@ export class OwnerComponent implements OnInit {
     }
 
 
-    followProducts(productId:number) {
-        this.following[productId] = true;
-        var followProduct = this.userService.followProduct(productId)
-            .subscribe((products) => {
-                this.followProduct = products;
-                this.getProducts();
+
+
+
+    showForm(): void {
+        this.beOwner = !this.beOwner;
+        this.addedProduct = false;
+        this.followedProduct = false;
+    }
+
+
+    onSubmit(owner: Owner) {
+        this.beOwner = false;
+        var postOwner = this.userService.setOwner(owner)
+            .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => {  this.beOwner = false; }
+
+            );   
+    }
+
+
+
+
+    viewUpdates(productId: number) {
+        this.view = true;
+        var viewProductUpdate = this.userService.viewProductUpdates(productId)
+            .subscribe((productUpdates) => {
+                this.productUpdates = productUpdates
             }, err => {
                 this.errorMessage = err;
             });
+
+    }
+
+
+    followProducts(productId:number) {
+        this.following[productId] = true;
+        var followProduct = this.userService.followProduct(productId)
+            .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => { this.getProducts(); }
+
+            );   
     }
 
 
@@ -118,12 +131,12 @@ export class OwnerComponent implements OnInit {
         this.view = false;
         this.following[productId] = false;
         var unfollowProduct = this.userService.unfollowProduct(productId)
-            .subscribe((products) => {
-                this.products = products;
-                this.getProducts();
-            }, err => {
-                this.errorMessage = err;
-            });
+            .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => { this.getProducts(); }
+
+            );    
     }
 
 
@@ -144,14 +157,4 @@ export class OwnerComponent implements OnInit {
 
 
 
-    viewUpdates(productId: number) {
-        this.view = true;
-        var viewProductUpdate = this.userService.viewProductUpdates(productId)
-            .subscribe((productUpdates) => {
-                this.productUpdates = productUpdates
-            }, err => {
-                this.errorMessage = err;
-            });
-
-    }
 }

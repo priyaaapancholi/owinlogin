@@ -118,7 +118,8 @@
             <label>Description:</label><input class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" required />
             <label>Type:</label>
             <select class="form-control" #Type="ngForm" ngControl="Type" [(ngModel)]="product.Type" required>
-                <option value="Mobile">Mobile</option>
+                <!--<option *ngFor="let product of products" [value]="product">{{platforms[product.Type]}}</option>-->
+                 <option value="Mobile">Mobile</option>
                 <option value="IOT" ng-selected="true">IOT</option>
                 <option value="Web">Web</option>
             </select>
@@ -137,9 +138,9 @@
     <div class="form-group">
         <div class="form-horizontal">
             <form *ngIf="updateProduct" #addUpdate="ngForm" class="form-horizontal">
-                <label>Detail:</label><input class="form-control" #Detail="ngForm" type="text" ngControl="Detail" [(ngModel)]="productUpdate.Detail" required />
-                <label>Media:</label><input class="form-control" type="text" #Media="ngForm" ngControl="Media" [(ngModel)]="productUpdate.Media" required />
-                <label>Introduction:</label><input class="form-control" type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="productUpdate.Introduction" required />
+                <label>Detail:</label><textarea class="form-control" #Detail="ngForm" type="text" ngControl="Detail" [(ngModel)]="productUpdate.Detail" required maxlength="1100"></textarea>
+                <label>Introduction:</label><textarea class="form-control" type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="productUpdate.Introduction" required maxlength="140"></textarea>
+                <label>Media:</label><input class="form-control" type="file" #Media="ngForm" ngControl="Media" [(ngModel)]="productUpdate.Media" required /><br/>
                 <button class='btn-primary' (click)="updateForm(productUpdate)">Update</button>
             </form>
         </div>
@@ -210,6 +211,7 @@
         <br/><br/>
         <h1>Updates</h1><br/>
         <div *ngFor="let productUpdate of productUpdates">
+            <b>ProductId:</b><a>{{productUpdate.ProductId}}</a><br />
             <b>Detail:</b><a>{{productUpdate.Detail}}</a><br/>
             <b>Media:</b><a>{{productUpdate.Media}}</a><br/>
             <b>Introduction:</b><a>{{productUpdate.Introduction}}</a><br/><br/>

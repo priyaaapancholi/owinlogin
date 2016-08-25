@@ -33,11 +33,7 @@ var AdminComponent = (function () {
     AdminComponent.prototype.updateOwnerData = function () {
         var _this = this;
         this.userService.updateOwnerState(this.owner)
-            .subscribe(function (owner) {
-            _this.owners = owner;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getOwnersDetail(); });
     };
     AdminComponent.prototype.approve = function (ownerId) {
         this.owner.Id = ownerId;

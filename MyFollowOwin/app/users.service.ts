@@ -67,8 +67,8 @@ export class UserService {
         });
 
         return this.http
-            .post(this.followUrl + '/' + productId, JSON.stringify(productId), { headers: headers })
-            .map(res => res.json().data)
+            .post(this.followUrl + '/' + productId, JSON.stringify(productId), { headers: headers });
+           
     }
 
 
@@ -83,7 +83,7 @@ export class UserService {
     /*to unfollow the product i.e whenever user unfollows the product it will be deleted from follow table(enduser.component.ts)*/
     unfollowProduct(productId:number) {
 
-        return this.http.delete(this.followUrl + '/' + productId).map(res => res.json().data)  
+        return this.http.delete(this.followUrl + '/' + productId);  
        
     }
 
@@ -110,15 +110,15 @@ export class UserService {
         });
 
         return this.http
-            .post(this.productUrl, JSON.stringify(product), { headers: headers })
-            .map(res => res.json().data)
+            .post(this.productUrl, JSON.stringify(product), { headers: headers });
+          
     }
 
 
     /*to delete added product(owner.component.ts)*/
     deleteProduct(productId: number) {
 
-        return this.http.delete(this.productUrl + '/' + productId).map(res => res.json());
+        return this.http.delete(this.productUrl + '/' + productId);
     }
 
 
@@ -128,7 +128,7 @@ export class UserService {
             'Content-Type': 'application/json',
         });
         // console.log("put is invoked");
-        return this.http.put(this.productUrl + '/' + product.Id, JSON.stringify(product), { headers: headers }).map(res => res.json());
+        return this.http.put(this.productUrl + '/' + product.Id, JSON.stringify(product), { headers: headers });
     }
 
 
@@ -148,8 +148,8 @@ export class UserService {
         });
         
         return this.http
-            .post(this.productUpdateUrl, JSON.stringify(productUpdate), { headers: headers })
-            .map(res => res.json().data)
+            .post(this.productUpdateUrl, JSON.stringify(productUpdate), { headers: headers });
+            
      }
 
 
@@ -189,7 +189,7 @@ export class UserService {
             'Content-Type': 'application/json',
         });
         // console.log("put is invoked");
-        return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(Owner), { headers: headers }).map(res => res.json());
+        return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(Owner), { headers: headers });
     }
 
 

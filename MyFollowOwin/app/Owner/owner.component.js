@@ -35,11 +35,12 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
     //}
     OwnerLoginComponent /*implements OnInit*/.prototype.getProducts = function () {
         var _this = this;
-        this.addedProduct = !this.addedProduct;
+        this.addedProduct = true /*!this.addedProduct*/;
         this.editProduct = false;
         this.addProduct = false;
         this.allProduct = false;
         this.view = false;
+        this.updateProduct = false;
         var displayProduct = this.userService.getProduct()
             .subscribe(function (products) {
             _this.products = products;
@@ -76,7 +77,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         });
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.showForm = function () {
-        this.addProduct = !this.addProduct;
+        this.addProduct = true;
         this.editProduct = false;
         this.addedProduct = false;
         this.allProduct = false;
@@ -85,13 +86,9 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.onSubmit = function (product) {
         var _this = this;
-        this.addProduct = false;
+        //this.addProduct = false;
         var postProduct = this.userService.setProduct(product)
-            .subscribe(function (products) {
-            _this.products = products;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.addProduct = false; });
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.onDelete = function (productId) {
         var _this = this;
@@ -99,30 +96,10 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         this.editProduct = false;
         this.addProduct = false;
         this.allProduct = false;
-        this.view = true;
+        this.view = false;
         return this.userService.deleteProduct(productId)
-            .subscribe(function (products) {
-            _this.products = products;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getProducts(); });
     };
-    OwnerLoginComponent /*implements OnInit*/.prototype.editForm = function (product) {
-        var _this = this;
-        return this.userService.editProduct(product)
-            .subscribe(function (products) {
-            _this.products = products;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
-    };
-    //addedProduct: boolean = false;
-    //showProduct(): void {
-    //    this.addedProduct = !this.addedProduct;
-    //    this.editProduct = false;
-    //    this.addProduct = false;
-    //    this.allProduct = false;
-    //}
     OwnerLoginComponent /*implements OnInit*/.prototype.onEdit = function (product) {
         this.product = product;
         this.editProduct = !this.editProduct;
@@ -130,37 +107,25 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         this.addProduct = false;
         this.allProduct = false;
         this.updateProduct = false;
-        this.view = true;
+        this.view = false;
     };
-    //allProduct: boolean = false;
-    //showAllProduct(): void {
-    //    this.allProduct = !this.allProduct;
-    //    this.editProduct = false;
-    //    this.addProduct = false;
-    //    this.addedProduct = false;
-    //}
+    OwnerLoginComponent /*implements OnInit*/.prototype.editForm = function (product) {
+        var _this = this;
+        return this.userService.editProduct(product)
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getProducts(); });
+    };
     OwnerLoginComponent /*implements OnInit*/.prototype.followProducts = function (productId) {
         var _this = this;
         this.following[productId] = true;
         var followProduct = this.userService.followProduct(productId)
-            .subscribe(function (products) {
-            _this.products = products;
-            _this.getAllProducts();
-        }, function (err) {
-            _this.errorMessage = err;
-        });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getAllProducts(); });
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.unfollowProducts = function (productId) {
         var _this = this;
         this.following[productId] = false;
         this.view = false;
         var unfollowProduct = this.userService.unfollowProduct(productId)
-            .subscribe(function (products) {
-            _this.products = products;
-            _this.getAllProducts();
-        }, function (err) {
-            _this.errorMessage = err;
-        });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getAllProducts(); });
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.onUpdate = function (productId) {
         this.pid = productId;
@@ -170,17 +135,13 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         //this.addedProduct = false;
         this.addProduct = false;
         this.allProduct = false;
-        this.view = true;
+        this.view = false;
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.updateForm = function (productUpdate) {
         var _this = this;
         productUpdate.ProductId = this.pid;
         this.userService.updateProduct(productUpdate)
-            .subscribe(function (productUpdates) {
-            _this.productUpdates = productUpdates;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getProducts(); });
     };
     OwnerLoginComponent /*implements OnInit*/ = __decorate([
         core_1.Component({

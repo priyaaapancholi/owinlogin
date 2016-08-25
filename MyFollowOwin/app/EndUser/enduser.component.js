@@ -39,29 +39,10 @@ var OwnerComponent = (function () {
     //            this.errorMessage = err;
     //        });
     //}
-    OwnerComponent.prototype.showForm = function () {
-        this.beOwner = !this.beOwner;
-        this.addedProduct = false;
-        this.followedProduct = false;
-    };
     OwnerComponent.prototype.showProduct = function () {
         this.addedProduct = !this.addedProduct;
         this.beOwner = false;
         this.followedProduct = false;
-    };
-    OwnerComponent.prototype.onSubmit = function (owner) {
-        var _this = this;
-        this.beOwner = false;
-        var postOwner = this.userService.setOwner(owner)
-            .subscribe(function (owners) {
-            _this.owners = owners;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
-        //.subscribe(
-        //function (response) { console.log("Success Response" + response) },
-        //function (error) { console.log("Error happened" + error) },
-        //() => { })
     };
     OwnerComponent.prototype.getProducts = function () {
         var _this = this;
@@ -72,28 +53,39 @@ var OwnerComponent = (function () {
             _this.errorMessage = err;
         });
     };
+    OwnerComponent.prototype.showForm = function () {
+        this.beOwner = !this.beOwner;
+        this.addedProduct = false;
+        this.followedProduct = false;
+    };
+    OwnerComponent.prototype.onSubmit = function (owner) {
+        var _this = this;
+        this.beOwner = false;
+        var postOwner = this.userService.setOwner(owner)
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.beOwner = false; });
+    };
+    OwnerComponent.prototype.viewUpdates = function (productId) {
+        var _this = this;
+        this.view = true;
+        var viewProductUpdate = this.userService.viewProductUpdates(productId)
+            .subscribe(function (productUpdates) {
+            _this.productUpdates = productUpdates;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
     OwnerComponent.prototype.followProducts = function (productId) {
         var _this = this;
         this.following[productId] = true;
         var followProduct = this.userService.followProduct(productId)
-            .subscribe(function (products) {
-            _this.followProduct = products;
-            _this.getProducts();
-        }, function (err) {
-            _this.errorMessage = err;
-        });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getProducts(); });
     };
     OwnerComponent.prototype.unfollowProducts = function (productId) {
         var _this = this;
         this.view = false;
         this.following[productId] = false;
         var unfollowProduct = this.userService.unfollowProduct(productId)
-            .subscribe(function (products) {
-            _this.products = products;
-            _this.getProducts();
-        }, function (err) {
-            _this.errorMessage = err;
-        });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getProducts(); });
     };
     OwnerComponent.prototype.followedProducts = function () {
         var _this = this;
@@ -104,16 +96,6 @@ var OwnerComponent = (function () {
         var followedProduct = this.userService.followedProduct()
             .subscribe(function (products) {
             _this.FollowedProduct = products;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
-    };
-    OwnerComponent.prototype.viewUpdates = function (productId) {
-        var _this = this;
-        this.view = true;
-        var viewProductUpdate = this.userService.viewProductUpdates(productId)
-            .subscribe(function (productUpdates) {
-            _this.productUpdates = productUpdates;
         }, function (err) {
             _this.errorMessage = err;
         });
