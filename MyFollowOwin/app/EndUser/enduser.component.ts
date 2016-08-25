@@ -141,7 +141,6 @@ export class OwnerComponent implements OnInit {
 
 
     viewUpdates(productId: number) {
-        //this.following[productId] = false;
         this.view = true;
         var viewProductUpdate = this.userService.viewProductUpdates(productId)
             .subscribe((productUpdates) => {

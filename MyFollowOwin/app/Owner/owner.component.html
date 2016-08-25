@@ -194,7 +194,7 @@
                 </td>
                
                 <td>
-                    <button class='btn-primary' (click)="viewUpdates(product.Id)">View</button>
+                    <button class='btn-primary' [hidden]="!following[product.Id]" (click)="viewUpdates(product.Id)">View</button>
                     <button class='btn-primary' [hidden]="following[product.Id]" (click)="followProducts(product.Id)">follow</button>
                     <button class='btn-primary' [hidden]="!following[product.Id]" (click)="unfollowProducts(product.Id)">unfollow</button>
 

@@ -83,7 +83,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
 
 
     viewUpdates(productId:number) {
-        this.view = !this.view;
+        this.view = true;
         //this.allProduct = false;
         this.editProduct = false;
         this.addProduct = false;
@@ -131,7 +131,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.editProduct = false;
         this.addProduct = false;
         this.allProduct = false;
-        
+        this.view = true;
         
         return this.userService.deleteProduct(productId)
             .subscribe((products) => {
@@ -162,6 +162,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.addedProduct = false;
         this.allProduct = false;
         this.updateProduct = false;
+        this.view = true;
     }
 
 
@@ -181,6 +182,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.addProduct = false;
         this.allProduct = false;
         this.updateProduct = false;
+        this.view = true;
     }
 
 
@@ -207,6 +209,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
 
     unfollowProducts(productId: number) {
         this.following[productId] = false;
+        this.view =false;
         var unfollowProduct = this.userService.unfollowProduct(productId)
             .subscribe((products) => {
                 this.products = products;
@@ -226,6 +229,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         //this.addedProduct = false;
         this.addProduct = false;
         this.allProduct = false;
+        this.view = true;
        
        
     }

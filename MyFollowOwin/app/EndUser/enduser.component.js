@@ -105,7 +105,6 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.viewUpdates = function (productId) {
         var _this = this;
-        //this.following[productId] = false;
         this.view = true;
         var viewProductUpdate = this.userService.viewProductUpdates(productId)
             .subscribe(function (productUpdates) {

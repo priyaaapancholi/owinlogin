@@ -63,7 +63,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.viewUpdates = function (productId) {
         var _this = this;
-        this.view = !this.view;
+        this.view = true;
         //this.allProduct = false;
         this.editProduct = false;
         this.addProduct = false;
@@ -99,6 +99,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         this.editProduct = false;
         this.addProduct = false;
         this.allProduct = false;
+        this.view = true;
         return this.userService.deleteProduct(productId)
             .subscribe(function (products) {
             _this.products = products;
@@ -121,6 +122,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         this.addedProduct = false;
         this.allProduct = false;
         this.updateProduct = false;
+        this.view = true;
     };
     //addedProduct: boolean = false;
     //showProduct(): void {
@@ -136,6 +138,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         this.addProduct = false;
         this.allProduct = false;
         this.updateProduct = false;
+        this.view = true;
     };
     //allProduct: boolean = false;
     //showAllProduct(): void {
@@ -158,6 +161,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
     OwnerLoginComponent /*implements OnInit*/.prototype.unfollowProducts = function (productId) {
         var _this = this;
         this.following[productId] = false;
+        this.view = false;
         var unfollowProduct = this.userService.unfollowProduct(productId)
             .subscribe(function (products) {
             _this.products = products;
@@ -174,6 +178,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         //this.addedProduct = false;
         this.addProduct = false;
         this.allProduct = false;
+        this.view = true;
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.updateForm = function (productUpdate) {
         var _this = this;
