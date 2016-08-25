@@ -100,29 +100,27 @@ export class OwnerLoginComponent /*implements OnInit*/{
     }
 
 
-    //viewProductUpdates(productUpdate: ProductUpdate) {
-    //    productUpdate.ProductId = this.pid;
-
-    //    var viewProductUpdate = this.userService.viewProductUpdates(productUpdate)
-    //        .subscribe((products) => {
-    //            this.allProducts = products
-    //        }, err => {
-    //            this.errorMessage = err;
-    //        });
+  
 
 
-    //}
-
-
+    showForm(): void {
+        this.addProduct = !this.addProduct;
+        this.editProduct = false;
+        this.addedProduct = false;
+        this.allProduct = false;
+        this.updateProduct = false;
+        this.view = false;
+    } 
 
     onSubmit(product: Product) {
-       
-        var postProduct = this.userService.setProduct(this.product)
+        this.addProduct = false;
+        var postProduct = this.userService.setProduct(product)
             .subscribe((products) => {
                 this.products = products
             }, err => {
                 this.errorMessage = err;
             });
+       
     }
 
 
@@ -156,14 +154,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
     }
 
 
-   showForm(): void {
-        this.addProduct = !this.addProduct;
-        this.editProduct = false;
-        this.addedProduct = false;
-        this.allProduct = false;
-        this.updateProduct = false;
-        this.view = true;
-    }
+  
 
 
     //addedProduct: boolean = false;

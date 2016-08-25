@@ -78,13 +78,17 @@ export class OwnerComponent implements OnInit {
 
 
     onSubmit(owner: Owner) {
-           var postOwner = this.userService.setOwner(this.owner)
+        this.beOwner = false;
+        var postOwner = this.userService.setOwner(owner)
             .subscribe((owners) => {
                 this.owners = owners
             }, err => {
                 this.errorMessage = err;
             });
-          
+               //.subscribe(
+               //function (response) { console.log("Success Response" + response) },
+               //function (error) { console.log("Error happened" + error) },
+        //() => { })
     }
 
 

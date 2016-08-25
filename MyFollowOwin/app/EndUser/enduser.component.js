@@ -51,12 +51,17 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.onSubmit = function (owner) {
         var _this = this;
-        var postOwner = this.userService.setOwner(this.owner)
+        this.beOwner = false;
+        var postOwner = this.userService.setOwner(owner)
             .subscribe(function (owners) {
             _this.owners = owners;
         }, function (err) {
             _this.errorMessage = err;
         });
+        //.subscribe(
+        //function (response) { console.log("Success Response" + response) },
+        //function (error) { console.log("Error happened" + error) },
+        //() => { })
     };
     OwnerComponent.prototype.getProducts = function () {
         var _this = this;
