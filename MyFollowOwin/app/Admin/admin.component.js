@@ -25,19 +25,27 @@ var AdminComponent = (function () {
         var displayInfo = this.userService.getOwnerInfo()
             .subscribe(function (owners) {
             _this.owners = owners;
-            //console.log(owners);
         }, function (err) {
             _this.errorMessage = err;
         });
     };
-    AdminComponent.prototype.updateOwnerData = function () {
-        var _this = this;
-        this.userService.updateOwnerState(this.owner)
-            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getOwnersDetail(); });
-    };
     AdminComponent.prototype.approve = function (ownerId) {
         this.owner.Id = ownerId;
         this.updateOwnerData();
+    };
+    AdminComponent.prototype.updateOwnerData = function () {
+        var _this = this;
+        this.userService.approveOwner(this.owner)
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getOwnersDetail(); });
+    };
+    AdminComponent.prototype.decline = function (ownerId) {
+        this.owner.Id = ownerId;
+        this.declineOwnerData();
+    };
+    AdminComponent.prototype.declineOwnerData = function () {
+        var _this = this;
+        this.userService.declineOwner(this.owner.Id)
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getOwnersDetail(); });
     };
     AdminComponent = __decorate([
         core_1.Component({

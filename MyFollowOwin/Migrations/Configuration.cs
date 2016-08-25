@@ -56,7 +56,6 @@ namespace sMyFollowOwin.Migrations
                     PIN = 390019,
                     ContactNo = "1234567890"
                 }
-               
             };
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             if (userManager.FindByName("Priya") == null)

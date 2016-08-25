@@ -184,12 +184,19 @@ export class UserService {
 
     /*to update owners state i.e once approve button is clicked end user will become a product owner and its role will be changed automatically.
     (admin.component.ts)*/
-    updateOwnerState(owner: ApplicationUser) {
+    approveOwner(owner: ApplicationUser) {
         let headers = new Headers({
             'Content-Type': 'application/json',
         });
         // console.log("put is invoked");
         return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(Owner), { headers: headers });
+    }
+
+
+
+    declineOwner(ownerId:string) {
+        
+       return this.http.delete(this.ownerUrl + '/' + ownerId);
     }
 
 

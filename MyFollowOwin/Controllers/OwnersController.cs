@@ -194,17 +194,39 @@ namespace MyFollowOwin.Controllers
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, owner);
         }
 
-        //// DELETE: api/ApplicationUsers/5
-        //[ResponseType(typeof(ApplicationUser))]
-        //public IHttpActionResult DeleteApplicationUser(string id)
-        //{
-        //    ApplicationUser applicationUser = db.ApplicationUsers.Find(id);
+        // DELETE: api/ApplicationUsers/5
+        [ResponseType(typeof(ApplicationUser))]
+        public IHttpActionResult DeleteApplicationUser(string id)
+        {
+            ApplicationUser applicationUser = db.Users.Find(id);
+            applicationUser.Owner = new Owner();
+            db.Entry(applicationUser).State = EntityState.Modified;
+
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (ApplicationUserExists(applicationUser.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = applicationUser.Id }, applicationUser);
+        }
         //    if (applicationUser == null)
         //    {
         //        return NotFound();
         //    }
 
-        //    db.ApplicationUsers.Remove(applicationUser);
+        //    db.Users.Remove(applicationUser);
         //    db.SaveChanges();
 
         //    return Ok(applicationUser);

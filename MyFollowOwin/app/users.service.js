@@ -110,12 +110,15 @@ var UserService = (function () {
     };
     /*to update owners state i.e once approve button is clicked end user will become a product owner and its role will be changed automatically.
     (admin.component.ts)*/
-    UserService.prototype.updateOwnerState = function (owner) {
+    UserService.prototype.approveOwner = function (owner) {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json',
         });
         // console.log("put is invoked");
         return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(owner_1.Owner), { headers: headers });
+    };
+    UserService.prototype.declineOwner = function (ownerId) {
+        return this.http.delete(this.ownerUrl + '/' + ownerId);
     };
     UserService.prototype.handleError = function (error) {
         var errMsg = (error.message) ? error.message :

@@ -13,6 +13,8 @@ export class AdminComponent implements OnInit {
 
     owners: Array<ApplicationUser>;
     owner: ApplicationUser;
+
+
     errorMessage: string;
 
     constructor(private userService: UserService) {
@@ -30,21 +32,20 @@ export class AdminComponent implements OnInit {
      var displayInfo= this.userService.getOwnerInfo()
             .subscribe((owners) => {
                 this.owners = owners
-                //console.log(owners);
+               
             }, err => {
                 this.errorMessage = err;
             });
      }
 
 
+    approve(ownerId: string) {
+        this.owner.Id = ownerId;
+        this.updateOwnerData();
+    }
+
      updateOwnerData() {
-        this.userService.updateOwnerState(this.owner)
-            //.subscribe((owner) => {
-            //    this.owners = owner
-            //},
-            //err => {
-            //    this.errorMessage = err;
-            //});
+        this.userService.approveOwner(this.owner)
              .subscribe(
              function (response) { console.log("Success Response" + response) },
              function (error) { console.log("Error happened" + error) },
@@ -54,12 +55,45 @@ export class AdminComponent implements OnInit {
     }
 
 
-   
-    approve(ownerId: number) {
-        this.owner.Id = ownerId;
-        this.updateOwnerData();
-    }
 
 
+     decline(ownerId: string) {
+         this.owner.Id = ownerId;
+         this.declineOwnerData();
+     }
+
+
+
+     declineOwnerData() {
+         this.userService.declineOwner(this.owner.Id)
+            
+             .subscribe(
+             function (response) { console.log("Success Response" + response) },
+             function (error) { console.log("Error happened" + error) },
+             () => { this.getOwnersDetail(); }
+
+             );
+     }
+
+
+
+     //Reject(ownerId: string) {
+     //    this.Click = true;
+     //    this.owner.Id = ownerId;
+     //    this.deleteOwnerData(this.owner.Id);
+
+     //}
+
+
+     //deleteOwnerData(ownerId: string) {
+     //    this.adminservice.deleteOwnerState(this.owner.Id)
+     //        .subscribe(
+     //        function (response) { console.log("Success Response" + response) },
+     //        function (error) { console.log("Error happened" + error) },
+     //        () => {
+     //            this.getOwners();
+     //        });
+
+     //}
 }
 

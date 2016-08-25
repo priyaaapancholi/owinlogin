@@ -60,7 +60,7 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.onSubmit = function (owner) {
         var _this = this;
-        this.beOwner = false;
+        // this.beOwner = false;
         var postOwner = this.userService.setOwner(owner)
             .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.beOwner = false; });
     };
