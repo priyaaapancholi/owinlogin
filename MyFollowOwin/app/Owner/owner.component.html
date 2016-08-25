@@ -230,30 +230,13 @@
 
 
     <div class='table-responsive' *ngIf="view">
-        <table class='table'>
-            <tr>
-                <th>Detail</th>
-                <th>Media</th>
-                <th>Introduction</th>
-                
-               
-               
-            </tr>
-
-            <tr *ngFor="let productUpdate of productUpdates">
-                <td>
-                    {{productUpdate.Detail}}
-                </td>
-                <td>
-                    {{productUpdate.Media}}
-                </td>
-                <td>
-                    {{productUpdate.Introduction}}
-                </td>
-               
-               
-            </tr>
-        </table>
+        <br/><br/>
+        <h1>Updates</h1><br/>
+        <div *ngFor="let productUpdate of productUpdates">
+            <b>Detail:</b><a>{{productUpdate.Detail}}</a><br/>
+            <b>Media:</b><a>{{productUpdate.Media}}</a><br/>
+            <b>Introduction:</b><a>{{productUpdate.Introduction}}</a><br/><br/>
+        </div>
     </div>
 
 
