@@ -3,7 +3,7 @@ import { Owner }from './../Owner/owner';
 import { Product, Platform} from './../Product/product';
 import { Follow }from './../Follow/follow';
 import { UserService }from './../users.service';
-
+import { ProductUpdate }from './../ProductUpdate/productupdate';
 
 
 
@@ -22,6 +22,8 @@ export class OwnerComponent implements OnInit {
     owners: Array<Owner>;
     owner: Owner;
 
+    productUpdate: ProductUpdate;
+    productUpdates: Array<ProductUpdate>;
 
     products: Array<Product>;
     product: Product;
@@ -33,6 +35,7 @@ export class OwnerComponent implements OnInit {
 
     beOwner: boolean = false;
     addedProduct: boolean = false;
+    view: boolean = false;
     following: any[] = [];
     followedProduct: boolean = false;
     errorMessage: string;
@@ -40,6 +43,8 @@ export class OwnerComponent implements OnInit {
     constructor(private userService: UserService) {
         this.owners = new Array<Owner>();
         this.owner = new Owner();
+        this.productUpdate = new ProductUpdate();
+        this.productUpdates = new Array<ProductUpdate>();
     }
 
     ngOnInit() {
@@ -106,6 +111,7 @@ export class OwnerComponent implements OnInit {
 
 
     unfollowProducts(productId: number) {
+        this.view = false;
         this.following[productId] = false;
         var unfollowProduct = this.userService.unfollowProduct(productId)
             .subscribe((products) => {
@@ -121,6 +127,7 @@ export class OwnerComponent implements OnInit {
         this.followedProduct = !this.followedProduct;
         this.beOwner = false;
         this.addedProduct = false;
+        this.view = false;
 
         var followedProduct = this.userService.followedProduct()
             .subscribe((products) => {
@@ -130,4 +137,18 @@ export class OwnerComponent implements OnInit {
             });
     }
 
+
+
+
+    viewUpdates(productId: number) {
+        //this.following[productId] = false;
+        this.view = true;
+        var viewProductUpdate = this.userService.viewProductUpdates(productId)
+            .subscribe((productUpdates) => {
+                this.productUpdates = productUpdates
+            }, err => {
+                this.errorMessage = err;
+            });
+
+    }
 }

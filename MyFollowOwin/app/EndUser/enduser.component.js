@@ -12,16 +12,20 @@ var core_1 = require('@angular/core');
 var owner_1 = require('./../Owner/owner');
 var product_1 = require('./../Product/product');
 var users_service_1 = require('./../users.service');
+var productupdate_1 = require('./../ProductUpdate/productupdate');
 var OwnerComponent = (function () {
     function OwnerComponent(userService) {
         this.userService = userService;
         this.platforms = product_1.Platform;
         this.beOwner = false;
         this.addedProduct = false;
+        this.view = false;
         this.following = [];
         this.followedProduct = false;
         this.owners = new Array();
         this.owner = new owner_1.Owner();
+        this.productUpdate = new productupdate_1.ProductUpdate();
+        this.productUpdates = new Array();
     }
     OwnerComponent.prototype.ngOnInit = function () {
         //this.getOwners();
@@ -76,6 +80,7 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.unfollowProducts = function (productId) {
         var _this = this;
+        this.view = false;
         this.following[productId] = false;
         var unfollowProduct = this.userService.unfollowProduct(productId)
             .subscribe(function (products) {
@@ -90,9 +95,21 @@ var OwnerComponent = (function () {
         this.followedProduct = !this.followedProduct;
         this.beOwner = false;
         this.addedProduct = false;
+        this.view = false;
         var followedProduct = this.userService.followedProduct()
             .subscribe(function (products) {
             _this.FollowedProduct = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    OwnerComponent.prototype.viewUpdates = function (productId) {
+        var _this = this;
+        //this.following[productId] = false;
+        this.view = true;
+        var viewProductUpdate = this.userService.viewProductUpdates(productId)
+            .subscribe(function (productUpdates) {
+            _this.productUpdates = productUpdates;
         }, function (err) {
             _this.errorMessage = err;
         });

@@ -12,6 +12,10 @@
 
 
 
+    
+    
+    
+    <!---------------------------------------showForm()[form popup to add a product]------------------------------------------------------------------------------------------------------------------------>
     <div class="form-group">
         <div class="form-horizontal">
             <form *ngIf="addProduct" #addProduct="ngForm" class="form-horizontal">
@@ -20,13 +24,11 @@
                 <label for="Description">Description:</label><textarea id="Description" class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" required maxlength="125"></textarea><div [hidden]="Description.valid || Description.pristine" class="alert alert-danger">description is required</div>
                 <b>Type:</b>
                 <select class="form-control" #Type="ngForm" ngControl="Type" [(ngModel)]="product.Type" required>
-                   
                     <!--<option *ngFor="let product of products" [value]="product">{{platforms[product.Type]}}</option>-->
                     <option value="Mobile">Mobile</option>
                     <option value="IOT" ng-selected="true">IOT</option>
                     <option value="Web">Web</option>
                 </select>
-                
                 <label for="HomepageURL">HomepageURL:</label><input class="form-control" type="text" #HomepageURL="ngForm" ngControl="HomepageURL" [(ngModel)]="product.HomepageURL" required pattern="https?://.+"/><div [hidden]="HomepageURL.valid || HomepageURL.pristine" class="alert alert-danger">URL must start with http://</div>
                 <label for="PlaystoreURL">PlaystoreURL:</label><input class="form-control" type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreURL" [(ngModel)]="product.PlaystoreURL" required pattern="https?://.+"/><div [hidden]="PlaystoreURL.valid || PlaystoreURL.pristine" class="alert alert-danger">URL must start with http://</div>
                 <label for="AppstoreURL">AppstoreURL:</label><input class="form-control" type="text" #AppstoreURL="ngForm" ngControl="AppstoreURL" [(ngModel)]="product.AppstoreURL" required pattern="https?://.+"/><div [hidden]="AppstoreURL.valid || AppstoreURL.pristine" class="alert alert-danger">URL must start with http://</div><br />
@@ -39,6 +41,18 @@
     </div>
 
 
+    
+    
+    
+    
+    
+  
+    
+    
+    
+  
+    
+    <!--------------------------------------getProducts()[to get the products that owner has added]--------------------------------------------------------------------------------------->
     <div class='table-responsive' *ngIf="addedProduct">
         <table class='table'>
             <tr>
@@ -92,13 +106,10 @@
 
 
 
-
-
-
+  
+    <!--------------------------------------------onEdit(product)[to edit an addedproduct]----------------------------------------------------------------------->
     <div>
-
-        <form *ngIf="editProduct" #addProduct="ngForm" class="form-horizontal">
-
+           <form *ngIf="editProduct" #addProduct="ngForm" class="form-horizontal">
             <!--<b>ProductId:</b>
             <select class="form-control" #Id="ngForm" ngControl="Id" [(ngModel)]="product.Id" required>
                 <option *ngFor="let product of products">{{product.Id}}</option>
@@ -111,21 +122,42 @@
                 <option value="IOT" ng-selected="true">IOT</option>
                 <option value="Web">Web</option>
             </select>
-            <!--<input class="form-control" type="text" #Type="ngForm" ngControl="Type" [(ngModel)]="product.Type" required /><br />-->
             <label for="HomepageURL">HomepageURL:</label><input id="HomepageURL" class="form-control" type="text" #HomepageURL="ngForm" ngControl="HomepageURL" [(ngModel)]="product.HomepageURL" required pattern="https?://.+"/><div [hidden]="HomepageURL.valid || HomepageURL.pristine" class="alert alert-danger">URL must start with http://</div>
             <label for="PlaystoreURL">PlaystoreURL:</label><input id="PlaystoreURL"class="form-control" type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreURL" [(ngModel)]="product.PlaystoreURL" required pattern="https?://.+"/><div [hidden]="PlaystoreURL.valid || PlaystoreURL.pristine" class="alert alert-danger">URL must start with http://</div>
             <label for="AppstoreURL">AppstoreURL:</label><input id="AppstoreURL" class="form-control" type="text" #AppstoreURL="ngForm" ngControl="AppstoreURL" [(ngModel)]="product.AppstoreURL" required pattern="https?://.+"/><div [hidden]="AppstoreURL.valid || AppstoreURL.pristine" class="alert alert-danger">URL must start with http://</div><br />
+            
             <button class='btn-primary' (click)="editForm(product)">Edit</button>
         </form>
+    </div>
 
 
 
+
+    <!-----------------------------------onUpdate(product.Id)[to popup a form to update added product]------------------------------------------------>
+    <div class="form-group">
+        <div class="form-horizontal">
+            <form *ngIf="updateProduct" #addUpdate="ngForm" class="form-horizontal">
+                <label>Detail:</label><input class="form-control" #Detail="ngForm" type="text" ngControl="Detail" [(ngModel)]="productUpdate.Detail" required />
+                <label>Media:</label><input class="form-control" type="text" #Media="ngForm" ngControl="Media" [(ngModel)]="productUpdate.Media" required />
+                <label>Introduction:</label><input class="form-control" type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="productUpdate.Introduction" required />
+                <button class='btn-primary' (click)="updateForm(productUpdate)">Update</button>
+            </form>
+        </div>
     </div>
 
 
 
 
 
+
+
+   
+    
+    
+    
+   
+    
+     <!----------------------------------getAllProducts()[to get products list(except owner's own products)]----------------------------------------------------------->
     <div class='table-responsive' *ngIf="allProduct">
         <table class='table'>
             <tr>
@@ -136,8 +168,6 @@
                 <th>HomepageURL</th>
                 <th>PlaystoreURL</th>
                 <th>AppstoreURL</th>
-                <!--<th>CreatedDate</th>
-                <th>LastModifiedDate</th>-->
             </tr>
 
             <tr *ngFor="let product of allProducts">
@@ -162,12 +192,7 @@
                 <td>
                     {{product.AppstoreURL}}
                 </td>
-                <!--<td>
-                    {{product.CreatedDate}}
-                </td>
-                <td>
-                    {{product.LastModifiedDate}}
-                </td>-->
+               
                 <td>
                     <button class='btn-primary' (click)="viewUpdates(product.Id)">View</button>
                     <button class='btn-primary' [hidden]="following[product.Id]" (click)="followProducts(product.Id)">follow</button>
@@ -180,55 +205,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--<div>
-
-        <form *ngIf="updateProduct" #productUpdate="ngForm" class="form-horizontal">
-
-           
-            <label>Detail:</label><input class="form-control" type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="productUpdate.Detail" required/>
-            <label>Media:</label><input class="form-control" type="text" #Media="ngForm" ngControl="Media" [(ngModel)]="productUpdate.Media" required />
-            <label>Introduction:</label><input class="form-control" type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="productUpdate.Introduction" required/><br/>
-            <button class='btn-primary' (click)="updateForm(productUpdate)">Update</button>
-        </form>
-
-
-
-    </div>-->
-
-
-    
-    <div class="form-group">
-        <div class="form-horizontal">
-            <form *ngIf="updateProduct" #addUpdate="ngForm" class="form-horizontal">
-                <label>Detail:</label><input class="form-control" #Detail="ngForm" type="text" ngControl="Detail" [(ngModel)]="productUpdate.Detail" required />    
-                <label>Media:</label><input  class="form-control" type="text" #Media="ngForm" ngControl="Media" [(ngModel)]="productUpdate.Media" required />
-                <label>Introduction:</label><input class="form-control" type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="productUpdate.Introduction" required />             
-                <button class='btn-primary' (click)="updateForm(productUpdate)">Update</button>
-            </form>
-        </div>
-    </div>
-
-
-
-
-
-
-
+    <!-----------------------------------------viewUpdates(product.Id)[to view updates of followed products]------------------------------------------------->
     <div class='table-responsive' *ngIf="view">
         <br/><br/>
         <h1>Updates</h1><br/>
