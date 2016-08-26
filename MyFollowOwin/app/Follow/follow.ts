@@ -2,5 +2,6 @@
     Id: number;
     ProductId: number;
     UserId: number;
-    Status: boolean;
+    UserStatusBit: boolean;
+    OwnerStatusBit: boolean;
 }

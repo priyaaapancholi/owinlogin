@@ -10,6 +10,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MyFollowOwin.Models;
 using Microsoft.AspNet.Identity;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace MyFollowOwin.Controllers
 {
@@ -84,6 +86,27 @@ namespace MyFollowOwin.Controllers
             follow.CreatedDate = DateTime.Now;
             follow.LastModifiedDate = DateTime.Now;
             //follow.Status = true;
+
+
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            //var Id = User.Identity.GetUserId();
+            bool ProductOwner = userManager.IsInRole(id, "ProductOwner");
+            bool EndUser = userManager.IsInRole(id, "EndUser");
+
+            //List<Product> products = db.Products.ToList();
+            //foreach (var follow1 in db.Follows.ToList())
+            //{
+                if (ProductOwner)
+                {
+                    follow.OwnerStatusBit = true;
+                }
+
+                if (EndUser)
+                {
+                    follow.UserStatusBit = true;
+                }
+           // }
+
 
 
             if (!ModelState.IsValid)

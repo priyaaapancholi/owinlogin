@@ -114,7 +114,7 @@ export class OwnerComponent implements OnInit {
 
     followProducts(productId:number) {
         this.following[productId] = true;
-        this.follow.Status = true;
+        this.follow.UserStatusBit = true;
         //this.product.Id = productId;
         var followProduct = this.userService.followProduct(productId)
             .subscribe(
@@ -168,7 +168,7 @@ export class OwnerComponent implements OnInit {
             () => {
               
                 for (let follow of this.follows) {
-                    this.following[follow.ProductId] = follow.Status;
+                    this.following[follow.ProductId] = follow.UserStatusBit;
                    
                 }
             });

@@ -178,6 +178,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
     
     followProducts(productId: number) {
         this.following[productId] = true;
+        this.follow.OwnerStatusBit = true;
         var followProduct = this.userService.followProduct(productId)
             .subscribe(
             function (response) { console.log("Success Response" + response) },
@@ -212,7 +213,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
             () => {
 
                 for (let follow of this.follows) {
-                    this.following[follow.ProductId] = follow.Status;
+                    this.following[follow.ProductId] = follow.OwnerStatusBit;
                   
                 }
             });

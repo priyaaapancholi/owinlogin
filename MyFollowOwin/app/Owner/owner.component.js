@@ -121,6 +121,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
     OwnerLoginComponent /*implements OnInit*/.prototype.followProducts = function (productId) {
         var _this = this;
         this.following[productId] = true;
+        this.follow.OwnerStatusBit = true;
         var followProduct = this.userService.followProduct(productId)
             .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getAllProducts(); });
     };
@@ -141,7 +142,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         }, function () {
             for (var _i = 0, _a = _this.follows; _i < _a.length; _i++) {
                 var follow = _a[_i];
-                _this.following[follow.ProductId] = follow.Status;
+                _this.following[follow.ProductId] = follow.OwnerStatusBit;
             }
         });
     };
