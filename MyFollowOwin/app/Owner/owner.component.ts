@@ -2,6 +2,7 @@
 import { Product, Platform}from './../Product/product';  
 import { UserService }from './../users.service'; 
 import { ProductUpdate }from './../ProductUpdate/productupdate';
+import { Follow }from './../Follow/follow';
 
 @Component({
     selector: 'my-owner',
@@ -21,6 +22,9 @@ export class OwnerLoginComponent /*implements OnInit*/{
 
     productUpdate: ProductUpdate;
     productUpdates: Array<ProductUpdate>;
+
+    follows: Array<Follow>;
+    follow: Follow;
     
     addedProduct: boolean = false;
     allProduct: boolean = false;
@@ -38,6 +42,8 @@ export class OwnerLoginComponent /*implements OnInit*/{
         this.product = new Product();
         this.productUpdate = new ProductUpdate();
         this.productUpdates = new Array<ProductUpdate>();
+        this.follow = new Follow();
+        this.follows = new Array<Follow>();
     }
 
     //ngOnInit() {
@@ -74,6 +80,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
         var showProduct = this.userService.getAllProduct()
             .subscribe((products) => {
                 this.allProducts = products
+                this.followDetails()
             }, err => {
                 this.errorMessage = err;
             });
@@ -191,6 +198,24 @@ export class OwnerLoginComponent /*implements OnInit*/{
             () => { this.getAllProducts(); }
 
             );    
+    }
+
+
+
+    followDetails() {
+        this.userService.getFollowStatus()
+            .subscribe((follow) => {
+                this.follows = follow;
+            }, err => {
+                this.errorMessage = err;
+            },
+            () => {
+
+                for (let follow of this.follows) {
+                    this.following[follow.ProductId] = follow.Status;
+                  
+                }
+            });
     }
 
 

@@ -17,12 +17,12 @@ namespace MyFollowOwin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/Follows
-        //public IQueryable<Follow> GetFollows()
-        //{
+        //GET: api/Follows
+        public IQueryable<Follow> GetFollows()
+        {
 
-        //    return db.Follows;
-        //}
+            return db.Follows;
+        }
 
         //// GET: api/Follows/5
         //[ResponseType(typeof(Follow))]
@@ -83,6 +83,7 @@ namespace MyFollowOwin.Controllers
             follow.ProductId = productId;
             follow.CreatedDate = DateTime.Now;
             follow.LastModifiedDate = DateTime.Now;
+            //follow.Status = true;
 
 
             if (!ModelState.IsValid)

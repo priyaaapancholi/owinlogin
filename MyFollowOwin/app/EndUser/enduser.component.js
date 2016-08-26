@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var owner_1 = require('./../Owner/owner');
 var product_1 = require('./../Product/product');
+var follow_1 = require('./../Follow/follow');
 var users_service_1 = require('./../users.service');
 var productupdate_1 = require('./../ProductUpdate/productupdate');
 var OwnerComponent = (function () {
@@ -26,19 +27,12 @@ var OwnerComponent = (function () {
         this.owner = new owner_1.Owner();
         this.productUpdate = new productupdate_1.ProductUpdate();
         this.productUpdates = new Array();
+        this.follow = new follow_1.Follow();
+        this.follows = new Array();
     }
     OwnerComponent.prototype.ngOnInit = function () {
-        //this.getOwners();
         this.getProducts();
     };
-    //getOwners() {
-    //    var displayOwner = this.userService.getOwner()
-    //        .subscribe((owners) => {
-    //            this.owners = owners
-    //        }, err => {
-    //            this.errorMessage = err;
-    //        });
-    //}
     OwnerComponent.prototype.showProduct = function () {
         this.addedProduct = !this.addedProduct;
         this.beOwner = false;
@@ -49,6 +43,7 @@ var OwnerComponent = (function () {
         var displayProduct = this.userService.getProduct()
             .subscribe(function (products) {
             _this.products = products;
+            _this.followDetails();
         }, function (err) {
             _this.errorMessage = err;
         });
@@ -60,7 +55,6 @@ var OwnerComponent = (function () {
     };
     OwnerComponent.prototype.onSubmit = function (owner) {
         var _this = this;
-        // this.beOwner = false;
         var postOwner = this.userService.setOwner(owner)
             .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.beOwner = false; });
     };
@@ -77,8 +71,13 @@ var OwnerComponent = (function () {
     OwnerComponent.prototype.followProducts = function (productId) {
         var _this = this;
         this.following[productId] = true;
+        this.follow.Status = true;
+        //this.product.Id = productId;
         var followProduct = this.userService.followProduct(productId)
-            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getProducts(); });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+            _this.getProducts();
+            // this.followDetails();
+        });
     };
     OwnerComponent.prototype.unfollowProducts = function (productId) {
         var _this = this;
@@ -98,6 +97,20 @@ var OwnerComponent = (function () {
             _this.FollowedProduct = products;
         }, function (err) {
             _this.errorMessage = err;
+        });
+    };
+    OwnerComponent.prototype.followDetails = function () {
+        var _this = this;
+        this.userService.getFollowStatus()
+            .subscribe(function (follow) {
+            _this.follows = follow;
+        }, function (err) {
+            _this.errorMessage = err;
+        }, function () {
+            for (var _i = 0, _a = _this.follows; _i < _a.length; _i++) {
+                var follow = _a[_i];
+                _this.following[follow.ProductId] = follow.Status;
+            }
         });
     };
     OwnerComponent = __decorate([

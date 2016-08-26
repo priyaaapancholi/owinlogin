@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var product_1 = require('./../Product/product');
 var users_service_1 = require('./../users.service');
 var productupdate_1 = require('./../ProductUpdate/productupdate');
+var follow_1 = require('./../Follow/follow');
 var OwnerLoginComponent /*implements OnInit*/ = (function () {
     function OwnerLoginComponent /*implements OnInit*/(userService) {
         this.userService = userService;
@@ -28,6 +29,8 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         this.product = new product_1.Product();
         this.productUpdate = new productupdate_1.ProductUpdate();
         this.productUpdates = new Array();
+        this.follow = new follow_1.Follow();
+        this.follows = new Array();
     }
     //ngOnInit() {
     //    this.getProducts();
@@ -58,6 +61,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         var showProduct = this.userService.getAllProduct()
             .subscribe(function (products) {
             _this.allProducts = products;
+            _this.followDetails();
         }, function (err) {
             _this.errorMessage = err;
         });
@@ -126,6 +130,20 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         this.view = false;
         var unfollowProduct = this.userService.unfollowProduct(productId)
             .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getAllProducts(); });
+    };
+    OwnerLoginComponent /*implements OnInit*/.prototype.followDetails = function () {
+        var _this = this;
+        this.userService.getFollowStatus()
+            .subscribe(function (follow) {
+            _this.follows = follow;
+        }, function (err) {
+            _this.errorMessage = err;
+        }, function () {
+            for (var _i = 0, _a = _this.follows; _i < _a.length; _i++) {
+                var follow = _a[_i];
+                _this.following[follow.ProductId] = follow.Status;
+            }
+        });
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.onUpdate = function (productId) {
         this.pid = productId;

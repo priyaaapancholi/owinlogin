@@ -67,6 +67,9 @@ var UserService = (function () {
     UserService.prototype.followedProduct = function () {
         return this.http.get(this.productUrl + '/1').map(function (response) { return response.json(); });
     };
+    UserService.prototype.getFollowStatus = function () {
+        return this.http.get(this.followUrl).map(function (response) { return response.json(); });
+    };
     /*to add new product in database(owner.component.ts)*/
     UserService.prototype.setProduct = function (product) {
         var headers = new http_1.Headers({

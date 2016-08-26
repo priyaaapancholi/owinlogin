@@ -77,23 +77,6 @@ export class AdminComponent implements OnInit {
 
 
 
-     //Reject(ownerId: string) {
-     //    this.Click = true;
-     //    this.owner.Id = ownerId;
-     //    this.deleteOwnerData(this.owner.Id);
-
-     //}
-
-
-     //deleteOwnerData(ownerId: string) {
-     //    this.adminservice.deleteOwnerState(this.owner.Id)
-     //        .subscribe(
-     //        function (response) { console.log("Success Response" + response) },
-     //        function (error) { console.log("Error happened" + error) },
-     //        () => {
-     //            this.getOwners();
-     //        });
-
-     //}
+   
 }
 

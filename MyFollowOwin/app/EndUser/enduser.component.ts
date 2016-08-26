@@ -45,21 +45,17 @@ export class OwnerComponent implements OnInit {
         this.owner = new Owner();
         this.productUpdate = new ProductUpdate();
         this.productUpdates = new Array<ProductUpdate>();
+        this.follow = new Follow();
+        this.follows = new Array<Follow>();
+
     }
 
     ngOnInit() {
-        //this.getOwners();
+      
         this.getProducts();
     }
 
-    //getOwners() {
-    //    var displayOwner = this.userService.getOwner()
-    //        .subscribe((owners) => {
-    //            this.owners = owners
-    //        }, err => {
-    //            this.errorMessage = err;
-    //        });
-    //}
+   
 
     showProduct(): void {
         this.addedProduct = !this.addedProduct;
@@ -73,6 +69,7 @@ export class OwnerComponent implements OnInit {
         var displayProduct = this.userService.getProduct()
             .subscribe((products) => {
                 this.products = products
+                this.followDetails()
             }, err => {
                 this.errorMessage = err;
             });
@@ -90,7 +87,7 @@ export class OwnerComponent implements OnInit {
 
 
     onSubmit(owner: Owner) {
-       // this.beOwner = false;
+     
         var postOwner = this.userService.setOwner(owner)
             .subscribe(
             function (response) { console.log("Success Response" + response) },
@@ -117,11 +114,16 @@ export class OwnerComponent implements OnInit {
 
     followProducts(productId:number) {
         this.following[productId] = true;
+        this.follow.Status = true;
+        //this.product.Id = productId;
         var followProduct = this.userService.followProduct(productId)
             .subscribe(
             function (response) { console.log("Success Response" + response) },
             function (error) { console.log("Error happened" + error) },
-            () => { this.getProducts(); }
+            () => {
+                this.getProducts();
+                // this.followDetails();
+            }
 
             );   
     }
@@ -154,6 +156,23 @@ export class OwnerComponent implements OnInit {
             });
     }
 
+
+
+    followDetails() {
+        this.userService.getFollowStatus()
+            .subscribe((follow) => {
+                this.follows = follow;
+            }, err => {
+                this.errorMessage = err;
+            },
+            () => {
+              
+                for (let follow of this.follows) {
+                    this.following[follow.ProductId] = follow.Status;
+                   
+                }
+            });
+    }
 
 
 

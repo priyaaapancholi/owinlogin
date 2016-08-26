@@ -98,6 +98,13 @@ export class UserService {
 
 
 
+    getFollowStatus() {
+
+        return this.http.get(this.followUrl).map(response => response.json());
+    }
+
+
+
 
 
 
