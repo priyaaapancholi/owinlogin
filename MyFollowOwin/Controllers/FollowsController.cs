@@ -122,14 +122,14 @@ namespace MyFollowOwin.Controllers
             }
             catch (DbUpdateException)
             {
-                if (FollowExists(follow.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
+                //if (FollowExists(follow.Id))
+                //{
+                //    return Conflict();
+                //}
+                //else
+                //{
                     throw;
-                }
+                //}
             }
 
             return CreatedAtRoute("DefaultApi", new { id = follow.Id }, follow);
@@ -173,9 +173,9 @@ namespace MyFollowOwin.Controllers
             base.Dispose(disposing);
         }
 
-        private bool FollowExists(int id)
-        {
-            return db.Follows.Count(e => e.Id == id) > 0;
-        }
+        //private bool FollowExists(int id)
+        //{
+        //    return db.Follows.Count(e => e.Id == id) > 0;
+        //}
     }
 }

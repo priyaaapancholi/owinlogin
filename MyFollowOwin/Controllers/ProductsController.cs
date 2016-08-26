@@ -136,14 +136,14 @@ namespace MyFollowOwin.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
+                //if (!ProductExists(id))
+                //{
+                //    return NotFound();
+                //}
+                //else
+                //{
                     throw;
-                }
+                //}
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -254,18 +254,18 @@ namespace MyFollowOwin.Controllers
 
 
 
-      protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+      //protected override void Dispose(bool disposing)
+      //  {
+      //      if (disposing)
+      //      {
+      //          db.Dispose();
+      //      }
+      //      base.Dispose(disposing);
+      //  }
 
-        private bool ProductExists(int id)
-        {
-            return db.Products.Count(e => e.Id == id) > 0;
-        }
+        //private bool ProductExists(int id)
+        //{
+        //    return db.Products.Count(e => e.Id == id) > 0;
+        //}
     }
 }

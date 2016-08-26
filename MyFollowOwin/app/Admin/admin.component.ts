@@ -44,8 +44,9 @@ export class AdminComponent implements OnInit {
         this.updateOwnerData();
     }
 
-     updateOwnerData() {
-        this.userService.approveOwner(this.owner)
+
+    updateOwnerData() {
+        this.userService.approveOwner(this.owner.Id)
              .subscribe(
              function (response) { console.log("Success Response" + response) },
              function (error) { console.log("Error happened" + error) },

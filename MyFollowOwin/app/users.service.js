@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var Observable_1 = require('rxjs/Observable');
-var owner_1 = require('./Owner/owner');
 require('rxjs/add/operator/map');
 require('rxjs/Rx'); // adds ALL RxJS statics & operators to Observable
 //See node_module/rxjs/Rxjs.js
@@ -113,12 +112,12 @@ var UserService = (function () {
     };
     /*to update owners state i.e once approve button is clicked end user will become a product owner and its role will be changed automatically.
     (admin.component.ts)*/
-    UserService.prototype.approveOwner = function (owner) {
+    UserService.prototype.approveOwner = function (ownerId) {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json',
         });
         // console.log("put is invoked");
-        return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(owner_1.Owner), { headers: headers });
+        return this.http.put(this.ownerUrl + '/' + ownerId, JSON.stringify(ownerId), { headers: headers });
     };
     UserService.prototype.declineOwner = function (ownerId) {
         return this.http.delete(this.ownerUrl + '/' + ownerId);

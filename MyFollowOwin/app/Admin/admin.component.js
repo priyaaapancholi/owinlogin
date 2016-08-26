@@ -35,7 +35,7 @@ var AdminComponent = (function () {
     };
     AdminComponent.prototype.updateOwnerData = function () {
         var _this = this;
-        this.userService.approveOwner(this.owner)
+        this.userService.approveOwner(this.owner.Id)
             .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getOwnersDetail(); });
     };
     AdminComponent.prototype.decline = function (ownerId) {
