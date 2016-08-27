@@ -119,18 +119,18 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
             .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getProducts(); });
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.followProducts = function (productId) {
-        var _this = this;
         this.following[productId] = true;
-        this.follow.OwnerStatusBit = true;
+        // this.follow.OwnerStatusBit = true;
         var followProduct = this.userService.followProduct(productId)
-            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getAllProducts(); });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+        });
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.unfollowProducts = function (productId) {
-        var _this = this;
         this.following[productId] = false;
         this.view = false;
         var unfollowProduct = this.userService.unfollowProduct(productId)
-            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getAllProducts(); });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+        });
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.followDetails = function () {
         var _this = this;
@@ -142,7 +142,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         }, function () {
             for (var _i = 0, _a = _this.follows; _i < _a.length; _i++) {
                 var follow = _a[_i];
-                _this.following[follow.ProductId] = follow.OwnerStatusBit;
+                _this.following[follow.ProductId] = true;
             }
         });
     };

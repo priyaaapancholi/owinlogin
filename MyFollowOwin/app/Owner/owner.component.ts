@@ -125,7 +125,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
             .subscribe(
             function (response) { console.log("Success Response" + response) },
             function (error) { console.log("Error happened" + error) },
-            () => { this.addProduct= false; }
+            () => { this.addProduct = false; this.product = new Product(); }
 
             );    
     }
@@ -178,12 +178,13 @@ export class OwnerLoginComponent /*implements OnInit*/{
     
     followProducts(productId: number) {
         this.following[productId] = true;
-        this.follow.OwnerStatusBit = true;
+       // this.follow.OwnerStatusBit = true;
         var followProduct = this.userService.followProduct(productId)
             .subscribe(
             function (response) { console.log("Success Response" + response) },
             function (error) { console.log("Error happened" + error) },
-            () => { this.getAllProducts(); }
+            () => { //this.getAllProducts();
+            }
 
             );    
     }
@@ -196,7 +197,8 @@ export class OwnerLoginComponent /*implements OnInit*/{
             .subscribe(
             function (response) { console.log("Success Response" + response) },
             function (error) { console.log("Error happened" + error) },
-            () => { this.getAllProducts(); }
+            () => { //this.getAllProducts(); 
+            }
 
             );    
     }
@@ -213,7 +215,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
             () => {
 
                 for (let follow of this.follows) {
-                    this.following[follow.ProductId] = follow.OwnerStatusBit;
+                    this.following[follow.ProductId] = true;
                   
                 }
             });
@@ -243,7 +245,7 @@ export class OwnerLoginComponent /*implements OnInit*/{
             .subscribe(
             function (response) { console.log("Success Response" + response) },
             function (error) { console.log("Error happened" + error) },
-            () => { this.getProducts(); }
+            () => { this.getProducts(); this.productUpdate = new ProductUpdate();}
 
             );   
 

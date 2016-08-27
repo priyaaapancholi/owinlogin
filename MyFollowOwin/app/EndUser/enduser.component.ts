@@ -92,7 +92,7 @@ export class OwnerComponent implements OnInit {
             .subscribe(
             function (response) { console.log("Success Response" + response) },
             function (error) { console.log("Error happened" + error) },
-            () => { this.beOwner = false;/* window.location.reload(); */ }
+            () => { this.beOwner = false;/* window.location.reload(); */this.owner = new Owner(); }
 
             );   
     }
@@ -121,8 +121,7 @@ export class OwnerComponent implements OnInit {
             function (response) { console.log("Success Response" + response) },
             function (error) { console.log("Error happened" + error) },
             () => {
-                this.getProducts();
-                // this.followDetails();
+               
             }
 
             );   
@@ -136,7 +135,8 @@ export class OwnerComponent implements OnInit {
             .subscribe(
             function (response) { console.log("Success Response" + response) },
             function (error) { console.log("Error happened" + error) },
-            () => { this.getProducts(); }
+            () => { //this.getProducts(); 
+            }
 
             );    
     }

@@ -20,23 +20,30 @@ namespace MyFollowOwin.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         //GET: api/Follows
-        public IQueryable<Follow> GetFollows()
+        public IHttpActionResult GetFollows()
         {
+            var userId = User.Identity.GetUserId();
+            var follow = db.Follows.Where(e => e.UserId == userId);
 
-            return db.Follows;
+            if (follow == null)
+            {
+                return NotFound();
+            }
+            return Ok(follow);
         }
 
         //// GET: api/Follows/5
         //[ResponseType(typeof(Follow))]
-        //public IHttpActionResult GetFollow(string id)
+        //public IHttpActionResult GetFollow()
         //{
-        //    Follow follow = db.Follows.Find(id);
-        //    if (follow == null)
+        //    var userId = User.Identity.GetUserId();
+        //    var record = db.Follows.Where(e => e.UserId == userId);
+
+        //    if (record == null)
         //    {
         //        return NotFound();
         //    }
-
-        //    return Ok(follow);
+        //    return Ok(record);
         //}
 
         //// PUT: api/Follows/5

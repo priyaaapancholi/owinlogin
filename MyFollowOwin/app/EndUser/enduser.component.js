@@ -56,7 +56,7 @@ var OwnerComponent = (function () {
     OwnerComponent.prototype.onSubmit = function (owner) {
         var _this = this;
         var postOwner = this.userService.setOwner(owner)
-            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.beOwner = false; /* window.location.reload(); */ });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.beOwner = false; /* window.location.reload(); */ _this.owner = new owner_1.Owner(); });
     };
     OwnerComponent.prototype.viewUpdates = function (productId) {
         var _this = this;
@@ -69,22 +69,19 @@ var OwnerComponent = (function () {
         });
     };
     OwnerComponent.prototype.followProducts = function (productId) {
-        var _this = this;
         this.following[productId] = true;
         this.follow.UserStatusBit = true;
         //this.product.Id = productId;
         var followProduct = this.userService.followProduct(productId)
             .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
-            _this.getProducts();
-            // this.followDetails();
         });
     };
     OwnerComponent.prototype.unfollowProducts = function (productId) {
-        var _this = this;
         this.view = false;
         this.following[productId] = false;
         var unfollowProduct = this.userService.unfollowProduct(productId)
-            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getProducts(); });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+        });
     };
     OwnerComponent.prototype.followedProducts = function () {
         var _this = this;
