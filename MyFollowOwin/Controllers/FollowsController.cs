@@ -85,28 +85,7 @@ namespace MyFollowOwin.Controllers
             follow.ProductId = productId;
             follow.CreatedDate = DateTime.Now;
             follow.LastModifiedDate = DateTime.Now;
-            //follow.Status = true;
-
-
-            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            //var Id = User.Identity.GetUserId();
-            bool ProductOwner = userManager.IsInRole(id, "ProductOwner");
-            bool EndUser = userManager.IsInRole(id, "EndUser");
-
-            //List<Product> products = db.Products.ToList();
-            //foreach (var follow1 in db.Follows.ToList())
-            //{
-                if (ProductOwner)
-                {
-                    follow.OwnerStatusBit = true;
-                }
-
-                if (EndUser)
-                {
-                    follow.UserStatusBit = true;
-                }
-           // }
-
+         
 
 
             if (!ModelState.IsValid)
@@ -141,7 +120,7 @@ namespace MyFollowOwin.Controllers
         [ResponseType(typeof(Follow))]
         public IHttpActionResult DeleteFollow(int id)
         {
-            //Product p1 = db.Products.Find(id);
+            
             var Id = User.Identity.GetUserId();
             Follow follow1 = new Follow();
             foreach (Follow follower in db.Follows.ToList())

@@ -21,8 +21,6 @@ namespace MyFollowOwin.Models
             public Product Products { get; set; }
 
 
-            public Boolean UserStatusBit { get; set; }
-
-            public Boolean OwnerStatusBit { get; set; }
+          
     }
     }

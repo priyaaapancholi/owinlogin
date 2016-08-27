@@ -56,7 +56,7 @@ var OwnerComponent = (function () {
     OwnerComponent.prototype.onSubmit = function (owner) {
         var _this = this;
         var postOwner = this.userService.setOwner(owner)
-            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.beOwner = false; });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.beOwner = false; /* window.location.reload(); */ });
     };
     OwnerComponent.prototype.viewUpdates = function (productId) {
         var _this = this;
@@ -109,7 +109,7 @@ var OwnerComponent = (function () {
         }, function () {
             for (var _i = 0, _a = _this.follows; _i < _a.length; _i++) {
                 var follow = _a[_i];
-                _this.following[follow.ProductId] = follow.UserStatusBit;
+                _this.following[follow.ProductId] = true;
             }
         });
     };

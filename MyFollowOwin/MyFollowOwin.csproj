@@ -199,7 +199,7 @@
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\CommonProperty.cs" />
     <Compile Include="Models\Follow.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\AppliactionUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Owner.cs" />
     <Compile Include="Models\Product.cs" />
@@ -302,7 +302,6 @@
     <TypeScriptCompile Include="app\users.service.ts" />
     <TypeScriptCompile Include="app\Owner\owner.ts" />
     <TypeScriptCompile Include="app\EndUser\applicationuser.ts" />
-    <TypeScriptCompile Include="app\route.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

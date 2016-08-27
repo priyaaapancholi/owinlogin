@@ -87,12 +87,12 @@ export class OwnerComponent implements OnInit {
 
 
     onSubmit(owner: Owner) {
-     
+       
         var postOwner = this.userService.setOwner(owner)
             .subscribe(
             function (response) { console.log("Success Response" + response) },
             function (error) { console.log("Error happened" + error) },
-            () => {  this.beOwner = false; }
+            () => { this.beOwner = false;/* window.location.reload(); */ }
 
             );   
     }
@@ -168,7 +168,7 @@ export class OwnerComponent implements OnInit {
             () => {
               
                 for (let follow of this.follows) {
-                    this.following[follow.ProductId] = follow.UserStatusBit;
+                    this.following[follow.ProductId] =true;
                    
                 }
             });
