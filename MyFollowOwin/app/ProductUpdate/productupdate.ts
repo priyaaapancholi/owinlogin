@@ -2,7 +2,7 @@
 
     ProductUpdateId: number;
     Detail: string;
-    Media: Blob;
+    Media: string;
     Introduction: string;
     ProductId: number;
 }

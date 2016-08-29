@@ -13,6 +13,7 @@ var product_1 = require('./../Product/product');
 var users_service_1 = require('./../users.service');
 var productupdate_1 = require('./../ProductUpdate/productupdate');
 var follow_1 = require('./../Follow/follow');
+var ng2_imageupload_1 = require('ng2-imageupload');
 var OwnerLoginComponent /*implements OnInit*/ = (function () {
     function OwnerLoginComponent /*implements OnInit*/(userService) {
         this.userService = userService;
@@ -66,6 +67,9 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
             _this.errorMessage = err;
         });
     };
+    OwnerLoginComponent /*implements OnInit*/.prototype.imageUpload = function (path) {
+        this.productUpdate.Media = path.dataURL;
+    };
     OwnerLoginComponent /*implements OnInit*/.prototype.viewUpdates = function (productId) {
         var _this = this;
         this.view = true;
@@ -92,7 +96,7 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         var _this = this;
         //this.addProduct = false;
         var postProduct = this.userService.setProduct(product)
-            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.addProduct = false; });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.addProduct = false; _this.product = new product_1.Product(); });
     };
     OwnerLoginComponent /*implements OnInit*/.prototype.onDelete = function (productId) {
         var _this = this;
@@ -160,13 +164,14 @@ var OwnerLoginComponent /*implements OnInit*/ = (function () {
         var _this = this;
         productUpdate.ProductId = this.pid;
         this.userService.updateProduct(productUpdate)
-            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getProducts(); });
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () { _this.getProducts(); _this.productUpdate = new productupdate_1.ProductUpdate(); });
     };
     OwnerLoginComponent /*implements OnInit*/ = __decorate([
         core_1.Component({
             selector: 'my-owner',
             templateUrl: 'app/Owner/owner.component.html',
-            providers: [users_service_1.UserService]
+            providers: [users_service_1.UserService],
+            directives: [ng2_imageupload_1.ImageUpload]
         }), 
         __metadata('design:paramtypes', [users_service_1.UserService])
     ], OwnerLoginComponent /*implements OnInit*/);

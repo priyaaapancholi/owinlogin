@@ -17,7 +17,7 @@ namespace MyFollowOwin.Models
         [MaxLength(1100)]
         public string Detail { get; set; }
 
-        public byte[] Media { get; set; }
+        public string Media { get; set; }
 
         [Required]
         [MaxLength(140)]

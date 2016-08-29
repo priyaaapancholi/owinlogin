@@ -54,7 +54,7 @@ namespace sMyFollowOwin.Migrations
                     CityName = "vadodara",
                     StateName = "gujarat",
                     PIN = 390019,
-                    ContactNo = "1234567890"
+                    ContactNo = 1234567890
                 }
             };
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));

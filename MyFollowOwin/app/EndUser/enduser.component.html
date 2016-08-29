@@ -20,7 +20,7 @@
         <div class="form-horizontal">
             <form *ngIf="beOwner" #addOwnerForm="ngForm" class="form-horizontal">
                 <label>CompanyName:</label><input class="form-control" type="text" #CompanyName="ngForm" ngControl="CompanyName" [(ngModel)]="owner.CompanyName" required maxlength="40"/>
-                <label for="WebsiteUrl">WebsiteUrl:</label><input class="form-control" type="text" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" required pattern="https?://.+"/><div [hidden]="WebsiteUrl.valid || WebsiteUrl.pristine" class="alert alert-danger">enter proper Url format</div>
+                <label for="WebsiteUrl">WebsiteUrl:</label><input class="form-control" type="url" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" required pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/$"/><div [hidden]="WebsiteUrl.valid || WebsiteUrl.pristine" class="alert alert-danger">enter proper Url format</div>
                 <label>FoundedYear:</label><input class="form-control" type="number"  #FoundedYear="ngForm" ngControl="FoundedYear" [(ngModel)]="owner.FoundedYear" required min="1900"/>
                 <label>Description:</label><textarea class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="owner.Description" required maxlength="150"></textarea><br />
                

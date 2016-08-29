@@ -3,11 +3,14 @@ import { Product, Platform}from './../Product/product';
 import { UserService }from './../users.service'; 
 import { ProductUpdate }from './../ProductUpdate/productupdate';
 import { Follow }from './../Follow/follow';
+import {ImageUpload, ImageResult, ResizeOptions} from 'ng2-imageupload';
+
 
 @Component({
     selector: 'my-owner',
     templateUrl: 'app/Owner/owner.component.html',
-    providers: [UserService]
+    providers: [UserService],
+    directives: [ImageUpload]
 })
 
 
@@ -87,6 +90,12 @@ export class OwnerLoginComponent /*implements OnInit*/{
 
        
     }
+
+
+    imageUpload(path: ImageResult) {
+        this.productUpdate.Media = path.dataURL;
+    }
+
 
 
     viewUpdates(productId:number) {
