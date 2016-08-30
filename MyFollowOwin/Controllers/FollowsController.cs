@@ -20,6 +20,7 @@ namespace MyFollowOwin.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         //GET: api/Follows
+        [Authorize]
         public IHttpActionResult GetFollows()
         {
             var userId = User.Identity.GetUserId();

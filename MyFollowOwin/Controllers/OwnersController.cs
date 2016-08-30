@@ -166,16 +166,21 @@ namespace MyFollowOwin.Controllers
             {
                 db.SaveChanges();
             }
-            catch (DbUpdateException)
+            catch (DbEntityValidationException e)
             {
-                if (ApplicationUserExists(user.Id))
+                foreach (var eve in e.EntityValidationErrors)
                 {
-                    return Conflict();
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+                    }
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             //catch (DbEntityValidationException dbEx)

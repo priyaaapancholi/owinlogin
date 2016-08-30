@@ -11,19 +11,20 @@ namespace MyFollowOwin.Controllers
     {
 
         ApplicationDbContext db = new ApplicationDbContext();
-        // GET: Login
+        
+        [Authorize(Roles = "EndUser")]
         public ActionResult EndUser()
         {
            return View();
         }
 
-
+        [Authorize(Roles = "ProductOwner")]
         public ActionResult ProductOwner()
         {
             return View();
         }
 
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Admin()
         {
             return View();

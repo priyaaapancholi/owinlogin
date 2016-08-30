@@ -17,6 +17,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace MyFollowOwin.Controllers
 {
+    [RoutePrefix("api/[controller]")]
     public class ProductsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

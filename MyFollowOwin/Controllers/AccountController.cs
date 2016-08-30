@@ -57,6 +57,7 @@ namespace MyFollowOwin.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [Authorize]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -66,6 +67,7 @@ namespace MyFollowOwin.Controllers
        [HttpPost]
        [AllowAnonymous]
        [ValidateAntiForgeryToken]
+       [Authorize]
        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
