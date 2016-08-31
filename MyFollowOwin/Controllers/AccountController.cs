@@ -64,7 +64,6 @@ namespace MyFollowOwin.Controllers
         }
         //POST: /Account/Login
        [HttpPost]
-       [Authorize]
        [ValidateAntiForgeryToken]
        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {

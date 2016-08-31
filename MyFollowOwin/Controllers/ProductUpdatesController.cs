@@ -12,7 +12,7 @@ using MyFollowOwin.Models;
 
 namespace MyFollowOwin.Controllers
 {
-    [Authorize(Roles = "EndUser,ProductOwner")]
+   
     public class ProductUpdatesController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

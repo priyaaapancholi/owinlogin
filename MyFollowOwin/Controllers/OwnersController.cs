@@ -28,21 +28,29 @@ namespace MyFollowOwin.Controllers
         ApplicationUser user = new ApplicationUser();
 
         //GET: api/Owners
-        [Authorize]
-        public IQueryable<ApplicationUser> GetApplicationUsers()
+        [Authorize(Roles ="Admin")]
+        public IHttpActionResult GetApplicationUsers()
         {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             List<ApplicationUser> Users = db.Users.ToList();
-
-            foreach (ApplicationUser user in Users.ToList())
-            {
-                if (!((userManager.IsInRole(user.Id, "EndUser")) && (user.Owner.CompanyName != null)))
+            
+                foreach (ApplicationUser user in Users.ToList())
                 {
-                    Users.Remove(user);
+                    if (!((userManager.IsInRole(user.Id, "EndUser")) && (user.Owner.CompanyName != null)))
+                    {
+                        Users.Remove(user);
+                    }
                 }
+
+            try
+            {
+                return Ok(Users);
             }
-            //string[] usersInRole =RoleProvider.GetUsersInRole("EndUser");
-            return Users.AsQueryable();
+
+            catch
+            {
+                return BadRequest();
+            }
 
         }
 
@@ -103,18 +111,7 @@ namespace MyFollowOwin.Controllers
         public IHttpActionResult PutApplicationUser(string id, ApplicationUser applicationUser)
         {
             var state = db.Users.FirstOrDefault(x => x.Id == id);
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-
-            //if (id != applicationUser.Id)
-            //{
-            //    return BadRequest();
-            //}
-            //id = User.Identity.GetUserId();
-            //ApplicationUser user = db.Users.Find(id);
-            //applicationUser.Id = user.Id;
+           
 
             if (state != null)
             {
@@ -183,19 +180,6 @@ namespace MyFollowOwin.Controllers
                 }
                 throw;
             }
-
-            //catch (DbEntityValidationException dbEx)
-            //{
-            //    foreach (var validationErrors in dbEx.EntityValidationErrors)
-            //    {
-            //        foreach (var validationError in validationErrors.ValidationErrors)
-            //        {
-            //            Trace.TraceInformation("Property: {0} Error: {1}",
-            //                                    validationError.PropertyName,
-            //                                    validationError.ErrorMessage);
-            //        }
-            //    }
-            //}
 
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, owner);
         }

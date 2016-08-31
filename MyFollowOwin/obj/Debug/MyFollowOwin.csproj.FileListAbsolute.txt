@@ -148,7 +148,6 @@ D:\PriyaMyFollow\owinlogin\MyFollowOwin\bin\Microsoft.Owin.Security.MicrosoftAcc
 D:\PriyaMyFollow\owinlogin\MyFollowOwin\obj\Debug\MyFollowOwin.dll
 D:\PriyaMyFollow\owinlogin\MyFollowOwin\obj\Debug\MyFollowOwin.pdb
 D:\PriyaMyFollow\owinlogin\MyFollowOwin\obj\Debug\MyFollowOwin.csprojResolveAssemblyReference.cache
-D:\MyFollowNew\owinlogin\MyFollowOwin\obj\Debug\MyFollowOwin.csprojResolveAssemblyReference.cache
 D:\MyFollowNew\owinlogin\MyFollowOwin\obj\Debug\MyFollowOwin.dll
 D:\MyFollowNew\owinlogin\MyFollowOwin\obj\Debug\MyFollowOwin.pdb
 D:\MyFollowNew\owinlogin\MyFollowOwin\bin\roslyn\csc.exe

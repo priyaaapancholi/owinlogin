@@ -30,7 +30,12 @@ namespace MyFollowOwin.Controllers
             {
                 return NotFound();
             }
-            return Ok(follow);
+            try
+            {
+                return Ok(follow);
+            }
+
+            catch { return BadRequest(); }
         }
 
         //// GET: api/Follows/5
@@ -109,14 +114,8 @@ namespace MyFollowOwin.Controllers
             }
             catch (DbUpdateException)
             {
-                //if (FollowExists(follow.Id))
-                //{
-                //    return Conflict();
-                //}
-                //else
-                //{
-                    throw;
-                //}
+
+                throw;
             }
 
             return CreatedAtRoute("DefaultApi", new { id = follow.Id }, follow);

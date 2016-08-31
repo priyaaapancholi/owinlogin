@@ -27,13 +27,13 @@ namespace MyFollowOwin.Controllers
         //----------------------------------------------GET(PRODUCT)--------------------------------------------------------------        
 
         // GET: api/Products
-         public IEnumerable<Product> GetProducts()
+        public IHttpActionResult GetProducts()
         {
             //return db.Products.ToList();
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var Id = User.Identity.GetUserId();
             bool ProductOwner = userManager.IsInRole(Id, "ProductOwner");
-            bool EndUser = userManager.IsInRole(Id, "EndUser");
+            //bool EndUser = userManager.IsInRole(Id, "EndUser");
 
             List<Product> products = db.Products.ToList();
             foreach (var product in products.ToList())
@@ -43,16 +43,19 @@ namespace MyFollowOwin.Controllers
                     if (product.UserId != Id)
                         products.Remove(product);
                 }
-             
-                if (EndUser)
-                {
-                    return db.Products.ToList();
-                }
+
             }
 
-            return products.AsQueryable();
+            try
+            {
+                return Ok(products);
+            }
+
+            catch
+            {
+                return BadRequest();
+            }
         }
-       
 
 
    
@@ -64,7 +67,7 @@ namespace MyFollowOwin.Controllers
        //GET: api/Products/5
        //[ResponseType(typeof(Product))]
         [HttpGet]
-        public IQueryable<Product> GetProduct(int id)
+        public IHttpActionResult GetProduct(int id)
         {
             var Id = User.Identity.GetUserId();
             List<Product> products = new List<Product>();
@@ -97,7 +100,16 @@ namespace MyFollowOwin.Controllers
 
                 }
             }
-            return products.AsQueryable();
+            try
+            {
+                return Ok(products);
+            }
+
+
+            catch
+            {
+                return BadRequest();
+            }
         }
 
   //----------------------------------------------------------------------------------------------------------------     
