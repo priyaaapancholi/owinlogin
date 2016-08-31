@@ -41,7 +41,7 @@
                 {{product.LastModifiedDate}}
             </td>-->
             <td>
-                <button class='btn-primary' [hidden]="!following[product.Id]" (click)="viewUpdates(product.Id)">View</button>
+                <button class='btn-primary' [hidden]="!following[product.Id]" (click)="viewUpdates(product.Id,product.ProductName)">View</button>
                 <button class='btn-primary' [hidden]="following[product.Id]" (click)="followProducts(product.Id)">follow</button>
                 <button class='btn-primary' [hidden]="!following[product.Id]" (click)="unfollowProducts(product.Id)">unfollow</button>
             </td>
@@ -57,7 +57,7 @@
     <div *ngFor="let productUpdate of productUpdates">
       
         <b>Detail:</b><a>{{productUpdate.Detail}}</a><br />
-        <b>Media:</b><a>{{productUpdate.Media}}</a><br />
+        <b>Media:</b><img src={{productUpdate.Media}} /><br />
         <b>Introduction:</b><a>{{productUpdate.Introduction}}</a><br /><br />
     </div>
 </div>

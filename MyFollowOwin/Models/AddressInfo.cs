@@ -24,8 +24,9 @@ namespace MyFollowOwin.Models
         public int PIN { get; set; }
 
         [Required]
-        [Phone]
-        public string ContactNo { get; set; }
+        [Range(1000000000, 9999999999, ErrorMessage = "number should contain only 10 digits")]
+
+        public long ContactNo { get; set; }
 
     }
 }

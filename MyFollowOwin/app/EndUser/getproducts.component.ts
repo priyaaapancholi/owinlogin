@@ -48,6 +48,7 @@ export class GetProductsComponent {
 
 
     getProducts() {
+
         var displayProduct = this.userService.getProduct()
             .subscribe((products) => {
                 this.products = products
@@ -58,8 +59,9 @@ export class GetProductsComponent {
     }
 
 
-    viewUpdates(productId: number) {
+    viewUpdates(productId: number,productName:string) {
         this.view = true;
+        this.product.ProductName = productName;
         var viewProductUpdate = this.userService.viewProductUpdates(productId)
             .subscribe((productUpdates) => {
                 this.productUpdates = productUpdates

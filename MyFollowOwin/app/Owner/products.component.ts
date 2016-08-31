@@ -60,8 +60,9 @@ export class ProductsComponent {
 
 
 
-    viewUpdates(productId: number) {
+    viewUpdates(productId: number,productName:string) {
         this.view = true;
+        this.product.ProductName = productName;
         var viewProductUpdate = this.userService.viewProductUpdates(productId)
             .subscribe((productUpdates) => {
                 this.productUpdates = productUpdates

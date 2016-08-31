@@ -38,9 +38,10 @@ var GetProductsComponent = (function () {
             _this.errorMessage = err;
         });
     };
-    GetProductsComponent.prototype.viewUpdates = function (productId) {
+    GetProductsComponent.prototype.viewUpdates = function (productId, productName) {
         var _this = this;
         this.view = true;
+        this.product.ProductName = productName;
         var viewProductUpdate = this.userService.viewProductUpdates(productId)
             .subscribe(function (productUpdates) {
             _this.productUpdates = productUpdates;
