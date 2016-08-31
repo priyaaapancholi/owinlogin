@@ -150,6 +150,7 @@ namespace MyFollowOwin.Controllers
         //POST: api/Owners
         [Route]
         [ResponseType(typeof(Owner))]
+        [Authorize(Roles ="EndUser")]
         public IHttpActionResult PostApplicationUser(Owner owner)
         {
            

@@ -18,6 +18,7 @@ using Microsoft.AspNet.Identity.Owin;
 namespace MyFollowOwin.Controllers
 {
     [RoutePrefix("api/[controller]")]
+    [Authorize(Roles = "EndUser,ProductOwner")]
     public class ProductsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -26,8 +27,7 @@ namespace MyFollowOwin.Controllers
         //----------------------------------------------GET(PRODUCT)--------------------------------------------------------------        
 
         // GET: api/Products
-        [Authorize(Roles = "EndUser,ProductOwner")]
-        public IEnumerable<Product> GetProducts()
+         public IEnumerable<Product> GetProducts()
         {
             //return db.Products.ToList();
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -63,8 +63,7 @@ namespace MyFollowOwin.Controllers
     
        //GET: api/Products/5
        //[ResponseType(typeof(Product))]
-       [HttpGet]
-       [Authorize(Roles="EndUser,ProductOwner")]
+        [HttpGet]
         public IQueryable<Product> GetProduct(int id)
         {
             var Id = User.Identity.GetUserId();
@@ -118,9 +117,7 @@ namespace MyFollowOwin.Controllers
         {
             DateTime Now = DateTime.Now;
             product.LastModifiedDate = Now;
-            //var uid = User.Identity.GetUserId();
-            //ApplicationUser user = db.Users.Find(uid);
-            //product.UserId = user.Id;
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -173,7 +170,6 @@ namespace MyFollowOwin.Controllers
         [ResponseType(typeof(Product))]
         [Route]
         [HttpPost]
-        [Authorize(Roles ="ProductOwner")]
         public IHttpActionResult PostProduct(Product product)
         { 
             var id = User.Identity.GetUserId();
