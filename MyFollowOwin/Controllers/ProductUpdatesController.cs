@@ -12,11 +12,11 @@ using MyFollowOwin.Models;
 
 namespace MyFollowOwin.Controllers
 {
-   
+    [Authorize(Roles = "EndUser,ProductOwner")]
     public class ProductUpdatesController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        List<ProductUpdate> productUpdates = new List<ProductUpdate>();
+       
        
         
         //// GET: api/ProductUpdates
@@ -27,11 +27,11 @@ namespace MyFollowOwin.Controllers
 
        
             
-            // GET: api/ProductUpdates/5
+        // GET: api/ProductUpdates/5
         [ResponseType(typeof(ProductUpdate))]
-        public IQueryable<ProductUpdate> GetProductUpdate(int id)
+        public IHttpActionResult GetProductUpdate(int id)
         {
-
+            List<ProductUpdate> productUpdates = new List<ProductUpdate>();
             foreach (var productUpdate in db.ProductUpdates.ToList())
             {
                 if (productUpdate.ProductId==id)
@@ -42,14 +42,15 @@ namespace MyFollowOwin.Controllers
 
             }
 
+            try
+            {
+                return Ok(productUpdates);
+            }
 
-            //ProductUpdate productUpdate = db.ProductUpdates.Find(id);
-            //if (productUpdate == null)
-            //{
-            //    return NotFound();
-            //}
-
-            return productUpdates.AsQueryable();
+            catch
+            {
+                return BadRequest();
+            }
 
 
         }
