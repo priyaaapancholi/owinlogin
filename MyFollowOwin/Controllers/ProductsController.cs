@@ -23,9 +23,10 @@ namespace MyFollowOwin.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
 
- //----------------------------------------------GET(PRODUCT)--------------------------------------------------------------        
+        //----------------------------------------------GET(PRODUCT)--------------------------------------------------------------        
 
         // GET: api/Products
+        [Authorize(Roles = "EndUser,ProductOwner")]
         public IEnumerable<Product> GetProducts()
         {
             //return db.Products.ToList();
@@ -63,6 +64,7 @@ namespace MyFollowOwin.Controllers
        //GET: api/Products/5
        //[ResponseType(typeof(Product))]
        [HttpGet]
+       [Authorize(Roles="EndUser,ProductOwner")]
         public IQueryable<Product> GetProduct(int id)
         {
             var Id = User.Identity.GetUserId();
@@ -171,6 +173,7 @@ namespace MyFollowOwin.Controllers
         [ResponseType(typeof(Product))]
         [Route]
         [HttpPost]
+        [Authorize(Roles ="ProductOwner")]
         public IHttpActionResult PostProduct(Product product)
         { 
             var id = User.Identity.GetUserId();

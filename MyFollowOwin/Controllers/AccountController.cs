@@ -14,7 +14,7 @@ using System.Net;
 
 namespace MyFollowOwin.Controllers
 {
-    [Authorize]
+    
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -57,7 +57,6 @@ namespace MyFollowOwin.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        [Authorize]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -65,9 +64,8 @@ namespace MyFollowOwin.Controllers
         }
         //POST: /Account/Login
        [HttpPost]
-       [AllowAnonymous]
-       [ValidateAntiForgeryToken]
        [Authorize]
+       [ValidateAntiForgeryToken]
        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -110,6 +108,7 @@ namespace MyFollowOwin.Controllers
                     ModelState.AddModelError(" ", "Invalid Username or password...");
                 }
             }
+          
             return View(model);
         }
 

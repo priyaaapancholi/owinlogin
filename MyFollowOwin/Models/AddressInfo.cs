@@ -25,7 +25,6 @@ namespace MyFollowOwin.Models
 
         [Required]
         [Range(1000000000, 9999999999, ErrorMessage = "number should contain only 10 digits")]
-
         public long ContactNo { get; set; }
 
     }
